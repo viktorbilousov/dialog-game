@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory
 import java.lang.IllegalArgumentException
 
 
-class GameRunner(private val game: Game, private val world: World) {
+class Runner(private val game: Game, private val world: World) {
 
     companion object{
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger

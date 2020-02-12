@@ -36,10 +36,10 @@ class World(public val worldRouter: Router) {
 
     fun exit() : Dialog {
         logger.info(">> exit ")
+         way.removeAt(way.lastIndex)
+        logger.info("removed ${way.last()}, way: ${way.toTypedArray().contentToString()}")
         val res = worldRouter.getNext(Answer.enter(way.last()));
-        way.removeAt(way.lastIndex)
-        logger.info("removed ${res.id}, way: ${way.toTypedArray().contentToString()}")
-        logger.info("<< exit : retunt ${res.id}")
+        logger.info("<< exit : return ${res.id}")
         return res as Dialog;
     }
 

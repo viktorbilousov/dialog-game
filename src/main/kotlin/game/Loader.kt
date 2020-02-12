@@ -10,14 +10,13 @@ import models.router.Router
 import models.router.RouterStream
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import tools.RouterTester
 import java.nio.file.Files
 import java.nio.file.Files.isRegularFile
 import java.nio.file.Paths
 import kotlin.streams.toList
 
 
-class GameLoader(private val game: Game) {
+class Loader(private val game: Game) {
     companion object {
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
     }
@@ -26,18 +25,14 @@ class GameLoader(private val game: Game) {
         logger.info(">> load")
         var error = false;
         var routers = emptyList<Router>()
-        var texts = emptyList<PhraseText>()
 
         try {
-            texts = loadPhrases(phrasesTextFolder)
+            loadPhrases(phrasesTextFolder).forEach {
+                game.phrases[it.id] = PhraseTextFabric.toPhrase(it);
+            }
         } catch (e: Exception) {
             logger.error("Phrases Load error: ${e.message}")
             error = true;
-        }
-
-        texts.forEach {
-            val phrase = PhraseTextFabric.toPhrase(it);
-            game.phrases[phrase.id] = phrase;
         }
 
         try {
@@ -51,39 +46,22 @@ class GameLoader(private val game: Game) {
             it.items = game.phrases;
         }
 
-        try {
-            testRouters(routers)
-        } catch (e: Exception) {
-            logger.error("Test not passed: ${e.message}")
-            error = true;
-        }
-
-        for (router in routers) {
-            if (router.id != game.settings["world-router-id"]) {
-                game.dialogs[router.id] = Dialog(router.id, router)
-            }
-        }
-
         var globalRouter: Router? = null;
-        routers.forEach {
-            if (it.id == game.settings["world-router-id"]) {
-                globalRouter = it;
-                return@forEach;
+        for (router in routers) {
+            if (router.id != Game.settings["world-router-id"]) {
+                game.dialogs[router.id] = Dialog(router.id, router)
+            }else{
+                globalRouter = router
             }
         }
+
+
         if (globalRouter == null) {
             logger.error("A World router not found!")
             error = true;
         } else {
-            globalRouter!!.items = game.dialogs as HashMap<String, DialogItem>
-            try {
-                testGlobalRouter(globalRouter!!)
-            } catch (e: Exception) {
-                logger.error("Test not passed: ${e.message}")
-                error = true;
-            }
-
-            game.world = World(globalRouter!!)
+            globalRouter.items = game.dialogs as HashMap<String, DialogItem>
+            game.world = World(globalRouter)
         }
 
         if (error) {
@@ -179,51 +157,6 @@ class GameLoader(private val game: Game) {
         return routersList;
     }
 
-    private fun testRouters(routers: List<Router>) {
-        logger.info(">> testRouters")
-        val errorList = arrayListOf<String>()
-        for (router in routers) {
-            if (router.id == game.settings["world-router-id"]) {
-                continue;
-            } else {
-                logger.info("Test router: ${router.id}")
-                try {
-                    RouterTester.test(router)
-                        .isGraphRelated()
-                        .isAllVertexHasItems()
-                        .checkTypesOfPhases()
-                        .isItemsLinkedCorrectly();
-                } catch (e: Exception) {
-                    println(e.printStackTrace())
-                    logger.error("router $router did not passed all test: $e")
-                    errorList.add(router.id)
-                    continue
-                }
-                logger.info(" router $router passed all test")
-            }
-        }
-        if (errorList.isNotEmpty()) {
-            throw IllegalArgumentException("Some routers did not pass test : ${errorList.toTypedArray().contentToString()} ")
-        }
-        logger.info("<< testRouters")
-    }
 
-    private fun testGlobalRouter(router: Router) {
-        logger.info(">> testGlobalRouter")
-        logger.info("Test world router: ${router.id}")
-        if (router.id != game.settings["world-router-id"]) {
-            throw IllegalArgumentException("this router in not global router")
-        }
-        try {
-            RouterTester.test(router)
-                .isAllVertexHasItems()
-                .isItemsLinkedCorrectly();
-        } catch (e: java.lang.Exception) {
-            throw IllegalArgumentException("world router $router not passed all test: ${e.message}r")
-        }
-        logger.info("world router $router passed all test")
-        logger.info("<< testGlobalRouter")
-
-    }
 
 }

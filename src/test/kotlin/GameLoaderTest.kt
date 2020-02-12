@@ -1,7 +1,7 @@
 import com.tinkerpop.blueprints.Vertex
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph
 import game.Game
-import game.GameLoader
+import game.Loader
 import models.Answer
 import models.AnswerType
 
@@ -10,22 +10,23 @@ import models.items.text.PhraseTextStream
 import models.router.Router
 import models.router.RouterStream
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class GameLoaderTest {
 
 
-    private val worldRouterId = Game().settings["world-router-id"];
+    private val worldRouterId = Game.settings["world-router-id"]
 
    @Test
     public fun load(){
 
-        val pathToGraphs = "./src/test/resources/graphs"
-        val pathToRouter = "./src/test/resources/routers"
-        val pathToPhrases = "./src/test/resources/phrases"
-
+        val pathToGraphs = File("src/test/resources/graphs").absolutePath
+        val pathToRouter = File("src/test/resources/routers").absolutePath
+        val pathToPhrases = File("src/test/resources/phrases").absolutePath
+        println(pathToGraphs)
         writeTestGame(pathToPhrases, pathToRouter, pathToGraphs)
-       val game = Game();
-        GameLoader(game).load(pathToPhrases, pathToRouter, pathToGraphs)
+        val game = Game();
+        Loader(game).load(pathToPhrases, pathToRouter, pathToGraphs)
         println(game)
     }
 
@@ -59,10 +60,10 @@ class GameLoaderTest {
        val world = Router(worldRouterId as String, graph);
        world.startPointId = "main";
 
-       PhraseTextStream.write(phraseTexts, "$pathToPhrases/phrases_test.json")
-       RouterStream.write(main, "$pathToRouters/main.json", pathToGraphs);
-       RouterStream.write(world, "$pathToRouters/world.json", pathToGraphs);
-       RouterStream.write(rooms.toTypedArray(), "$pathToRouters/rooms.json", pathToGraphs);
+       PhraseTextStream.write(phraseTexts, "$pathToPhrases//phrases_test.json")
+       RouterStream.write(main, "$pathToRouters//main.json", pathToGraphs);
+       RouterStream.write(world, "$pathToRouters//world.json", pathToGraphs);
+       RouterStream.write(rooms.toTypedArray(), "$pathToRouters//rooms.json", pathToGraphs);
          assert(true)
    }
 

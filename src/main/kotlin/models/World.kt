@@ -4,39 +4,47 @@ import game.Game
 import models.items.DialogItem
 import models.items.dialog.Dialog
 import models.router.Router
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.lang.IllegalArgumentException
 
-class World(router: Router, game: Game, startDialogId: String) {
+class World(public val worldRouter: Router) {
 
-    public val worldRouter = router;
-    private var lastRouterId: String? = null;
-    private var currentRouterId: String? = null;
-    private val game = game;
+    companion object{
+        private val logger = LoggerFactory.getLogger(this::class.java) as Logger
 
-
-
-    fun start() : DialogItem {
-        currentRouterId = worldRouter.startPoint.id;
-        return worldRouter.startPoint as DialogItem;
     }
 
-    fun enterTo(answer: Answer) : DialogItem {
+    private val way = ArrayList<String>()
+
+    fun start() : Dialog {
+        logger.info(">> start ")
+        way.add(worldRouter.startPoint.id);
+        logger.info("added ${worldRouter.startPoint.id}, way: ${way.toTypedArray().contentToString()}")
+        logger.info("<< start return : ${worldRouter.startPoint}")
+        return worldRouter.startPoint as Dialog
+    }
+
+    fun enterTo(answer: Answer) : Dialog {
+        logger.info(">> enterTo $answer ")
         val res = worldRouter.getNext(answer)
-        lastRouterId = currentRouterId + ""
-        currentRouterId = res.id;
-        return res;
+        way.add(res.id);
+        logger.info("added ${res.id}, way: ${way.toTypedArray().contentToString()}")
+        logger.info("<< enterTo return: ${res.id}")
+        return res as Dialog;
     }
 
-    //todo fix
-    fun exit() : DialogItem {
-        val res = worldRouter.getNext(Answer.enter(lastRouterId!!));
-        lastRouterId = currentRouterId + ""
-        currentRouterId = res.id;
-        return res;
+    fun exit() : Dialog {
+        logger.info(">> exit ")
+        val res = worldRouter.getNext(Answer.enter(way.last()));
+        way.removeAt(way.lastIndex)
+        logger.info("removed ${res.id}, way: ${way.toTypedArray().contentToString()}")
+        logger.info("<< exit : retunt ${res.id}")
+        return res as Dialog;
     }
 
     fun isRoot(): Boolean {
-        return currentRouterId == worldRouter.startPointId;
+        return way.size == 1;
     }
 
 

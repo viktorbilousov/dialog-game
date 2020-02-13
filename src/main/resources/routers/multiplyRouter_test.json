@@ -53,6 +53,10 @@
     "id": "world.sea.parentgarden.in",
     "isResetToStart": true,
     "startPointId": "plug"
+  },
+  {
+    "id": "world.sea.parenthause.in",
+    "isResetToStart": true,
+    "startPointId": "plug"
   }
-
 ]

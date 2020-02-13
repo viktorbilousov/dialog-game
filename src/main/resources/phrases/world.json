@@ -15,6 +15,11 @@
         "answ_id": "world.sea",
         "text": "world.sea",
         "type": "SIMPLE"
+      },
+      {
+        "answ_id": "exit",
+        "text": "exit",
+        "type": "EXIT"
       }
     ],
     "class": "models.items.phrase.SimplePhrase",
@@ -26,13 +31,13 @@
   {
     "answers": [
       {
-        "answ_id": "world.forest.sloth",
-        "text": "go to world.forest.sloth",
+        "answ_id": "world.forest.treehause",
+        "text": "go to world.forest.treehause",
         "type": "SIMPLE"
       },
       {
-        "answ_id": "world.forest.treehause",
-        "text": "go to world.forest.treehause",
+        "answ_id": "world.crossroad",
+        "text": "go to world.crossroad",
         "type": "SIMPLE"
       }
     ],
@@ -74,14 +79,14 @@
         "type": "SIMPLE"
       },
       {
-        "answ_id": "world.forest",
-        "text": "go to world.forest",
-        "type": "SIMPLE"
-      },
-      {
         "answ_id": "world.forest.sloth.in",
         "text": "enter",
         "type": "ENTER"
+      },
+      {
+        "answ_id": "world.forest.treehause",
+        "text": "go to world.forest.treehause",
+        "type": "SIMPLE"
       }
     ],
     "class": "models.items.phrase.SimplePhrase",
@@ -93,8 +98,8 @@
   {
     "answers": [
       {
-        "answ_id": "orld.forest.sloth",
-        "text": "go to world.forest.flowershop",
+        "answ_id": "world.forest.sloth",
+        "text": "go to world.forest.sloth",
         "type": "SIMPLE"
       },
       {
@@ -347,14 +352,14 @@
   {
     "answers": [
       {
-        "answ_id": "world.sea",
-        "text": "world.sea.parenthause",
-        "type": "SIMPLE"
-      },
-      {
-        "answ_id": "world.sea.parentgarden",
+        "answ_id": "world.sea.parentgarden.in",
         "text": "enter",
         "type": "ENTER"
+      },
+      {
+        "answ_id": "world.sea.parenthause",
+        "text": "world.sea.parenthause",
+        "type": "SIMPLE"
       }
     ],
     "class": "models.items.phrase.SimplePhrase",

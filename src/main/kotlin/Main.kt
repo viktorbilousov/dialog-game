@@ -1,9 +1,9 @@
-import com.tinkerpop.blueprints.impls.tg.TinkerGraph
-import com.tinkerpop.blueprints.util.io.graphml.GraphMLReader
+
 import game.Game
 import game.Game.Companion.settings
 import game.Loader
 import game.Runner
+import game.Tester
 import models.items.phrase.EmptyPhrase
 import phrases.PhraseFabric
 
@@ -18,6 +18,8 @@ class Main {
                 settings["routers-folder"] as String,
                 settings["graphs-folder"] as String
             )
+            Tester.testGame(game);
+
             Runner(game, game.world!!).run();
         }
     }

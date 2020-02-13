@@ -3,6 +3,7 @@ package game
 import models.World
 import models.items.DialogItem
 import models.items.dialog.Dialog
+import phrases.PhraseFabric
 import java.io.File
 
 class Game {
@@ -22,13 +23,14 @@ class Game {
     var world: World? = null;
 
     init{
-       /* Loader(this).load(
-            settings["phrases-folder"] as String,
-            settings["routers-folder"] as String,
-            settings["graphs-folder"] as String
-        )
-        init()
-        Tester.testGame(this);*/
+
+        /* Loader(this).load(
+             settings["phrases-folder"] as String,
+             settings["routers-folder"] as String,
+             settings["graphs-folder"] as String
+         )
+         init()
+         Tester.testGame(this);*/
     }
 
     private fun init(){

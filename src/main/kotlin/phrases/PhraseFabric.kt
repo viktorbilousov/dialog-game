@@ -9,7 +9,7 @@ import models.items.text.PhraseText
 
 class PhraseFabric {
     companion object{
-        public fun PlugExitPhrase(id: String) : SimplePhrase{
+        public fun plugExitPhrase(id: String) : SimplePhrase{
             return SimplePhrase(
                 id,
                 "PLUG",

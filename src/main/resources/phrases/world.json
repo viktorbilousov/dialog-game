@@ -22,7 +22,7 @@
         "type": "EXIT"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.crossroad",
     "texts": [
       "world.crossroad"
@@ -32,7 +32,12 @@
     "answers": [
       {
         "answ_id": "world.forest.treehause",
-        "text": "go to world.forest.treehause",
+        "text": "[F] go forward",
+        "type": "SIMPLE"
+      },
+      {
+        "answ_id": "world.forest.treehause",
+        "text": "[S] go to world.forest.treehause",
         "type": "SIMPLE"
       },
       {
@@ -41,7 +46,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.forest",
     "texts": [
       "world.forest"
@@ -65,7 +70,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.forest.treehause",
     "texts": [
       "world.forest.treehause"
@@ -89,7 +94,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.forest.sloth",
     "texts": [
       "world.forest.sloth"
@@ -108,7 +113,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.forest.flowershop",
     "texts": [
       "world.forest.flowershop"
@@ -142,7 +147,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.town",
     "texts": [
       "world.town"
@@ -161,7 +166,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.town.home",
     "texts": [
       "world.town.home"
@@ -180,7 +185,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.city.post",
     "texts": [
       "world.city.post"
@@ -199,7 +204,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.town.school",
     "texts": [
       "world.town.school"
@@ -218,7 +223,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.town.busstop",
     "texts": [
       "world.town.busstop"
@@ -242,7 +247,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.suburb",
     "texts": [
       "world.suburb"
@@ -261,7 +266,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.suburb.computershop",
     "texts": [
       "world.suburb.computershop"
@@ -280,7 +285,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.suburb.rabbit",
     "texts": [
       "world.suburb.rabbit"
@@ -304,7 +309,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.sea",
     "texts": [
       "world.sea"
@@ -318,7 +323,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.sea.beach",
     "texts": [
       "world.sea.beach"
@@ -342,7 +347,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.sea.parenthause",
     "texts": [
       "world.sea.parenthause"
@@ -362,7 +367,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "models.items.phrase.SimplePhrase",
+    "class": "phrases.PhraseFilterAnswers",
     "id": "world.sea.parentgarden",
     "texts": [
       "world.sea.parentgarden"

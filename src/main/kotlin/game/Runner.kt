@@ -15,7 +15,7 @@ class Runner(private val game: Game, private val world: World) {
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
     }
 
-    private fun run(){
+    public fun run(){
         logger.info(">> run")
         run(world.start())
         logger.info("<< run")
@@ -27,7 +27,7 @@ class Runner(private val game: Game, private val world: World) {
         var answer = Answer.enter()
         loop@ while(true){
             answer = currentPoint.run(answer)
-            logger.error("answer from $currentPoint is $answer")
+            logger.info("answer from '${currentPoint.id}' is $answer")
             currentPoint =  when(answer.type){
                 AnswerType.ENTER -> world.enterTo(answer)
                 AnswerType.EXIT -> {

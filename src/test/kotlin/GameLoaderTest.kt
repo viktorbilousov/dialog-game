@@ -2,8 +2,10 @@ import com.tinkerpop.blueprints.Vertex
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph
 import game.Game
 import game.Loader
+import game.Tester
 import models.Answer
 import models.AnswerType
+import models.Indexable
 
 import models.items.text.PhraseText
 import models.items.text.PhraseTextStream
@@ -20,13 +22,14 @@ class GameLoaderTest {
    @Test
     public fun load(){
 
-        val pathToGraphs = File("src/test/resources/graphs").absolutePath
-        val pathToRouter = File("src/test/resources/routers").absolutePath
+        val pathToGraphs  = File("src/test/resources/graphs").absolutePath
+        val pathToRouter  = File("src/test/resources/routers").absolutePath
         val pathToPhrases = File("src/test/resources/phrases").absolutePath
         println(pathToGraphs)
         writeTestGame(pathToPhrases, pathToRouter, pathToGraphs)
         val game = Game();
         Loader(game).load(pathToPhrases, pathToRouter, pathToGraphs)
+        Tester.testGame(game);
         println(game)
     }
 
@@ -51,8 +54,10 @@ class GameLoaderTest {
        val graph = TinkerGraph();
        val v = hashMapOf<Int, Vertex>()
        v[0] = graph.addVertex("main");
+       v[0]!!.setProperty(Indexable.ID_NAME,"main");
        for (i in 1..10) {
            v[i] = graph.addVertex("room.$i");
+           v[i]!!.setProperty(Indexable.ID_NAME,"room.$i");
            graph.addEdge(null, v[0], v[i], "${v[0]?.id}->${v[i]?.id}")
            graph.addEdge(null, v[i], v[0], "${v[i]?.id}->${v[0]?.id}")
        }
@@ -84,6 +89,7 @@ class GameLoaderTest {
         val v = hashMapOf<Int, Vertex>()
         for(i in minIndex .. maxIndex){
             v[i] = graph.addVertex("$i");
+            v[i]!!.setProperty(Indexable.ID_NAME, "$i")
             if(i > minIndex ){
                 graph.addEdge(null, v[i-1], v[i], "${i-1}->${i}")
             }

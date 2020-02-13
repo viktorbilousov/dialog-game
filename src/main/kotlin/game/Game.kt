@@ -3,6 +3,7 @@ package game
 import models.World
 import models.items.DialogItem
 import models.items.dialog.Dialog
+import java.io.File
 
 class Game {
 
@@ -10,9 +11,9 @@ class Game {
        public val settings = HashMap<String, Any?>()
         init {
             settings["world-router-id"] = "router.world"
-            settings["graphs-folder"] = "./src/resources/graphs"
-            settings["routers-folder"] = "./src/resources/routers"
-            settings["phrases-folder"] = "./src/resources/phrases"
+            settings["graphs-folder"] = File("src/main/resources/graphs").absolutePath
+            settings["routers-folder"] = File("src/main/resources/routers").absolutePath
+            settings["phrases-folder"] = File("src/main/resources/phrases").absolutePath
         }
     }
 
@@ -21,13 +22,13 @@ class Game {
     var world: World? = null;
 
     init{
-        Loader(this).load(
+       /* Loader(this).load(
             settings["phrases-folder"] as String,
             settings["routers-folder"] as String,
             settings["graphs-folder"] as String
         )
         init()
-        Tester.testGame(this);
+        Tester.testGame(this);*/
     }
 
     private fun init(){

@@ -14,6 +14,8 @@ import java.nio.file.Files
 import java.nio.file.Files.isRegularFile
 import java.nio.file.Paths
 import kotlin.streams.toList
+import java.io.File
+
 
 
 class Loader(private val game: Game) {
@@ -22,12 +24,13 @@ class Loader(private val game: Game) {
     }
 
     public fun load(phrasesTextFolder: String, routersFolder: String, graphFolder: String) {
-        logger.info(">> load")
+        logger.info(">> load phrasesTextFolder=$phrasesTextFolder , routersFolder=$routersFolder , graphFolder=$graphFolder")
         var error = false;
         var routers = emptyList<Router>()
 
         try {
             loadPhrases(phrasesTextFolder).forEach {
+                 logger.info("read Phrase $it")
                 game.phrases[it.id] = PhraseTextFabric.toPhrase(it);
             }
         } catch (e: Exception) {
@@ -38,7 +41,7 @@ class Loader(private val game: Game) {
         try {
             routers = loadRouters(routersFolder, graphFolder);
         } catch (e: Exception) {
-            logger.error("Router Loading error: ${e.message}")
+            logger.error("Router Loading error: ${e.message}", e)
             error = true;
         }
 
@@ -46,6 +49,7 @@ class Loader(private val game: Game) {
             it.items = game.phrases;
         }
 
+        logger.info("searching of global router")
         var globalRouter: Router? = null;
         for (router in routers) {
             if (router.id != Game.settings["world-router-id"]) {
@@ -54,7 +58,6 @@ class Loader(private val game: Game) {
                 globalRouter = router
             }
         }
-
 
         if (globalRouter == null) {
             logger.error("A World router not found!")
@@ -81,7 +84,7 @@ class Loader(private val game: Game) {
         val filesInPhrasesFolder = Files
             .walk(Paths.get(phrasesTextFolder))
             .filter { isRegularFile(it) }
-            .map { "$phrasesTextFolder/${it.fileName}" }
+            .map {File(phrasesTextFolder, it.fileName.toString()).absolutePath }
             .toList();
 
         val sb = StringBuilder();
@@ -118,7 +121,7 @@ class Loader(private val game: Game) {
     }
 
     private fun loadRouters(routersFolder: String, graphFolder: String): ArrayList<Router> {
-        logger.info(">> loadDialogsAndWorld routersFolder=$routersFolder, graphFolder=$graphFolder")
+        logger.info(">> loadRouters routersFolder=$routersFolder, graphFolder=$graphFolder")
         val routersList = arrayListOf<Router>()
         val errorList = arrayListOf<String>()
 
@@ -153,7 +156,7 @@ class Loader(private val game: Game) {
         if (errorList.isNotEmpty()) {
             throw IllegalArgumentException("Some phrases have not been read : ${errorList.toTypedArray().contentToString()} ")
         }
-        logger.info("<< loadDialogsAndWorld")
+        logger.info("<< loadRouters")
         return routersList;
     }
 

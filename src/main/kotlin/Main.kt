@@ -19,7 +19,8 @@ class Main {
                 settings["routers-folder"] as String,
                 settings["graphs-folder"] as String
             )
-            //Tester.testGame(game);
+
+            Tester.testGame(game);
             (game.phrases["world.forest"]as PhraseFilterAnswers).setFilter(ConditionsFabric.firstTimeDiffAnswer)
 
             Runner(game, game.world!!).run();

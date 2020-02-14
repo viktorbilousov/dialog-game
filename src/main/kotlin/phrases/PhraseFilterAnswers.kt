@@ -1,11 +1,8 @@
 package phrases
 
-import game.Game
 import models.Answer
-import models.items.DialogItem
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.util.*
 
 class PhraseFilterAnswers (id: String, phrases: Array<String>, answers : Array<Answer> ) : GamePhrase(id, phrases, answers ) {
 
@@ -27,22 +24,12 @@ class PhraseFilterAnswers (id: String, phrases: Array<String>, answers : Array<A
 
     override fun body(inputAnswer: Answer): Answer {
         logger.info(">> body $id: inputAnswer=$inputAnswer")
-        val filtredAnswers = filter(copyAnswersArray(answers),  this as GamePhrase)
+        val filtredAnswers = filter(answers.clone(),  this as GamePhrase)
         val res = tools.PhrasePrinter.printTextDialog(phrases[0], filtredAnswers);
         logger.info("<< body $id: outputAnswer=$res")
         return res;
     }
 
-    private fun copyAnswersArray(arr : Array<Answer>): Array<Answer>{
-        val list = arrayListOf<Answer>()
-        arr.forEach {
-            list.add(Answer(
-                it.id + "",
-                it.text + "",
-                it.type
-            ))
-        }
-        return list.toTypedArray()
-    }
+
 }
 

@@ -5,7 +5,7 @@ import models.Answer
 class ConditionsFabric {
     companion object {
         public val firstTimeDiffAnswer =
-            fun(answers: Array<Answer>, game: GamePhrase): Array<Answer> {
+            fun(answers: Array<Answer>, count: Int): Array<Answer> {
                 val filterFirst = "[F]"
                 val filterOther = "[S]"
                 val filteredList = arrayListOf<Answer>()
@@ -22,9 +22,9 @@ class ConditionsFabric {
                     if(type == 0 ){
                         filteredList.add(it);
                     }
-                    if (game.count == 1 && type == 1) {
+                    if (count == 1 && type == 1) {
                         filteredList.add(it);
-                    } else if (game.count > 1 && type == 2){
+                    } else if (count > 1 && type == 2){
                         filteredList.add(it);
                     }
                 }

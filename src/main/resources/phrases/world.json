@@ -22,7 +22,7 @@
         "type": "EXIT"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.crossroad",
     "texts": [
       "world.crossroad"
@@ -46,7 +46,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.forest",
     "texts": [
       "world.forest"
@@ -70,7 +70,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.forest.treehause",
     "texts": [
       "world.forest.treehause"
@@ -94,7 +94,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.forest.sloth",
     "texts": [
       "world.forest.sloth"
@@ -113,7 +113,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.forest.flowershop",
     "texts": [
       "world.forest.flowershop"
@@ -147,7 +147,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.town",
     "texts": [
       "world.town"
@@ -166,7 +166,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.town.home",
     "texts": [
       "world.town.home"
@@ -185,7 +185,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.city.post",
     "texts": [
       "world.city.post"
@@ -204,7 +204,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.town.school",
     "texts": [
       "world.town.school"
@@ -223,7 +223,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.town.busstop",
     "texts": [
       "world.town.busstop"
@@ -247,7 +247,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.suburb",
     "texts": [
       "world.suburb"
@@ -266,7 +266,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.suburb.computershop",
     "texts": [
       "world.suburb.computershop"
@@ -285,7 +285,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.suburb.rabbit",
     "texts": [
       "world.suburb.rabbit"
@@ -309,7 +309,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.sea",
     "texts": [
       "world.sea"
@@ -323,7 +323,7 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.sea.beach",
     "texts": [
       "world.sea.beach"
@@ -347,7 +347,7 @@
         "type": "ENTER"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.sea.parenthause",
     "texts": [
       "world.sea.parenthause"
@@ -367,11 +367,10 @@
         "type": "SIMPLE"
       }
     ],
-    "class": "phrases.PhraseFilterAnswers",
+    "class": "models.items.phrase.FilteredPhrase",
     "id": "world.sea.parentgarden",
     "texts": [
       "world.sea.parentgarden"
     ]
   }
-
 ]

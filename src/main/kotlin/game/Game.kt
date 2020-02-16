@@ -24,6 +24,8 @@ class Game {
 
     init{
 
+        phrases["plug"] = PhraseFabric.plugExitPhrase("plug");
+
         /* Loader(this).load(
              settings["phrases-folder"] as String,
              settings["routers-folder"] as String,

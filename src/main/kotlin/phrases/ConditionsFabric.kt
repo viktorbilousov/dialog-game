@@ -34,5 +34,46 @@ class ConditionsFabric {
 
                 return filteredList.toTypedArray()
             }
+
+        public val countAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer> {
+
+            val lastFilter = "[*]"
+            var maxCnt = 0;
+            for (answer in answers) {
+                val filterLabel = getFilterLabel(answer.text);
+                if (filterLabel != null) {
+                    if (filterLabel == lastFilter) continue
+                    val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
+                    if (number == null) continue
+                    if (number > maxCnt) maxCnt = number
+                }
+            }
+            val filteredList = arrayListOf<Answer>()
+            for (answer in answers) {
+                val filterLabel = getFilterLabel(answer.text)
+                if (filterLabel == null) {
+                    filteredList.add(answer)
+                } else if (maxCnt < count) {
+                        if(filterLabel == lastFilter){
+                            filteredList.add(answer)
+                        }else{
+                            continue
+                        }
+                } else {
+                    val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
+                    if (number == null || number == count) {
+                        filteredList.add(answer)
+                    }
+                }
+            }
+            return filteredList.toTypedArray()
+        }
+        
+        private fun getFilterLabel(text: String): String? {
+            if( text.trim()[0] == '[' && text.trim().indexOf(']') > 1 ) {
+                return text.trim().substring(0, text.trim().indexOf(']')+1)
+            }
+            return null
+        } 
     }
 }

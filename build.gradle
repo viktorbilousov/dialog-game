@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'viktor.project'
-version '0.2'
+version '0.1'
 
 sourceCompatibility = 1.8
 
@@ -14,12 +14,12 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
-    implementation files('libs/dialog-system-0.9.1.jar')
+    compile files('libs/dialog-system-0.9.jar')
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile group: 'org.slf4j', name:'slf4j-log4j12', version: '1.7.25'
@@ -27,6 +27,23 @@ dependencies {
     compile group: 'com.tinkerpop.blueprints', name: 'blueprints-core', version: '2.6.0'
     compile 'com.beust:klaxon:5.0.1'
 
+}
+
+def inputFolder = "./scripts"
+def outputGraphFolder = "scr/main/resources/graphs"
+def outputPhraseTextFolder = "scr/main/resources/phrases"
+def outputRouterFile = "scr/main/resources/resources/routers/routers.json"
+def jarPath = "C:\\Users\\bilousov\\IdeaProjects\\dialog-creator\\build\\libs\\dialog-creator-1.0.jar"
+
+task buildDialog(type: Exec) {
+
+    group = 'dialog'
+    description = 'Parse dialogs from scrips files'
+
+   // commandLine 'cmd', '/c', 'echo', 'hello world'
+   // commandLine 'cmd', '/c', 'java', '-jar', "$jarPath", '-h'
+    commandLine 'cmd', '/c', 'java', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
+    // standardOutput = stdout
 }
 
 compileKotlin {
@@ -38,3 +55,4 @@ compileTestKotlin {
 test {
     useJUnitPlatform()
 }
+

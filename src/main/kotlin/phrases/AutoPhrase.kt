@@ -1,6 +1,5 @@
 package phrases
 
-import javafx.print.Printer
 import models.Answer
 import models.items.phrase.FilteredPhrase
 import printer.PrinterFabric

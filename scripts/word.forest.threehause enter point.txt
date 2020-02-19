@@ -1,0 +1,9 @@
+#id=world.forest.treehause.in
+#isResetToStart=true
+#startPointId=th.start.1
+
+---- th.entrypoint [phrases.AutoPhrase]
+text
+
+> [1] (th.start.1)
+> [*] (plug)

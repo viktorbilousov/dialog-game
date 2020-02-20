@@ -6,6 +6,7 @@ import models.items.phrase.Phrase
 
 class CountPhrase(id: String, phrases: Array<String>, answers : Array<Answer>) : FilteredPhrase(id, phrases, answers){
     init {
-        this.addAnswerFilter("condition", ConditionsFabric.countAnswer)
+        this.addAnswerFilter("condition.answers", ConditionsFabric.countAnswer)
+        this.addPhrasesFilter("condition.phrases", ConditionsFabric.countPhrase)
     }
 }

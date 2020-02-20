@@ -2,6 +2,7 @@ package phrases
 
 import game.Game
 import models.Answer
+import models.items.phrase.Phrase
 
 class ConditionsFabric {
     companion object {
@@ -49,27 +50,71 @@ class ConditionsFabric {
                     if (number > maxCnt) maxCnt = number
                 }
             }
+
             val filteredList = arrayListOf<Answer>()
+
             for (answer in answers) {
                 val filterLabel = getFilterLabel(answer.text)
                 if (filterLabel == null) {
                     filteredList.add(answer)
-                } else if (maxCnt < count) {
+                } else {
+                    answer.text = answer.text.subSequence(filterLabel.length, answer.text.length).toString().trim()
+                    if (maxCnt < count) {
                         if(filterLabel == lastFilter){
                             filteredList.add(answer)
                         }else{
                             continue
                         }
-                } else {
-                    val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
-                    if (number == null || number == count) {
-                        filteredList.add(answer)
+                    } else {
+                        val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
+                        if (number == null || number == count) {
+                            filteredList.add(answer)
+                        }
                     }
                 }
             }
             return filteredList.toTypedArray()
         }
-        
+
+
+        public val countPhrase = fun(phrases: Array<String>, count: Int): Array<String> {
+
+            val lastFilter = "[*]"
+            var maxCnt = 0;
+            for (phrase in phrases) {
+                val filterLabel = getFilterLabel(phrase);
+                if (filterLabel != null) {
+                    if (filterLabel == lastFilter) continue
+                    val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
+                    if (number == null) continue
+                    if (number > maxCnt) maxCnt = number
+                }
+            }
+            val filteredList = arrayListOf<String>()
+            for (phrase in phrases) {
+                val filterLabel = getFilterLabel(phrase)
+                if (filterLabel == null) {
+                    filteredList.add(phrase)
+                } else{
+                    val phrase = phrase.subSequence(filterLabel.length, phrase.length).toString().trim()
+                    if (maxCnt < count) {
+                        if(filterLabel == lastFilter){
+                            filteredList.add(phrase)
+                        }else{
+                            continue
+                        }
+                    } else {
+                        val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
+                        if (number == null || number == count) {
+                            filteredList.add(phrase)
+                        }
+                    }
+                }
+            }
+            return filteredList.toTypedArray()
+        }
+
+
         private fun getFilterLabel(text: String): String? {
             if( text.trim()[0] == '[' && text.trim().indexOf(']') > 1 ) {
                 return text.trim().substring(0, text.trim().indexOf(']')+1)

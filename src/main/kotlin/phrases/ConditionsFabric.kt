@@ -1,5 +1,6 @@
 package phrases
 
+import game.Game
 import models.Answer
 
 class ConditionsFabric {
@@ -74,6 +75,17 @@ class ConditionsFabric {
                 return text.trim().substring(0, text.trim().indexOf(']')+1)
             }
             return null
-        } 
+        }
+
+        public val debugAnswerFilter =
+            fun(answers: Array<Answer>, count: Int): Array<Answer> {
+                return answers.filter {
+                    val debug = Game.settings["debug"] as Boolean
+                    if(debug) return@filter true
+                    if(getFilterLabel(it.text) == null) return@filter true
+                    if(getFilterLabel(it.text) == "[debug]") return@filter false
+                    return@filter true
+                }.toTypedArray()
+            }
     }
 }

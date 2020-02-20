@@ -3,6 +3,7 @@ package game
 import models.World
 import models.items.DialogItem
 import models.items.dialog.Dialog
+import models.items.phrase.FilteredPhrase
 import models.items.text.PhraseText
 import models.items.text.PhraseTextFabric
 import models.items.text.PhraseTextStream
@@ -10,6 +11,7 @@ import models.router.Router
 import models.router.RouterStream
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import phrases.ConditionsFabric
 import java.nio.file.Files
 import java.nio.file.Files.isRegularFile
 import java.nio.file.Paths
@@ -67,13 +69,22 @@ class Loader(private val game: Game) {
             game.world = World(globalRouter)
         }
 
+        postInit()
+
         if (error) {
             logger.error("Game Loading completed unsuccessfully")
             throw IllegalArgumentException("Game Loading completed unsuccessfully")
         }
         logger.info("<< load")
+    }
 
-
+    private fun postInit(){
+        game.phrases.values.forEach{
+            try{(it as FilteredPhrase).addAnswerFilter("debug", ConditionsFabric.debugAnswerFilter)}
+            catch (e: ClassCastException){
+                logger.warn("cannot cast ${it.id} to models.items.phrase.FilteredPhrase and set debug filter")
+            }
+        }
     }
 
     private fun loadPhrases(phrasesTextFolder: String): List<PhraseText> {
@@ -159,7 +170,5 @@ class Loader(private val game: Game) {
         logger.info("<< loadRouters")
         return routersList;
     }
-
-
 
 }

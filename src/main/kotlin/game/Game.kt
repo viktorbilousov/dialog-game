@@ -11,6 +11,7 @@ class Game {
     companion object{
        public val settings = HashMap<String, Any?>()
         init {
+            settings["debug"] = false
             settings["world-router-id"] = "router.world"
             settings["graphs-folder"] = File("src/main/resources/graphs").absolutePath
             settings["routers-folder"] = File("src/main/resources/routers").absolutePath
@@ -18,9 +19,14 @@ class Game {
         }
     }
 
+
     val phrases = hashMapOf<String, DialogItem>()
     val dialogs = hashMapOf<String, Dialog>()
-    var world: World? = null;
+    var world: World? = null
+    set(value) {
+        if(value!= null) value.worldRouter.startPointId="debug.world.startpoint"
+        field = value;
+    }
 
     init{
 
@@ -37,6 +43,10 @@ class Game {
 
     private fun init(){
 
+    }
+    public fun debug(isEnable: Boolean){
+        settings["debug"] = isEnable
+        if(world != null) world!!.worldRouter.startPointId = "debug.world.startpoint";
     }
 
 

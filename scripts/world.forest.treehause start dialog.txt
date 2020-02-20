@@ -11,6 +11,7 @@
 
 >игнорировать (th.start.1.1)
 >проснуться   (th.start.2)
+>[debug] to end (th.end)
 
 
 ---- th.start.1.1 [models.items.phrase.RandomPhrase]
@@ -109,4 +110,4 @@
 
 exit
 
-> exit (exit #exit)
+> exit (world.forest.treehause #exit)

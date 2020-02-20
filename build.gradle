@@ -19,7 +19,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
-    compile files('libs/dialog-system-0.9.1.jar')
+    compile files('libs/dialog-system-0.9.2.jar')
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile group: 'org.slf4j', name:'slf4j-log4j12', version: '1.7.25'
@@ -32,16 +32,27 @@ def inputFolder = "./scripts"
 def outputGraphFolder = "src/main/resources/graphs"
 def outputPhraseTextFolder = "src/main/resources/phrases"
 def outputRouterFile = "src/main/resources/routers/routers.json"
-def jarPath = "C:\\Users\\bilousov\\IdeaProjects\\dialog-creator\\build\\libs\\dialog-creator-1.0.jar"
+def jarPath = "/Users/viktorbilousov/IdeaProjects/dialog-creator/build/libs/dialog-creator-1.0.jar"
 
-task buildDialog(type: Exec) {
+task buildDialog {
 
     group = 'dialog'
     description = 'Parse dialogs from scrips files'
 
-   // commandLine 'cmd', '/c', 'echo', 'hello world'
+    javaexec {
+        main="-jar";
+        args = [
+                "$jarPath",
+                '-i', "$inputFolder",
+                "-og", "$outputGraphFolder",
+                "-orf", "$outputRouterFile",
+                "-op", "$outputPhraseTextFolder"
+        ]
+    }
+    // commandLine 'cmd', '/c', 'echo', 'hello world'
    // commandLine 'cmd', '/c', 'java', '-jar', "$jarPath", '-h'
-    commandLine 'cmd', '/c', 'java', '-Dfile.encoding="UTF-8"', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
+   // commandLine 'cmd', '/c', 'java', '-Dfile.encoding="UTF-8"', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
+   // commandLine  'bash', '-c' ,'java', '-Dfile.encoding="UTF-8"', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
     // standardOutput = stdout
 }
 

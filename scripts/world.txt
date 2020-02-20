@@ -1,0 +1,193 @@
+#id=world
+#isResetToStart=false
+#startPointId=world.startpoint
+
+---- debug.world.startpoint
+
+debug.world.startpoint
+
+> startpoint (world.startpoint)
+> crossroad (world.crossroad)
+> . |-- forest (world.forest)
+> .    |-- treehause  (world.forest.treehause)
+> .    |-- sloth (world.forest.sloth)
+> .    |-- flowershop (world.forest.flowershop)
+> . |-- town (world.town)
+> .    |-- home (world.town.home)
+> .    |-- school (world.town.school)
+> .    |-- post (world.town.post)
+> .    |-- bus stop (world.town.busstop)
+> . |-- suburb (world.suburb)
+> .    |-- computershop (world.suburb.computershop)
+> .    |-- rabbit (world.suburb.rabbit)
+> . |-- see (world.sea)
+> .    |-- beach (world.sea.beach)
+> .    |-- parenthause(world.sea.parenthause)
+> .    |-- parentgarden (world.sea.parentgarden)
+> exit (exit #exit)
+
+---- world.startpoint [phrases.AutoPhrase]
+
+world.startpoint
+
+> [1] to start (world.forest.treehause.in #enter)
+> [*] to treehause (world.forest.treehause)
+---- world.crossroad
+
+world.crossroad
+
+> пойти налево в лес (world.forest)
+> пойти вперед в город (world.town)
+> пойти направо к морю (world.sea)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.forest
+
+world.forest
+
+> подойти к дому на дереве (world.forest.treehause)
+> пойти на север к дому старого линивца (world.forest.sloth)
+> пойти обратно к перекрестку (world.crossroad)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.forest.treehause
+
+world.forest.treehause
+
+> ввойти внутрь (world.forest.treehause.in #enter)
+> вернуться обратно на дорогу (world.forest)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.forest.flowershop
+
+world.forest.flowershop
+
+> ввойти внутрь (world.forest.flowershop.in #enter)
+> вернуться к дому ленивца (world.forest.sloth)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.forest.sloth
+
+world.forest.sloth
+
+> ввойти внутрь (world.forest.sloth.in #enter)
+> пойти к цветочному магазину (world.forest.flowershop)
+> вернуться обратно на дорогу (world.forest)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town
+
+world.town
+
+> обратно к перекрестку (world.crossroad)
+> пойти в школу (world.town.school)
+> пойти на почту (world.town.post)
+> пойти в дом (world.town.home)
+> пойти на автобусную остановку (world.town.busstop)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town.home
+
+world.town.home
+
+> зайти внутрь (world.town.home.in #enter)
+> вернуться в город (world.town)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town.post
+
+world.town.post
+
+> зайти внутрь (world.city.post.in #enter)
+> вернуться в город (world.town)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town.school
+
+world.town.school
+
+> зайти внутрь (world.town.school.in #enter)
+> вернуться в город (world.town)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town.busstop
+
+world.town.busstop
+
+> отправиться загород (world.suburb)
+> вернуться в город (world.town)
+> [debug] teleport (debug.world.startpoint)
+
+
+----  world.suburb
+
+world.suburb
+
+> вернуться обратно в город (world.town.busstop)
+> пойти к городу одинокого кролика (world.suburb.rabbit)
+> подойти к магазину техники (world.suburb.computershop)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.suburb.computershop
+
+world.suburb.computershop
+
+> зайти внутрь (world.suburb.computershop.in #enter)
+> вернуться обратно (world.suburb)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.suburb.rabbit
+
+world.suburb.rabbit
+
+> зайти внутрь (world.suburb.rabbit.in #enter)
+> вернуться обратно (world.suburb)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.sea
+
+world.sea
+
+> пойти на пляж (world.sea.beach)
+> пойти к дому родителей (world.sea.parenthause)
+> пойти обратно к перекрестку (world.crossroad)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.sea.beach
+
+world.sea.beach
+
+> вернуться обратно (world.sea)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.sea.parenthause
+
+world.sea.parenthause
+
+> ввойти внутрь (world.sea.parentgarden.in #enter)
+> пойти в сад (world.sea.parentgarden )
+> вернуться обратно (world.sea)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.sea.parentgarden
+
+world.sea.parentgarden
+
+> ввойти внутрь (world.sea.parentgarden.in #enter)
+> вернуться к зданию (world.sea.parenthause)
+> [debug] teleport (debug.world.startpoint)

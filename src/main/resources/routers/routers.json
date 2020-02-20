@@ -2,7 +2,7 @@
   {
     "id": "world",
     "isResetToStart": false,
-    "startPointId": "world.crossroad"
+    "startPointId": "world.startpoint"
   },
   {
     "id": "router.world",

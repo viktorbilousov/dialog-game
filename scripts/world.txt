@@ -1,6 +1,6 @@
-#id=world
-#isResetToStart=false
-#startPointId=world.startpoint
+$id=world
+$isResetToStart=false
+$startPointId=world.startpoint
 
 ---- debug.world.startpoint
 

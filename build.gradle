@@ -32,7 +32,7 @@ def inputFolder = "./scripts"
 def outputGraphFolder = "src/main/resources/graphs"
 def outputPhraseTextFolder = "src/main/resources/phrases"
 def outputRouterFile = "src/main/resources/routers/routers.json"
-def jarPath = "C:\\Users\\bilousov\\IdeaProjects\\dialog-creator\\build\\libs\\dialog-creator-1.0.jar"
+def jarPath = "C:\\Users\\bilousov\\IdeaProjects\\dialog-creator\\build\\libs\\dialog-creator-1.1.jar"
 
 task buildDialog{
 

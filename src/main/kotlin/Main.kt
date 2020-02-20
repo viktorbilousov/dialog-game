@@ -5,8 +5,7 @@ import game.Runner
 import game.Tester
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import phrases.ConditionsFabric
-import phrases.PhraseFabric
+
 
 class Main {
     companion object{

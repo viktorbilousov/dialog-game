@@ -32,9 +32,9 @@ def inputFolder = "./scripts"
 def outputGraphFolder = "src/main/resources/graphs"
 def outputPhraseTextFolder = "src/main/resources/phrases"
 def outputRouterFile = "src/main/resources/routers/routers.json"
-def jarPath = "/Users/viktorbilousov/IdeaProjects/dialog-creator/build/libs/dialog-creator-1.0.jar"
+def jarPath = "C:\\Users\\bilousov\\IdeaProjects\\dialog-creator\\build\\libs\\dialog-creator-1.0.jar"
 
-task buildDialog {
+task buildDialog{
 
     group = 'dialog'
     description = 'Parse dialogs from scrips files'
@@ -48,11 +48,9 @@ task buildDialog {
                 "-orf", "$outputRouterFile",
                 "-op", "$outputPhraseTextFolder"
         ]
+          jvmArgs=['-Dfile.encoding="UTF-8"']
     }
-    // commandLine 'cmd', '/c', 'echo', 'hello world'
-   // commandLine 'cmd', '/c', 'java', '-jar', "$jarPath", '-h'
    // commandLine 'cmd', '/c', 'java', '-Dfile.encoding="UTF-8"', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
-   // commandLine  'bash', '-c' ,'java', '-Dfile.encoding="UTF-8"', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
     // standardOutput = stdout
 }
 

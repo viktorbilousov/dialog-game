@@ -3,7 +3,6 @@ import game.Game.Companion.settings
 import game.Loader
 import game.Runner
 import game.Tester
-import models.items.phrase.FilteredPhrase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import phrases.ConditionsFabric
@@ -17,7 +16,6 @@ class Main {
             logger.info("--- GAME STARTING ---")
             logger.info("")
             val game = Game()
-            game.debug(false)
             logger.info("")
             logger.info("--- GAME LOADING ---")
             logger.info("")
@@ -26,6 +24,7 @@ class Main {
                 settings["routers-folder"] as String,
                 settings["graphs-folder"] as String
             )
+            game.debug(true)
             logger.info("")
             logger.info("--- GAME TESTING ---")
             logger.info("")

@@ -24,7 +24,6 @@ class Game {
     val dialogs = hashMapOf<String, Dialog>()
     var world: World? = null
     set(value) {
-        if(value!= null) value.worldRouter.startPointId="debug.world.startpoint"
         field = value;
     }
 
@@ -46,7 +45,9 @@ class Game {
     }
     public fun debug(isEnable: Boolean){
         settings["debug"] = isEnable
-        if(world != null) world!!.worldRouter.startPointId = "debug.world.startpoint";
+        if(isEnable) {
+            dialogs["world"]!!.router.startPointId = "debug.world.startpoint"
+        }
     }
 
 

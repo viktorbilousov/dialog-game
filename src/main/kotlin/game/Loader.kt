@@ -80,7 +80,9 @@ class Loader(private val game: Game) {
 
     private fun postInit(){
         game.phrases.values.forEach{
-            try{(it as FilteredPhrase).addAnswerFilter("debug", ConditionsFabric.debugAnswerFilter)}
+            try{
+                (it as FilteredPhrase).addAnswerFilter("debug", ConditionsFabric.debugAnswerFilter)
+            }
             catch (e: ClassCastException){
                 logger.warn("cannot cast ${it.id} to models.items.phrase.FilteredPhrase and set debug filter")
             }

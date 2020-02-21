@@ -2,7 +2,6 @@ package phrases
 
 import game.Game
 import models.Answer
-import models.items.phrase.Phrase
 
 class ConditionsFabric {
     companion object {
@@ -37,56 +36,68 @@ class ConditionsFabric {
                 return filteredList.toTypedArray()
             }
 
-        public val countAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer> {
+        public val notCountAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer>{
+            return answers.filter {
+                val label = getFilterLabel(it.text)
+                return@filter label == null
+                        || !label.startsWith("!")
+                        || label.removePrefix("!").toIntOrNull() == null
+                        || label.removePrefix("!").toIntOrNull() != count
+            }.toTypedArray()
+        }
 
-            val lastFilter = "[*]"
+        public val notCountPhrase = fun(answers: Array<String>, count: Int): Array<String>{
+            return answers.filter {
+                val label = getFilterLabel(it)
+                return@filter label == null
+                        || !label.startsWith("!")
+                        || label.removePrefix("!").toIntOrNull() == null
+                        || label.removePrefix("!").toIntOrNull() != count
+            }.toTypedArray()
+        }
+
+        public val countAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer> {
             var maxCnt = 0;
             for (answer in answers) {
                 val filterLabel = getFilterLabel(answer.text);
                 if (filterLabel != null) {
-                    if (filterLabel == lastFilter) continue
-                    val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
-                    if (number == null) continue
+                    val number = filterLabel.toIntOrNull() ?: continue
                     if (number > maxCnt) maxCnt = number
                 }
             }
 
-            val filteredList = arrayListOf<Answer>()
 
-            for (answer in answers) {
-                val filterLabel = getFilterLabel(answer.text)
-                if (filterLabel == null) {
-                    filteredList.add(answer)
-                } else {
-                    answer.text = answer.text.subSequence(filterLabel.length, answer.text.length).toString().trim()
-                    if (maxCnt < count) {
-                        if(filterLabel == lastFilter){
-                            filteredList.add(answer)
-                        }else{
-                            continue
-                        }
-                    } else {
-                        val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
-                        if (number == null || number == count) {
-                            filteredList.add(answer)
-                        }
-                    }
+            return  answers
+                .filter {
+                    val filterLabel = getFilterLabel(it.text) ?: return@filter true;
+                    return@filter countFilter(filterLabel, maxCnt, count) }
+                .map {
+                val filterLabel = getFilterLabel(it.text) ?: return@map it;
+                it.text = it.text.subSequence(filterLabel.length+1, it.text.length).toString().trim()
+                return@map it;
+            }.toTypedArray()
+        }
+
+        private fun countFilter(filterLabel: String, maxCnt: Int, count: Int) : Boolean{
+            val lastFilter = "*"
+            if (maxCnt < count) {
+                return filterLabel == lastFilter
+            } else {
+                val number = filterLabel.toIntOrNull()
+                if (number == null || number == count) {
+                    return true
                 }
             }
-            return filteredList.toTypedArray()
+            return false;
         }
 
 
         public val countPhrase = fun(phrases: Array<String>, count: Int): Array<String> {
-
-            val lastFilter = "[*]"
             var maxCnt = 0;
             for (phrase in phrases) {
                 val filterLabel = getFilterLabel(phrase);
                 if (filterLabel != null) {
-                    if (filterLabel == lastFilter) continue
-                    val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
-                    if (number == null) continue
+                    val number = filterLabel.toIntOrNull() ?: continue
                     if (number > maxCnt) maxCnt = number
                 }
             }
@@ -95,21 +106,15 @@ class ConditionsFabric {
                 val filterLabel = getFilterLabel(phrase)
                 if (filterLabel == null) {
                     filteredList.add(phrase)
-                } else{
-                    val phrase = phrase.subSequence(filterLabel.length, phrase.length).toString().trim()
-                    if (maxCnt < count) {
-                        if(filterLabel == lastFilter){
-                            filteredList.add(phrase)
-                        }else{
-                            continue
-                        }
-                    } else {
-                        val number = filterLabel.substring(1, filterLabel.length - 1).toIntOrNull()
-                        if (number == null || number == count) {
-                            filteredList.add(phrase)
-                        }
-                    }
+                    continue;
                 }
+
+                val phraseText = phrase.subSequence(filterLabel.length+1, phrase.length).toString().trim()
+
+               if(countFilter(filterLabel, maxCnt, count)) {
+                    filteredList.add(phraseText)
+               }
+
             }
             return filteredList.toTypedArray()
         }
@@ -117,7 +122,7 @@ class ConditionsFabric {
 
         private fun getFilterLabel(text: String): String? {
             if( text.trim()[0] == '[' && text.trim().indexOf(']') > 1 ) {
-                return text.trim().substring(0, text.trim().indexOf(']')+1)
+                return text.trim().substring(1, text.trim().indexOf(']'))
             }
             return null
         }

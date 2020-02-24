@@ -11,7 +11,7 @@ import models.router.Router
 import models.router.RouterStream
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import phrases.ConditionsFabric
+import phrases.fabric.FiltersFabric
 import java.nio.file.Files
 import java.nio.file.Files.isRegularFile
 import java.nio.file.Paths
@@ -29,7 +29,9 @@ class Loader(private val game: Game) {
         logger.info(">> load phrasesTextFolder=$phrasesTextFolder , routersFolder=$routersFolder , graphFolder=$graphFolder")
         var error = false;
         var routers = emptyList<Router>()
-
+        logger.info("")
+        logger.info("----- load phrases ------")
+        logger.info("")
         try {
             loadPhrases(phrasesTextFolder).forEach {
                  logger.info("read Phrase $it")
@@ -39,6 +41,10 @@ class Loader(private val game: Game) {
             logger.error("Phrases Load error: ${e.message}")
             error = true;
         }
+
+        logger.info("")
+        logger.info("----- load Routers ------")
+        logger.info("")
 
         try {
             routers = loadRouters(routersFolder, graphFolder);
@@ -51,7 +57,12 @@ class Loader(private val game: Game) {
             it.items = game.phrases;
         }
 
-        logger.info("searching of global router")
+
+        logger.info("")
+        logger.info("----- global router ------")
+        logger.info("")
+
+
         var globalRouter: Router? = null;
         for (router in routers) {
             if (router.id != Game.settings["world-router-id"]) {
@@ -67,7 +78,13 @@ class Loader(private val game: Game) {
         } else {
             globalRouter.items = game.dialogs as HashMap<String, DialogItem>
             game.world = World(globalRouter)
+            logger.info("global router = ${game.world!!.worldRouter.id}")
+
         }
+
+        logger.info("")
+        logger.info("----- post init ------")
+        logger.info("")
 
         postInit()
 
@@ -81,10 +98,12 @@ class Loader(private val game: Game) {
     private fun postInit(){
         game.phrases.values.forEach{
             try{
-                (it as FilteredPhrase).addAnswerFilter("debug", ConditionsFabric.debugAnswerFilter)
+                (it as FilteredPhrase).addAnswerFilter("debug", FiltersFabric.debugAnswerFilter)
+                (it as FilteredPhrase).addPhrasesFilter("rm", FiltersFabric.removeLabelPhrases)
+                (it as FilteredPhrase).addAnswerFilter("rm", FiltersFabric.removeLabelAnswers)
             }
             catch (e: ClassCastException){
-                logger.warn("cannot cast ${it.id} to models.items.phrase.FilteredPhrase and set debug filter")
+                logger.warn("cannot cast ${it.javaClass.name} [${it.id}] to models.items.phrase.FilteredPhrase and set debug filter")
             }
         }
     }

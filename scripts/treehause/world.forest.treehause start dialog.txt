@@ -13,6 +13,7 @@ $startPointId=th.entrypoint
 >проснуться   (th.start.2)
 >[debug] to end (th.end)
 >[debug] to th.start.12 (th.start.12)
+>[debug] to th.croc.5.2.3 (th.croc.5.2)
 
 
 ---- th.start.1.1 [models.items.phrase.RandomPhrase]

@@ -3,7 +3,7 @@ package game
 import models.World
 import models.items.DialogItem
 import models.items.dialog.Dialog
-import phrases.PhraseFabric
+import phrases.fabric.PhraseFabric
 import java.io.File
 
 class Game {

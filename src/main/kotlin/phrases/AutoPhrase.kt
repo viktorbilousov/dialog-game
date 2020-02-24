@@ -2,12 +2,10 @@ package phrases
 
 import models.Answer
 import models.items.phrase.FilteredPhrase
-import phrases.fabric.AnswerChooserFabric
-import phrases.fabric.FiltersFabric
-import phrases.fabric.PrinterFabric
+import phrases.fabric.FilteredPhraseConfigurator
 
-class AutoPhrase(id: String, phrases: Array<String>,  answers: Array<Answer>) : CountPhrase(id, phrases, answers){
+class AutoPhrase(id: String, phrases: Array<String>,  answers: Array<Answer>) : FilteredPhrase(id, phrases, answers){
     init {
-        this.answerChooser = AnswerChooserFabric.auto()
+        FilteredPhraseConfigurator(this).count().auto()
     }
 }

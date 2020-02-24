@@ -11,7 +11,8 @@ import models.router.Router
 import models.router.RouterStream
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import phrases.fabric.FiltersFabric
+import phrases.fabric.FilteredPhraseConfigurator
+import phrases.fabric.FiltersCollection
 import java.nio.file.Files
 import java.nio.file.Files.isRegularFile
 import java.nio.file.Paths
@@ -86,7 +87,7 @@ class Loader(private val game: Game) {
         logger.info("----- post init ------")
         logger.info("")
 
-        postInit()
+      //  postInit()
 
         if (error) {
             logger.error("Game Loading completed unsuccessfully")
@@ -95,18 +96,16 @@ class Loader(private val game: Game) {
         logger.info("<< load")
     }
 
-    private fun postInit(){
+   /* private fun postInit(){
         game.phrases.values.forEach{
             try{
-                (it as FilteredPhrase).addAnswerFilter("debug", FiltersFabric.debugAnswerFilter)
-                (it as FilteredPhrase).addPhrasesFilter("rm", FiltersFabric.removeLabelPhrases)
-                (it as FilteredPhrase).addAnswerFilter("rm", FiltersFabric.removeLabelAnswers)
+                FilteredPhraseConfigurator(it as FilteredPhrase)
             }
             catch (e: ClassCastException){
                 logger.warn("cannot cast ${it.javaClass.name} [${it.id}] to models.items.phrase.FilteredPhrase and set debug filter")
             }
         }
-    }
+    }*/
 
     private fun loadPhrases(phrasesTextFolder: String): List<PhraseText> {
         logger.info(">> loadPhrases from $phrasesTextFolder ")

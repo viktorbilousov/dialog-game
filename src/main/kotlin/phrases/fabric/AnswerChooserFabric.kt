@@ -2,6 +2,7 @@ package phrases.fabric
 
 import models.Answer
 import models.items.phrase.AnswerChooser
+import tools.ConsoleAnswerChooser
 
 class AnswerChooserFabric {
     companion object{

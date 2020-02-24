@@ -10,7 +10,7 @@ $startPointId=th.entrypoint
 5) поставить чайник на плиту ()
 6) найти чашки (боковая полочка справа)
 
----- th.croc.kitchen.tea [phrases.ParametredPhrase]
+---- th.croc.kitchen.tea [phrases.ParametricPhrase]
 
 - "Таааак, надо приготовить чай" - тихо сказала ты себе. 
 
@@ -27,7 +27,7 @@ $startPointId=th.entrypoint
 
 
 
----- _th.croc.kitchen.tea.kettle.search.tea.auto [phrases.AutoParametredIfPhrase]
+---- _th.croc.kitchen.tea.kettle.search.tea.auto [phrases.AutoParametricIfElsePhrase]
 
 text 
 
@@ -35,7 +35,7 @@ text
 >[ELSE] else (th.croc.kitchen.tea.kettle.search.tea.1)
 
 
----- _th.croc.kitchen.tea.kettle.search.tea.set [phrases.AutoParametredPhrase]
+---- _th.croc.kitchen.tea.kettle.search.tea.set [phrases.AutoParametricPhrase]
 
 tea
 
@@ -49,7 +49,7 @@ tea
 > [SET=cup] найти кружки (th.croc.kitchen.tea.kettle.search)
 
 
----- th.croc.kitchen.tea.search [phrases.ParametredRandomPhrase]
+---- th.croc.kitchen.tea.search [phrases.RandomParametricPhrase]
 
 @ [GET=kettle] - "Блин, ну и где же этот чайник?"
 @ [GET=kettle] - "Давай посмотрим еще где нибудь"
@@ -75,9 +75,9 @@ tea
 > поискать на полочках между ящиками (th.croc.kitchen.tea.search.shelf)
 
 
----- th.croc.kitchen.tea.search.shelf [phrases.ParametredPhrase]
+---- th.croc.kitchen.tea.search.shelf [phrases.ParametricPhrase]
 
-@ [!GET=fire] На этой маленькой полочке хранились всякие безделушки и специи: маленькие керамические игрушки, которые как бы свисают с краев, небольшие солонки с перцем и солью, разные масла и другие непонятные специи.  
+@ [NOT=fire] На этой маленькой полочке хранились всякие безделушки и специи: маленькие керамические игрушки, которые как бы свисают с краев, небольшие солонки с перцем и солью, разные масла и другие непонятные специи.  
 
 @ [GET=fire] На этой маленькой полочке хранились всякие безделушки и специи: маленькие керамические игрушки, которые как бы свисают с краев, небольшие солонки с перцем и солью, разные масла и другие непонятные специи. А еще прямо пеед твоим носом лежит спичечный коробок! Юху) 
 
@@ -85,17 +85,17 @@ tea
 > [!UNGET=fire] поискать где нибудь еще (th.croc.kitchen.tea.search)
 
 
-----  th.croc.kitchen.tea.search.drawer.dr [phrases.ParametredPhrase]
+----  th.croc.kitchen.tea.search.drawer.dr [phrases.ParametricPhrase]
 
 @ [GET=kettle] На полочках этого ящичка была всякая кухонная утворь: сковородки, кастрюли, формы для запикания и прочее. И о чудо, а вот и 
 чайник!  
-@ [!GET=kettle] На полочках этого ящичка была всякая кухонная утворь: сковородки, кастрюли, формы для запикания и прочее. 
+@ [NOT=kettle] На полочках этого ящичка была всякая кухонная утворь: сковородки, кастрюли, формы для запикания и прочее. 
 
 > [GET=kettle]  Взять чайник (th.croc.kitchen.tea.kettle.descr)
-> [!GET=kettle] поискать где нибудь еще (th.croc.kitchen.tea.search)
+> [NOT=kettle] поискать где нибудь еще (th.croc.kitchen.tea.search)
 
 
----- th.croc.kitchen.tea.kettle.descr [phrases.ParametredPhrase]
+---- th.croc.kitchen.tea.kettle.descr [phrases.ParametricPhrase]
 
 Ты взяла в руки обычный металический чайник, как будто взятый из прямиком из дома родителей. Но при этом он был покрыт красиво окрашен в бордовый цвет с болшим белым горошком. На носике у него находился свисток. 
 
@@ -104,10 +104,10 @@ tea
 > [SET=is_kettle_found][UNSET=kettle][SET=wasser] поставить чайник у раковины (th.croc.kitchen.tea.search.sink.wasser)
 
 
----- th.croc.kitchen.tea.search.drawer.ur [phrases.ParametredPhrase]
+---- th.croc.kitchen.tea.search.drawer.ur [phrases.ParametricPhrase]
 
 @[GET=tea] В этом ящичке лежали различные чаи
-@[!GET=tea] В этом ящичке лежали различные чаи, но пока чайник не кипит и кружечки не найдены, выбирать что то рановато.
+@[NOT=tea] В этом ящичке лежали различные чаи, но пока чайник не кипит и кружечки не найдены, выбирать что то рановато.
 
 > [GET=kettle] продолжить искать чайник где то еще
 > [GET=wasser] пойти поставить чайник 
@@ -115,7 +115,7 @@ tea
 > [GET=tea] выбрать чай
 
 
----- th.croc.kitchen.tea.search.drawer.ul [phrases.ParametredPhrase]
+---- th.croc.kitchen.tea.search.drawer.ul [phrases.ParametricPhrase]
 
 @ [GET=cup] А туууут лежало просто невообразимое количество кружечек для чая. И все были невероятно цветными или красивыми! Давай выберем что ли парочку?
 
@@ -126,26 +126,31 @@ tea
 > [GET=kettle] сначала надо разобраться с чайником (th.croc.kitchen.tea.search)
 
 
----- th.croc.kitchen.tea.cup.game [phrases.ParametredPhrase]
+---- th.croc.kitchen.tea.cup.game [phrases.ParametricPhrase]
+
+"Ого"- подумала ты, когда увидила количество разнообразных чашек.
+Выбор кружек был просто оромен, хотя и очень странным потому что почти все кружки были разные.
+
+- "Итак, какуб кружку мне выбрать для себя?"
 
 // todo
--> одинаковые белые без рисунка
--> синий с рисунком моря
--> зеленый с маленькой коалкой на дереве
--> салатовый в крапинку с крокодилом
--> пурпурный с радугой с единорогом
--> светло желтый в полосочку с рисунком сыра
--> с золотой оконтовочкой и завиточками
--> с маленькими цветочками и ягодками 
--> стеклянный бокал для вина
--> стеклянный бокал для шампанского
--> повной бокал 
+>[SET=GLASS1] белое без рисунка (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS2] синий с рисунком моря (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS3] зеленый с маленькой коалкой на дереве (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS4] салатовый в крапинку с крокодилом (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS5] пурпурный с радугой с единорогом (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS6] светло желтый в полосочку с рисунком сыра (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS7] с золотой оконтовочкой и завиточками (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS8] с маленькими цветочками и ягодками (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS9] стеклянный бокал для вина (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS10] стеклянный бокал для шампанского (th.croc.kitchen.tea.cup.game.1)
+>[SET=GLASS11] пивной бокал (th.croc.kitchen.tea.cup.game.1)
 
 
 
-----  th.croc.kitchen.tea.search.drawer.dl [phrases.ParametredCountedPhrase]
+----  th.croc.kitchen.tea.search.drawer.dl [phrases.ParametricCountedPhrase]
 
-@ [!GET=kettle] На полочках этого ящичка были всякие принадлежности для уборки: тряпки, мочалочки, мусорные пакеты и прочее. 
+@ [NOT=kettle] На полочках этого ящичка были всякие принадлежности для уборки: тряпки, мочалочки, мусорные пакеты и прочее. 
 @ [GET=kettle] На полочках этого ящичка были всякие принадлежности для уборки: тряпки, мочалочки, мусорные пакеты и прочее. 
 
 > поискать где нибудь еще (th.croc.kitchen.tea.search)
@@ -160,7 +165,7 @@ tea
 > поискать где нибудь еще (th.croc.kitchen.tea.search)
 
 
----- th.croc.kitchen.tea.search.plate [phrases.ParametredPhrase]
+---- th.croc.kitchen.tea.search.plate [phrases.ParametricPhrase]
 
 @ [GET=kettle] "Самое логичное, где он мог быть - это на плите" - подумала ты про себя. Однако эта идея оказалась провальной, чайника на плите не оказалось. 
 
@@ -172,7 +177,7 @@ tea
 > поискать где нибудь еще (th.croc.kitchen.tea.search)
 
 
----- th.croc.kitchen.tea.search.sink [phrases.ParametredPhrase]
+---- th.croc.kitchen.tea.search.sink [phrases.ParametricPhrase]
 
 @ [GET=kettle] Как ни странно, но возле раковины находилось только мыло и разная посуда с изображением эвкалипта. Ни чайника,
  даже следа от него не было видно. 
@@ -193,43 +198,43 @@ tea
 
 > [GET=cup] помыть посуду (th.croc.kitchen.tea.search.sink.1)
 > [GET=tea] взглянуть в ящички (th.croc.kitchen.tea.search.sink.2)
-> [!GET=wasser] попробовать поискать еще где нибудь (th.croc.kitchen.tea.search)
+> [NOT=wasser] попробовать поискать еще где нибудь (th.croc.kitchen.tea.search)
 
 
----- th.croc.kitchen.tea.search.sink.wasser.r1 [phrases.ParametredCountedPhrase]
+---- th.croc.kitchen.tea.search.sink.wasser.r1 [phrases.ParametricCountedPhrase]
 
-@ [!GET=is_gas_on] Послышалось какое-то шипение 
+@ [NOT=is_gas_on] Послышалось какое-то шипение 
 @ [GET=is_gas_on] Ты что то закрыла, но никакого звука не произошло 
 
 @ [4][GET=is_gas_on] *это рычаг газа, он нужен что бы включить газ на плите*
-@ [4][!GET=is_gas_on] *это рычаг газа, он нужен что бы включить газ на плите*
+@ [4][NOT=is_gas_on] *это рычаг газа, он нужен что бы включить газ на плите*
 
 
 > [GET=is_gas_on][UNSET=is_gas_on] далее (th.croc.kitchen.tea.search.sink)
-> [!GET=is_gas_on][SET=is_gas_on]  далее (th.croc.kitchen.tea.search.sink)
+> [NOT=is_gas_on][SET=is_gas_on]  далее (th.croc.kitchen.tea.search.sink)
 
 
 
----- th.croc.kitchen.tea.search.sink.wasser.l1 [phrases.ParametredCountedPhrase]
+---- th.croc.kitchen.tea.search.sink.wasser.l1 [phrases.ParametricCountedPhrase]
 
-@ [!GET=is_wasser_on] Что то булькнуло и пошло по трубам 
+@ [NOT=is_wasser_on] Что то булькнуло и пошло по трубам 
 @ [GET=is_wasser_on] Ты что то закрыла, но никакого звука не произошло 
 
 @ [4][GET=is_wasser_on] *это рычаг газа, он нужен что бы включить газ на плите*
-@ [4][!GET=is_wasser_on] *это рычаг газа, он нужен что бы включить газ на плите*
+@ [4][NOT=is_wasser_on] *это рычаг газа, он нужен что бы включить газ на плите*
 
 > [GET=is_wasser_on][UNSET=is_wasser_on] далее (th.croc.kitchen.tea.search.sink)
-> [!GET=is_wasser_on][SET=is_wasser_on]  далее (th.croc.kitchen.tea.search.sink)
+> [NOT=is_wasser_on][SET=is_wasser_on]  далее (th.croc.kitchen.tea.search.sink)
 
 
----- th.croc.kitchen.tea.search.sink.wasser.r2 [phrases.ParametredCountedPhrase]
+---- th.croc.kitchen.tea.search.sink.wasser.r2 [phrases.ParametricCountedPhrase]
 
-@ [!GET=is_wasser_on] Ты услышала какой-то скрип со стороны крана, но ничего более
+@ [NOT=is_wasser_on] Ты услышала какой-то скрип со стороны крана, но ничего более
 @ [GET=is_wasser_on] Ура, пошла вода)
 
 
 > [GET=is_wasser_on][UNSET=wasser][SET=is_full_wasser]наполнить чайник (th.croc.kitchen.tea.search.wasser.descr)
-> [!GET=is_wasser_on] сделать что то еще (th.croc.kitchen.tea.search.sink)
+> [NOT=is_wasser_on] сделать что то еще (th.croc.kitchen.tea.search.sink)
 
 
 ---- th.croc.kitchen.tea.search.sink.wasser.r1 [phrases.CountPhrase]

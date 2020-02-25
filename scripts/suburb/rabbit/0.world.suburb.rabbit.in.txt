@@ -1,0 +1,9 @@
+$id=world.suburb.rabbit.in
+$isResetToStart=true
+$startPointId=rabbit.entrypoint
+
+---- rabbit.entrypoint [phrases.AutoPhrase]
+
+plug
+
+> plug (plug)

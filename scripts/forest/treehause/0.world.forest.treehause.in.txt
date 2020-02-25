@@ -1,12 +1,12 @@
 $id=world.forest.treehause.in
 $isResetToStart=true
-$startPointId=dialog.treehause.start_dialog
+$startPointId=th.entrypoint
 
 ---- th.entrypoint [phrases.AutoPhrase]
 text
 
-> [1] (treehause.dialog.start_dialog #enter)
-> [*] (plug)
+> [1] go to start (treehause.dialog.start_dialog #enter)
+> [*] exit (th.end)
 
 ---- th.end
 

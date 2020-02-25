@@ -15,6 +15,7 @@ th.croc.door.end
 Ты ожидала увидить за дверь все что угодно, но то что там стояло сумело тебя поразить:
 
 > далее (th.croc.1)
+> [degub] to the end (th.croc.door.end)
 
 
 ---- th.croc.1

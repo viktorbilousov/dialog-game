@@ -55,7 +55,7 @@ class ParametersProcessing(public val parameters: HashMap<String, Any?> ) {
         private fun getParameterValue(label: String) : String?{
             if (!label.contains('=')) return null;
             val value = label.split("=")
-            return value[1];
+            return value[1].trim();
         }
 
         private fun getParameterAction(label: String) : ParameterAction?{

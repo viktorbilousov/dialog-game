@@ -7,7 +7,7 @@ class FiltersTools {
            var line = str;
            while (getLastFilterLabel(line) != null) {
                list.add(getLastFilterLabel(line)!!);
-               line = removeLastLabel(line)
+               line = removeLastLabel(line)!!
            }
            if (list.isEmpty()) return null
            return list.toTypedArray();
@@ -29,7 +29,7 @@ class FiltersTools {
            }
        }
 
-       public fun removeLastLabel(str: String): String {
+       public fun removeLastLabel(str: String): String? {
            val lastLabel = getLastFilterLabel(str) ?: return str
            return str.subSequence(lastLabel.length + 2, str.length).toString().trim()
 

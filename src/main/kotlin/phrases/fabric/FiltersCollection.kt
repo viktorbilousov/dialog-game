@@ -4,7 +4,6 @@ import game.Game
 import models.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import tools.FiltersTools
 import tools.FiltersTools.Companion.getFilterLabels
 import tools.FiltersTools.Companion.getLastFilterLabel
 import tools.FiltersTools.Companion.removeLabels
@@ -67,7 +66,6 @@ class FiltersCollection {
                             }
                         }
                     }
-
                     it.text = res;
                     return@map it
                 }.toTypedArray()
@@ -75,21 +73,21 @@ class FiltersCollection {
 
         public val notCountAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer>{
             return answers.filter {
-                notCountFilter(
-                    getLastFilterLabel(
-                        it.text
-                    ), count
-                )
+                val labels = getFilterLabels(it.text) ?: return@filter true
+                for (label in labels) {
+                    if(!notCountFilter(label , count))  return@filter false
+                }
+                return@filter true
             }.toTypedArray()
         }
 
-        public val notCountPhrase = fun(answers: Array<String>, count: Int): Array<String>{
-            return answers.filter {
-                notCountFilter(
-                    getLastFilterLabel(
-                        it
-                    ), count
-                )
+        public val notCountPhrase = fun(phrases: Array<String>, count: Int): Array<String>{
+            return phrases.filter {
+                val labels = getFilterLabels(it) ?: return@filter true
+                for (label in labels) {
+                    if(!notCountFilter(label , count))  return@filter false
+                }
+                return@filter true
             }.toTypedArray()
         }
 
@@ -104,51 +102,14 @@ class FiltersCollection {
                     if (number > maxCnt) maxCnt = number
                 }
             }
-
             return answers
                 .filter {
-                    val filterLabel = getLastFilterLabel(it.text)
-                        ?: return@filter true;
-                    return@filter countFilter(
-                        filterLabel,
-                        maxCnt,
-                        count
-                    )
+                    val filterLabels = getFilterLabels(it.text) ?: return@filter true;
+                    for (label in filterLabels) {
+                        if (!countFilter(label, maxCnt, count)) return@filter false
+                    }
+                    return@filter true
                 }.toTypedArray()
-        }
-
-        public fun ifElseAnswersFilter(settings: HashMap<String, Any?>) = fun(answers: Array<Answer>, _: Int): Array<Answer> {
-            val texts = answers.map { it.text }.toTypedArray()
-            val index = ifElseStatement(texts, settings) ?: return answers;
-            return arrayOf(answers[index])
-        }
-
-        public fun ifElsePhrasesFilter(settings: HashMap<String, Any?>) = fun(phrases: Array<String>, _: Int): Array<String> {
-            val index = ifElseStatement(phrases, settings) ?: return phrases;
-            return arrayOf(phrases[index])
-        }
-
-        private fun countFilter(filterLabel: String, maxCnt: Int, count: Int) : Boolean{
-            val lastFilter = "*"
-            if (maxCnt < count) {
-                return filterLabel == lastFilter
-            } else {
-                val number = filterLabel.toIntOrNull()
-                if (number == null || number == count) {
-                    return true
-                }
-            }
-            return false;
-        }
-
-
-
-        private fun notCountFilter (label: String?, count: Int): Boolean {
-            return label == null
-                    || !label.startsWith("!")
-                    || label.removePrefix("!").toIntOrNull() == null
-                    || label.removePrefix("!").toIntOrNull() != count
-
         }
 
         public val countPhrase = fun(phrases: Array<String>, count: Int): Array<String> {
@@ -162,18 +123,48 @@ class FiltersCollection {
             }
             return  phrases
                 .filter {
-                    val filterLabel = getLastFilterLabel(it) ?: return@filter true;
-                    return@filter countFilter(
-                        filterLabel,
-                        maxCnt,
-                        count
-                    )
+                    val filterLabels = getFilterLabels(it) ?: return@filter true;
+                    for (label in filterLabels) {
+                        if (!countFilter(label, maxCnt, count)) return@filter false
+                    }
+                    return@filter true
                 }
                 .toTypedArray()
         }
 
 
+        public fun ifElseAnswersFilter(settings: HashMap<String, Any?>) = fun(answers: Array<Answer>, _: Int): Array<Answer> {
+            return answers.filter {
+                val res = processIfElse(it.text, settings) ?: return@filter true;
+                return@filter res;
+            }.toTypedArray()
+        }
 
+        public fun ifElsePhrasesFilter(settings: HashMap<String, Any?>) = fun(phrases: Array<String>, _: Int): Array<String> {
+            return phrases.filter {
+                val res = processIfElse(it, settings) ?: return@filter true;
+                return@filter res;
+            }.toTypedArray()
+        }
+
+        private fun countFilter(filterLabel: String, maxCnt: Int, count: Int) : Boolean{
+            val lastFilter = "*"
+            if(filterLabel == lastFilter){
+                return count > maxCnt
+            }
+            else {
+                val number = filterLabel.toIntOrNull() ?: return true
+                return number == count
+            }
+        }
+
+        private fun notCountFilter (label: String?, count: Int): Boolean {
+            return label == null
+                    || !label.startsWith("!")
+                    || label.removePrefix("!").toIntOrNull() == null
+                    || label.removePrefix("!").toIntOrNull() != count
+
+        }
 
         public val debugAnswerFilter =
             fun(answers: Array<Answer>, count: Int): Array<Answer> {
@@ -191,30 +182,21 @@ class FiltersCollection {
         private fun filterParameter(str: String, parametersProcessing: ParametersProcessing) : Boolean{
             val labels = getFilterLabels(str) ?: return true
             labels.forEach {
-                val isGet = parametersProcessing.processGetParameter(it) ?: return@forEach
-                if(!isGet) return false
+                val isTrue = parametersProcessing.processGetParameter(it) ?: return@forEach
+                if(!isTrue) return false
             }
             return true
         }
 
 
-        private fun ifElseStatement(lines: Array<String>, settings: HashMap<String, Any?>) : Int?{
-            if(lines.size == 1) return null;
-            for (index in lines.indices) {
-                val res = processIfElse(lines[index], settings) ?: continue;
-                if(res) return index;
-            }
-            return null;
-        }
-
-        private fun processIfElse(str: String, settings: HashMap<String, Any?>) : Boolean?{
-            val labels = getFilterLabels(str) ?: return null;
+        private fun processIfElse(str: String, settings: HashMap<String, Any?>) : Boolean{
+            val labels = getFilterLabels(str) ?: return true
             when(labels[0]){
                 "IF", "ELSE IF" -> {
                     for (i in 1 until labels.size){
                         val res = ParametersProcessing(settings).processGetParameter(labels[i])
                         if(res == null){
-                            logger.error("processIfElse > label ${labels[i]} in line $str return null")
+                            logger.warn("processIfElse > label '${labels[i]}' in line $str return null")
                             continue;
                         }
                         if(!res) return false
@@ -223,7 +205,7 @@ class FiltersCollection {
                 }
                 "ELSE" -> return true;
             }
-            return null
+            return true
         }
 
 

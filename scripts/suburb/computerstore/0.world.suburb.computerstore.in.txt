@@ -1,0 +1,9 @@
+$id=world.suburb.computerstore.in
+$isResetToStart=true
+$startPointId=store.entrypoint
+
+---- store.entrypoint [phrases.AutoPhrase]
+
+plug
+
+> plug (plug)

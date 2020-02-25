@@ -1,0 +1,9 @@
+$id=world.sea.parentgarden.in
+$isResetToStart=true
+$startPointId=garden.entrypoint
+
+---- garden.entrypoint [phrases.AutoPhrase]
+
+plug
+
+> plug (plug)

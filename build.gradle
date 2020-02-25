@@ -34,7 +34,7 @@ def outputPhraseTextFolder = "src/main/resources/phrases"
 def outputRouterFile = "src/main/resources/routers/routers.json"
 def jarPath = "libs/dialog-creator-1.1.1.jar"
 
-task buildDialog {
+/*task buildDialog {
 
     group = 'dialog'
     description = 'Parse dialogs from scrips files'
@@ -52,7 +52,7 @@ task buildDialog {
     }
    // commandLine 'cmd', '/c', 'java', '-Dfile.encoding="UTF-8"', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
     // standardOutput = stdout
-}
+}*/
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"

@@ -1,0 +1,9 @@
+$id=world.town.home.in
+$isResetToStart=true
+$startPointId=home.town.entrypoint
+
+---- home.town.entrypoint [phrases.AutoPhrase]
+
+plug
+
+> plug (plug)

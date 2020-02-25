@@ -1,0 +1,30 @@
+$id=world
+$isResetToStart=false
+$startPointId=world.startpoint
+
+----  world.suburb
+
+world.suburb
+
+> вернуться обратно в город (world.town.busstop)
+> пойти к городу одинокого кролика (world.suburb.rabbit)
+> подойти к магазину техники (world.suburb.computerstore)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.suburb.computerstore
+
+world.suburb.computerstore
+
+> зайти внутрь (world.suburb.computerstore.in #enter)
+> вернуться обратно (world.suburb)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.suburb.rabbit
+
+world.suburb.rabbit
+
+> зайти внутрь (world.suburb.rabbit.in #enter)
+> вернуться обратно (world.suburb)
+> [debug] teleport (debug.world.startpoint)

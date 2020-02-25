@@ -1,0 +1,51 @@
+$id=world
+$isResetToStart=false
+$startPointId=world.startpoint
+
+---- world.town
+
+world.town
+
+> обратно к перекрестку (world.crossroad)
+> пойти в школу (world.town.school)
+> пойти на почту (world.town.post)
+> пойти в дом (world.town.home)
+> пойти на автобусную остановку (world.town.busstop)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town.home
+
+world.town.home
+
+> зайти внутрь (world.town.home.in #enter)
+> вернуться в город (world.town)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town.post
+
+world.town.post
+
+> зайти внутрь (world.city.post.in #enter)
+> вернуться в город (world.town)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town.school
+
+world.town.school
+
+> зайти внутрь (world.town.school.in #enter)
+> вернуться в город (world.town)
+> [debug] teleport (debug.world.startpoint)
+
+
+---- world.town.busstop
+
+world.town.busstop
+
+> отправиться загород (world.suburb)
+> вернуться в город (world.town)
+> [debug] teleport (debug.world.startpoint)
+

@@ -1,0 +1,10 @@
+$id=world.forest.sloth.in
+$isResetToStart=true
+$startPointId=sloth.entrypoint
+
+
+---- sloth.entrypoint [phrases.AutoPhrase]
+
+plug
+
+> plug (plug)

@@ -1,0 +1,9 @@
+$id=world.sea.parenthause.in
+$isResetToStart=true
+$startPointId=ph.entrypoint
+
+---- ph.entrypoint [phrases.AutoPhrase]
+
+plug
+
+> plug (plug)

@@ -12,7 +12,7 @@ $startPointId=th.start.1
 
 >игнорировать (th.start.1.1)
 >проснуться   (th.start.2)
->[debug] to end (th.start.end )
+>[debug] to end (th.start.end)
 >[debug] to th.start.12 (th.start.12)
 
 

@@ -1,0 +1,9 @@
+$id=world.sea.beach.in
+$isResetToStart=true
+$startPointId=beach.entrypoint
+
+---- beach.entrypoint [phrases.AutoPhrase]
+
+plug
+
+> plug (plug)

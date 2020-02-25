@@ -1,0 +1,9 @@
+$id=world.town.school.in
+$isResetToStart=true
+$startPointId=sh.entrypoint
+
+---- sh.entrypoint [phrases.AutoPhrase]
+
+plug
+
+> plug (plug)

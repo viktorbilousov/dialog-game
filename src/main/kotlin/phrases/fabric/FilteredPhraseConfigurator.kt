@@ -63,6 +63,7 @@ class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
     public fun parametricIfElseStatement() : FilteredPhraseConfigurator{
         phrase.addPhrasesFilter("condition.parameter.ifElse.phrases", FiltersCollection.ifElsePhrasesFilter(settings))
         phrase.addAnswerFilter("condition.parameter.ifElse.answer", FiltersCollection.ifElseAnswersFilter(settings))
+        parameterSet(settings)
         return this
     }
 }

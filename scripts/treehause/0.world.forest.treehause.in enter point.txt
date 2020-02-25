@@ -1,0 +1,15 @@
+$id=world.forest.treehause.in
+$isResetToStart=true
+$startPointId=dialog.treehause.start_dialog
+
+---- th.entrypoint [phrases.AutoPhrase]
+text
+
+> [1] (treehause.dialog.start_dialog #enter)
+> [*] (plug)
+
+---- th.end
+
+exit
+
+> exit (world.forest.treehause #exit)

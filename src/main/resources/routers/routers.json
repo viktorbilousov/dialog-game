@@ -1,8 +1,8 @@
 [
   {
-    "id": "world",
     "isResetToStart": false,
-    "startPointId": "world.startpoint"
+    "startPointId": "th.croc.start",
+    "id": "dialog.treehause.meet_crock"
   },
   {
     "id": "router.world",
@@ -10,53 +10,58 @@
     "startPointId": "world"
   },
   {
-    "id": "world.forest.sloth.in",
-    "isResetToStart": true,
-    "startPointId": "plug"
+    "isResetToStart": false,
+    "startPointId": "world.startpoint",
+    "id": "world"
   },
   {
-    "id": "world.forest.treehause.in",
-    "isResetToStart": true,
-    "startPointId": "th.entrypoint"
+    "isResetToStart": false,
+    "startPointId": "th.start.1",
+    "id": "dialog.treehause.start_dialog"
   },
   {
-    "id": "world.forest.flowershop.in",
-    "isResetToStart": true,
-    "startPointId": "plug"
+    "isResetToStart": false,
+    "startPointId": "game.kitchen.tea.p2.start",
+    "id": "game.treehause.tea_game.part2"
   },
   {
-    "id": "world.town.school.in",
-    "isResetToStart": true,
-    "startPointId": "plug"
+    "isResetToStart": false,
+    "startPointId": "th.croc.kitchen.tea",
+    "id": "game.treehause.tea_game.part1"
   },
   {
-    "id": "world.town.post.in",
-    "isResetToStart": true,
-    "startPointId": "plug"
+    "isResetToStart": false,
+    "startPointId": "th.croc.kitchen.start",
+    "id": "dialog.treehause.start_kitchen"
   },
   {
-    "id": "world.town.home.in",
     "isResetToStart": true,
-    "startPointId": "plug"
+    "startPointId": "dialog.treehause.start_dialog",
+    "id": "world.forest.treehause.in"
   },
   {
-    "id": "world.suburb.rabbit.in",
-    "isResetToStart": true,
-    "startPointId": "plug"
+    "isResetToStart": false,
+    "startPointId": "th.game.tea.p1.staer",
+    "id": "treehause.game.tea_game.part1"
   },
   {
-    "id": "world.suburb.computershop.in",
-    "isResetToStart": true,
-    "startPointId": "plug"
+    "isResetToStart": false,
+    "startPointId": "th.game.tea.p2.start",
+    "id": "treehause.game.tea_game.part2"
   },
   {
-    "id": "world.sea.parentgarden.in",
-    "isResetToStart": true,
-    "startPointId": "plug"
+    "isResetToStart": false,
+    "startPointId": "th.croc.kitchen.start",
+    "id": "treehause.dialog.start_kitchen"
   },
   {
-    "id": "world.sea.parenthause.in",
-    "isResetToStart": true,
-    "startPointId": "plug"
+    "isResetToStart": false,
+    "startPointId": "th.croc.start",
+    "id": "treehause.dialog.meet_crock"
+  },
+  {
+    "isResetToStart": false,
+    "startPointId": "th.start.1",
+    "id": "treehause.dialog.start_dialog"
   }
 ]

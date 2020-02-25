@@ -1,0 +1,9 @@
+$id=treehause.game.tea_game.part2
+$isResetToStart=false
+$startPointId=th.game.tea.p2.start
+
+---- th.game.tea.p2.start
+
+th.game.tea.p2.start
+
+> [*] plug (plug)

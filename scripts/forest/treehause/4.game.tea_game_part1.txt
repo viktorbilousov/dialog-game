@@ -13,7 +13,6 @@ game.treehause.tea_game.part2
 
 ---- th.game.tea.p1.start [phrases.CountParametricPhrase]
 
-@ [1]
 - "Таааак, надо приготовить чай" - тихо сказала ты себе. 
 
 Обычно приготовить чай для тебя никогда не было проблемой. И это даже не смотря на то, что чай ты и особо не пьешь, поскольку тебе больше по вкусу кофе с молоком. Но процесс приготовления чая может сильно усложнится, если ты находишься на кухне, которую видишь в первый раз. И тем более тебе нельзя подавать виду, что ты тут впервые, иначе он может что то заподозрить. Мало ли что произашло на самом деле. 
@@ -22,23 +21,10 @@ game.treehause.tea_game.part2
 
 - "Окей, это должно быть просто. Для начало надо ..."
 
-@ [GET=is_kettle_on_plate][NOT=is_gas_on][NOT=is_fire_found] Чайник стоит та плите, но печка не горит. 
-@ [GET=is_kettle_on_plate][NOT=is_gas_on][GET=is_fire_found] Чайник стоит та плите, но печка не горит.
-@ [GET=is_kettle_on_plate][GET=is_gas_on][NOT=is_fire_found] Чайник стоит та плите, но печка не горит.
-@ [GET=is_kettle_ready][NOT=is_cup_found] Ну что ж, пока чайник кипятит воду Теперь надо найти кружки
-@ [GET=is_kettle_ready][GET=is_cup_found] Чайник кипит, кружки на месте! Настало время выбрать чай)
 
-@ [NOT=is_kettle_on_plate][GET=is_cup_found] Ты выбрала чашки, теперь надо разобраться с чайником
-
-
-> [1][SET=kettle] найти чайник и понять как закипятить воду (th.game.tea.p1.search)
-> [1]найти чай (th.game.tea.p1.tea.1)
-> [1][SET=cup] найти кружки (th.game.tea.p1.search)
-
-> [NOT=is_kettle_on_plate][GET=is_cup_found] [SET=kettle] искать чайник (th.game.tea.p1.search)
-> [GET=is_kettle_on_plate][NOT=is_gas_on][NOT=is_fire_found] [SET=gas][SET=fire] Найти, как включить газ и найти спички (th.game.tea.p1.search)
-> [GET=is_kettle_on_plate][NOT=is_gas_on][GET=is_fire_found] [SET=gas] Найти, как включить газ (th.game.tea.p1.search)
-> [GET=is_kettle_on_plate][GET=is_gas_on][NOT=is_fire_found] [SET=fire] Найти, как зажечь газ на плите (th.game.tea.p1.search)
+> [SET=kettle] найти чайник и понять как закипятить воду (th.game.tea.p1.search)
+> найти чай (th.game.tea.p1.tea.1)
+> [SET=cup] найти кружки (th.game.tea.p1.search)
 
 > [debug] to part 2 (game.kitchen.tea.p2.enter)
 
@@ -52,14 +38,22 @@ game.treehause.tea_game.part2
 
 Так стоп, а сыпать я его куда буду? 
 
-> [SET=cup] найти кружки (th.game.tea.p1.search)
+> [SET=cup] искать кружки (th.game.tea.p1.search)
 
 
----- th.game.tea.set [phrases.AutoParametricPhrase]
 
-Ну раз все готово, то можно и готовить чай
 
-> [SET=tea] найти чай (th.game.tea.p1.search)
+---- th.game.tea.p1.drawer.ur [phrases.ParametricPhrase]
+
+@[GET=tea] В этом ящичке лежали различные чаи
+@[NOT=tea] В этом ящичке лежали различные чаи, но пока чайник не кипит и кружечки не найдены, выбирать что то рановато.
+
+> [GET=kettle] продолжить искать чайник где то еще (th.game.tea.p1.search)
+> [GET=cup] продолжить искать кружки в другом месте (th.game.tea.p1.search)
+> [GET=tea] выбрать чай (game.kitchen.tea.p2.enter)
+
+
+
 
 
 
@@ -83,6 +77,8 @@ game.treehause.tea_game.part2
 @ [GET=fire] - "Может они просто где то перед глазами?"
 @ [GET=fire] - "Может тут где то и зажигалка есть?"
 @ [GET=is_fire_found][GET=is_full_wasser] надо теперь зажечь чайник
+@ [NOT=is_gas_on] Ну и как же мне включить этот газ? 
+@ [NOT=is_gas_on] Да где же газ тут влючается? 
 
 
 > поискать у раковины (th.game.tea.p1.sink)
@@ -121,28 +117,16 @@ game.treehause.tea_game.part2
 
 
 
+
+
 ---- th.game.tea.p1.kettle.descr [phrases.ParametricPhrase]
 
 Ты взяла в руки обычный металический чайник, как будто взятый из прямиком из дома родителей. Но при этом он был покрыт красиво окрашен в бордовый цвет с болшим белым горошком. На носике у него находился свисток. 
 
 - "Хм, я уже 100 лет не видела ничего подобного. Теперь надо наполнить его водой и как-то вскипитить"
 
-> [SET=is_kettle_found][UNSET=kettle][SET=wasser] поставить чайник у раковины (th.game.tea.p1.sink)
+> [SET=is_kettle_found][UNSET=kettle][SET=sink][SET=sink_exit_block] поставить чайник у раковины (th.game.tea.p1.sink)
 
-
-
-
-
-
----- th.game.tea.p1.drawer.ur [phrases.ParametricPhrase]
-
-@[GET=tea] В этом ящичке лежали различные чаи
-@[NOT=tea] В этом ящичке лежали различные чаи, но пока чайник не кипит и кружечки не найдены, выбирать что то рановато.
-
-> [GET=kettle] продолжить искать чайник где то еще (th.game.tea.p1.search)
-> [GET=wasser] пойти поставить чайник (th.game.tea.p1.plate)
-> [GET=cup] продолжить искать кружки в другом месте (th.game.tea.p1.search)
-> [GET=tea] выбрать чай (game.kitchen.tea.p2.enter)
 
 
 
@@ -312,13 +296,12 @@ game.treehause.tea_game.part2
 
 ---- th.game.tea.p1.cupfound [phrases.ParametricPhrase]
 
-@[NOT=kettle] отлично, кружки есть. Теперь надо разобраться с чайником
+@[NOT=is_kettle_ready] отлично, кружки есть. Теперь надо разобраться с чайником
 
 @[GET=is_kettle_ready] Чайник стоит, кружки есть, осталось найти чай
 
-> [NOT=kettle] [SET=kettle] искать чайник (th.game.tea.p1.search)
-> [GET=is_kettle_ready] искать чай (th.game.tea.p1.search)
-
+> [NOT=is_kettle_ready] [SET=kettle] искать чайник (th.game.tea.p1.search)
+> [GET=is_kettle_ready][SET=tea] искать чай (th.game.tea.p1.search)
 
 
 
@@ -356,7 +339,9 @@ game.treehause.tea_game.part2
 
 ---- th.game.tea.p1.plate [phrases.ParametricIfElsePhrase]
 
-@[GET=is_full_wasser][GET=is_fire_found] Ты стоишь возле плиты с чайником и спичками.
+@ [GET=is_kettle_ready] На плите стоит чайник, в котором закипает вода
+
+@ [GET=is_full_wasser][GET=is_fire_found] Ты стоишь возле плиты с чайником и спичками.
 
 @ [GET=is_full_wasser][NOT=is_fire_found] Теперь ты хочешь поставить чайник на плиту, но вот незадача, спичек то у тебя нету)
 
@@ -366,7 +351,7 @@ game.treehause.tea_game.part2
 
 @ [GET=tea] Да что же меня тянет к это плите то постоянно? Конечно чая тут я не найду....
 
-> [IF][GET=is_full_wasser][GET=is_fire_found] попробовать зажечь плиту (th.game.tea.p1.plate.gas)
+> [IF][GET=is_full_wasser][GET=is_fire_found][NOT=is_kettle_ready] попробовать зажечь плиту (th.game.tea.p1.plate.gas)
 > [ELSE IF][GET=is_full_wasser][NOT=is_fire_found] [SET=fire] поискать где нибудь спички (th.game.tea.p1.search)
 > [ELSE] поискать где нибудь еще (th.game.tea.p1.search)
 
@@ -395,9 +380,8 @@ game.treehause.tea_game.part2
 @ [GET=is_kettle_ready][GET=is_cup_found]  Замечательно, чайник закипает, кружки выбраны. Осталось только найти чай
 @ [NOT=is_cup_found] А чай сыпать то куда будем?
 
-> [IF] [GET=is_kettle_ready][GET=is_cup_found] [SET=tea] искать чай (th.game.tea.set)
+> [IF] [GET=is_kettle_ready][GET=is_cup_found] [SET=tea] искать чай (th.game.tea.p1.search)
 > [ELSE] [SET=cup] искать кружки (th.game.tea.p1.search)
-
 
 
 
@@ -414,29 +398,27 @@ game.treehause.tea_game.part2
 
 @ [GET=tea] Вокруг стояло пару непонятных ящичков, в которых могло что то быть
 
-@ [GET=wasser] Теперь надо как-то наполнить чайник водой. Но видишь ли, крана в нормально понимании нет возле раковины. Все тут непросто однако. Однако вокруг раковины есть куча непонятных вещей, которые тут явно не просто так:
+@ [GET=sink] Теперь надо как-то наполнить чайник водой. Но видишь ли, крана в нормально понимании нет возле раковины. Все тут непросто однако. Однако вокруг раковины есть куча непонятных вещей, которые тут явно не просто так:
 
 Впереди на стене есть 2 вентиля, правый с красной отметиной и левый с белой. Под ногами еще есть 2 педальки которые надо надо нажимать ногами (лапами в твоем случае)
 
 
-> [GET=wasser] окрутить правый вентель (th.game.tea.p1.sink.wasser.r1)
-> [GET=wasser] окрутить левый вентель (th.game.tea.p1.sink.wasser.l1)
-> [GET=wasser] нажать левую педаль (th.game.tea.p1.sink.wasser.r2)
-> [GET=wasser] нажать правую педаль (th.game.tea.p1.sink.wasser.l2)
+> [GET=sink] окрутить правый вентель (th.game.tea.p1.sink.wasser.r1)
+> [GET=sink] окрутить левый вентель (th.game.tea.p1.sink.wasser.l1)
+> [GET=sink] нажать левую педаль (th.game.tea.p1.sink.wasser.r2)
+> [GET=sink] нажать правую педаль (th.game.tea.p1.sink.wasser.l2)
 
 > [GET=cup] помыть посуду (th.game.tea.p1.sink.1)
 > [GET=tea] взглянуть в ящички (th.game.tea.p1.sink.2)
-> [NOT=wasser] попробовать поискать еще где нибудь (th.game.tea.p1.search)
+> [NOT=sink_exit_block] попробовать поискать еще где нибудь (th.game.tea.p1.search)
 
 
 
-
-
-
----- th.game.tea.p1.sink.wasser.r1 [phrases.ParametricPhrase]
+---- th.game.tea.p1.sink.wasser.r1 [phrases.CountParametricPhrase]
 
 @ [NOT=is_gas_on] Послышалось какое-то шипение 
 @ [GET=is_gas_on] Ты что то закрыла, но никакого звука не произошло
+
 
 > [GET=is_gas_on][UNSET=is_gas_on] далее (th.game.tea.p1.sink)
 > [NOT=is_gas_on][SET=is_gas_on]  далее (th.game.tea.p1.sink)
@@ -463,13 +445,11 @@ game.treehause.tea_game.part2
 ---- th.game.tea.p1.sink.wasser.l2 [phrases.ParametricPhrase]
 
 @ [NOT=is_wasser_on] Ты услышала какой-то скрип со стороны крана, но ничего более
-@ [GET=is_wasser_on] Ура, пошла вода)
+@ [GET=is_wasser_on][NOT=is_full_wasser] Ура, пошла вода)
+@ [GET=is_full_wasser][GET=is_wasser_on] Ты включючила воду, но чайник уже наполнен.
 
-
-> [GET=is_wasser_on][UNSET=wasser][SET=is_full_wasser] наполнить чайник (th.game.tea.p1.wasser.descr)
+> [GET=is_wasser_on][NOT=is_full_wasser][SET=is_full_wasser] наполнить чайник (th.game.tea.p1.wasser.descr)
 > [NOT=is_wasser_on] сделать что то еще (th.game.tea.p1.sink)
-
-
 
 
 
@@ -495,7 +475,7 @@ game.treehause.tea_game.part2
 
 
 
-> [!16]нажать еще раз (th.game.tea.p1.sink.wasser.r2)
+> нажать еще раз (th.game.tea.p1.sink.wasser.r2)
 > сделать что то еще (th.game.tea.p1.sink)
 
 
@@ -506,9 +486,7 @@ game.treehause.tea_game.part2
 
 Наконец-то ты смогла налить воду в чайник. Теперь осталось его закипятить
 
->[SET=gas] поставить чайник на плиту (th.game.tea.p1.plate)
-
-
+>[SET=gas][UNSET=sink_exit_block] поставить чайник на плиту (th.game.tea.p1.plate)
 
 
 

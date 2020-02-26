@@ -5,7 +5,7 @@ import models.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import tools.FiltersTools.Companion.getFilterLabels
-import tools.FiltersTools.Companion.getLastFilterLabel
+import tools.FiltersTools.Companion.getFirstFilterLabel
 import tools.FiltersTools.Companion.removeLabels
 
 class FiltersCollection {
@@ -29,7 +29,7 @@ class FiltersCollection {
 
         public val removeLabelPhrasesFilter = fun(phrases: Array<String>, count: Int): Array<String> {
             return phrases.map {
-                if (getLastFilterLabel(it) != "debug") {
+                if (getFirstFilterLabel(it) != "debug") {
                     return@map removeLabels(it)
                 }
                 return@map it
@@ -37,7 +37,7 @@ class FiltersCollection {
 
         public val removeLabelAnswersFilter= fun(answers: Array<Answer>, count: Int): Array<Answer> {
             return answers.map {
-                if (getLastFilterLabel(it.text) != "debug") {
+                if (getFirstFilterLabel(it.text) != "debug") {
                     it.text = removeLabels(it.text)
                 }
                 return@map it
@@ -45,7 +45,7 @@ class FiltersCollection {
         }
         public fun removeLabelPhrasesFilter(exceptions: Array<String>) = fun(phrases: Array<String>, count: Int): Array<String> {
             return phrases.map {
-                if (getLastFilterLabel(it) == "debug" || getLastFilterLabel(it) == null) return@map it
+                if (getFirstFilterLabel(it) == "debug" || getFirstFilterLabel(it) == null) return@map it
                 var res = removeLabels(it)
                 getFilterLabels(it)!!.forEach { label -> if(exceptions.contains(label)) res += "[$label]$res" }
                 return@map res
@@ -54,7 +54,7 @@ class FiltersCollection {
             public fun removeLabelAnswersFilter(exceptions: Array<String>) =
             fun(answers: Array<Answer>, _: Int):  Array<Answer> {
                 return answers.map {
-                    if (getLastFilterLabel(it.text) == "debug" || getLastFilterLabel(it.text) == null) return@map it
+                    if (getFirstFilterLabel(it.text) == "debug" || getFirstFilterLabel(it.text) == null) return@map it
 
                     var res = removeLabels(it.text)
 
@@ -96,7 +96,7 @@ class FiltersCollection {
             var maxCnt = 0;
             for (answer in answers) {
                 val filterLabel =
-                    getLastFilterLabel(answer.text);
+                    getFirstFilterLabel(answer.text);
                 if (filterLabel != null) {
                     val number = filterLabel.toIntOrNull() ?: continue
                     if (number > maxCnt) maxCnt = number
@@ -115,7 +115,7 @@ class FiltersCollection {
         public val countPhrase = fun(phrases: Array<String>, count: Int): Array<String> {
             var maxCnt = 0;
             for (phrase in phrases) {
-                val filterLabel = getLastFilterLabel(phrase);
+                val filterLabel = getFirstFilterLabel(phrase);
                 if (filterLabel != null) {
                     val number = filterLabel.toIntOrNull() ?: continue
                     if (number > maxCnt) maxCnt = number
@@ -134,17 +134,43 @@ class FiltersCollection {
 
 
         public fun ifElseAnswersFilter(settings: HashMap<String, Any?>) = fun(answers: Array<Answer>, _: Int): Array<Answer> {
-            return answers.filter {
-                val res = processIfElse(it.text, settings) ?: return@filter true;
+
+            var skeepToNext = false;
+
+            val filtered = answers.filter{ !notContainIfLabels(it.text) }.filter { s ->
+                if(getFirstFilterLabel(s.text) == "IF") skeepToNext = false;
+                if(skeepToNext) return@filter false;
+                val res = processIfElse(s.text, settings)
+                skeepToNext = res;
                 return@filter res;
-            }.toTypedArray()
+            }
+
+            return answers.filter { notContainIfLabels(it.text) || filtered.contains(it) }.toTypedArray()
         }
 
         public fun ifElsePhrasesFilter(settings: HashMap<String, Any?>) = fun(phrases: Array<String>, _: Int): Array<String> {
-            return phrases.filter {
-                val res = processIfElse(it, settings) ?: return@filter true;
+
+            var skeepToNext = false;
+
+            val filtered = phrases.filter{ !notContainIfLabels(it)  }.filter { s ->
+                if(getFirstFilterLabel(s) == "IF") skeepToNext = false;
+                if(skeepToNext) return@filter false;
+                val res = processIfElse(s, settings)
+                skeepToNext = res;
                 return@filter res;
-            }.toTypedArray()
+            }
+
+            return phrases.filter { notContainIfLabels(it) || filtered.contains(it) }.toTypedArray()
+        }
+
+
+        private fun notContainIfLabels(line : String): Boolean{
+            return getFirstFilterLabel(line) == null
+                    || (
+                        getFirstFilterLabel(line) != "IF"
+                            && getFirstFilterLabel(line) != "ELSE"
+                            && getFirstFilterLabel(line) != "ELSE IF"
+                    )
         }
 
         private fun countFilter(filterLabel: String, maxCnt: Int, count: Int) : Boolean{
@@ -171,8 +197,8 @@ class FiltersCollection {
                 return answers.filter {
                     val debug = Game.settings["debug"] as Boolean
                     if(debug) return@filter true
-                    if(getLastFilterLabel(it.text) == null) return@filter true
-                    if(getLastFilterLabel(it.text) == "[debug]") return@filter false
+                    if(getFirstFilterLabel(it.text) == null) return@filter true
+                    if(getFirstFilterLabel(it.text) == "[debug]") return@filter false
                     return@filter true
                 }.toTypedArray()
             }

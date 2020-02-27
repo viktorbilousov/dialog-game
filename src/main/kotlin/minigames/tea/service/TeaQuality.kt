@@ -8,8 +8,8 @@ import kotlin.reflect.full.memberFunctions
 class TeaQuality {
 
     companion object{
-        private const val BAD_WEIGHT_WEIGHT_LIMIT = 4.0;
-        private const val GOOD_WEIGHT_WEIGHT_LIMIT = 1.9
+        private const val BAD_WEIGHT_WEIGHT_LIMIT = 3.0;
+        private const val GOOD_WEIGHT_WEIGHT_LIMIT = 2.1
         private val comparedTea = Collection.getTeas()
         private val teaMetricCalc: (t1 : Tea, t2 : Tea) -> Double = TasteMetric.Companion::calcAverageWeigh
 

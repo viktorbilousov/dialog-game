@@ -1,4 +1,10 @@
+import minigames.tea.models.Collection
+import minigames.tea.models.MixedTea
 import minigames.tea.service.TeaQuality
+import minigames.tea.tools.MixedTeaTable
+import minigames.tea.tools.NamedTasteTable
+import minigames.tea.tools.TeaTable
+import tools.TablePrinter
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -9,34 +15,54 @@ class Main {
             var positive = 0;
             var mitte = 0;
             var negative = 0;
-            var negativeTaste = arrayOf(0,0,0,0,0);
-             Bruteforce.find(5).forEach { entry ->
-                 // if(Collections.getTeas().contains(it.key.toTea()))
-                 if (entry.key.taste.toArray().filter { it > 0 }.size == 5) {
-                     val quality = TeaQuality.nearestToCollection(entry.key);
-                     println(quality.sourceTea)
-                     println(quality.nearestTea)
-                     println(quality.weight)
-                     println(quality.quality)
-                     println()
-                     positive += entry.value;
-                 }
+            var negativeTaste = arrayOf(0, 0, 0, 0, 0);
 
-                 if (entry.key.taste.toArray().filter { it > 0 }.size in 1..4) {
-                     mitte += entry.value;
-                 }
+            var goodCnt = 0
+            var middleCnt = 0
+            var badCnt = 0
+            val teaTable = TeaTable()
+            Bruteforce.find(5).forEach { entry ->
+                // if(Collections.getTeas().contains(it.key.toTea()))
+                if (entry.key.taste.toArray().filter { it > 0 }.size == 5) {
+                    val quality = TeaQuality.nearestToCollection(entry.key);
+                    teaTable.add(quality.sourceTea)
+                    TablePrinter(MixedTeaTable(quality.sourceTea as MixedTea).table).print()
 
-                 if (entry.key.taste.toArray().filter { it > 0 }.isEmpty()) {
-                     negative += entry.value;
-                 }
+                    println(quality.sourceTea)
+                    println(quality.nearestTea)
+                    println(quality.weight)
+                    println(quality.quality)
+                    println()
+                    when (quality.quality) {
+                        TeaQuality.Quality.GOOD -> goodCnt++
+                        TeaQuality.Quality.BAD -> badCnt++
+                        else -> middleCnt++;
+                    }
+                    positive += entry.value;
+                }
 
-                 entry.key.taste.toArray().forEachIndexed{index: Int, i: Int -> if(i<0) negativeTaste[index]++; }
+                if (entry.key.taste.toArray().filter { it > 0 }.size in 1..4) {
+                    mitte += entry.value;
+                }
 
-             }
-        println("positiv = $positive ${(positive/(7.0).pow(5) * 100).roundToInt()}%")
-        println("mitte = $mitte ${(mitte/(7.0).pow(5) * 100).roundToInt()}%")
-        println("negativ = $negative ${(negative/(7.0).pow(5) * 100).roundToInt()}%")
-        println("negativ array = ${negativeTaste.contentToString()}")
+                if (entry.key.taste.toArray().filter { it > 0 }.isEmpty()) {
+                    negative += entry.value;
+                }
+
+                entry.key.taste.toArray().forEachIndexed { index: Int, i: Int -> if (i < 0) negativeTaste[index]++; }
+
+            }
+            TablePrinter(teaTable.table).print()
+
+
+
+            println("positiv = $positive ${(positive / (7.0).pow(5) * 100).roundToInt()}%")
+            println("mitte = $mitte ${(mitte / (7.0).pow(5) * 100).roundToInt()}%")
+            println("negativ = $negative ${(negative / (7.0).pow(5) * 100).roundToInt()}%")
+            println("negativ array = ${negativeTaste.contentToString()}")
+            println("GOOD = $goodCnt")
+            println("MIDDLE = $middleCnt")
+            println("BAD = $badCnt")
         }
 
     }

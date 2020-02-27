@@ -1,11 +1,9 @@
-package models
+package minigames.tea.models
 
-class MixedTea(){
+class MixedTea(): Tea("mixedTea", Taste(0,0,0,0,0)){
 
-    public val taste = Taste(0,0,0,0,0)
     public val flowers : Array<Flower>
     get() = flowersList.toTypedArray();
-
 
     private val flowersList = ArrayList<Flower>()
 
@@ -33,7 +31,5 @@ class MixedTea(){
     override fun toString(): String {
         return "$taste\t${flowers.map { it.name }.toList().toTypedArray().contentToString()}"
     }
-    public fun toTea() : Tea{
-        return Tea("mixed Tea", taste)
-    }
+
 }

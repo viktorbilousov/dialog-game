@@ -1,4 +1,4 @@
-import models.MixedTea
+import minigames.tea.service.TeaQuality
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -13,7 +13,12 @@ class Main {
              Bruteforce.find(5).forEach { entry ->
                  // if(Collections.getTeas().contains(it.key.toTea()))
                  if (entry.key.taste.toArray().filter { it > 0 }.size == 5) {
-                     println(entry)
+                     val quality = TeaQuality.nearestToCollection(entry.key);
+                     println(quality.sourceTea)
+                     println(quality.nearestTea)
+                     println(quality.weight)
+                     println(quality.quality)
+                     println()
                      positive += entry.value;
                  }
 

@@ -1,4 +1,4 @@
-package models
+package minigames.tea.models
 
 data class Taste(var taste: Int, var color: Int, var smell: Int, var vitamin: Int, var aftertaste: Int){
     fun sum(taste: Taste){

@@ -1,11 +1,12 @@
-import models.Flower
-import models.MixedTea
+import minigames.tea.models.Collection
+import minigames.tea.models.Flower
+import minigames.tea.models.MixedTea
 
 class Bruteforce {
     companion object{
         fun find(pinches: Int) : HashMap<MixedTea, Int>{
-            val flowers = Collections.getFlowers()
-            val teas = Collections.getTeas()
+            val flowers = Collection.getFlowers()
+            val teas = Collection.getTeas()
             val teaCounter = HashMap<MixedTea, Int>();
             var cnt = 0;
             val mutations = IntArray(pinches){0}.toTypedArray()

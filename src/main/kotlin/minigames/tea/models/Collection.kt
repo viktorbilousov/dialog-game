@@ -1,9 +1,11 @@
-import models.Flower
-import models.Tea
+package minigames.tea.models
 
-class Collections {
+import minigames.tea.models.Flower
+import minigames.tea.models.Tea
+
+class Collection {
     companion object{
-        fun getFlowers() : Array<Flower>{
+        public fun getFlowers() : Array<Flower>{
            return arrayOf(
                Flower("земляника", 3 ,-2, 1, 5, 0 ),
                Flower("смородина", 2, 1, 1, 3, 0),
@@ -15,7 +17,7 @@ class Collections {
             )
         }
 
-        fun getTeas() : Array<Tea>{
+        public fun getTeas() : Array<Tea>{
             return arrayOf(
                 Tea("вкусный", 10 ,4, 7, 2, 8 ),
                 Tea("ароматный", 6,6,1,4,5),

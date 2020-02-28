@@ -1,9 +1,11 @@
-package tools
+package tools.table
 
-class Table {
+import kotlin.math.max
 
-    public val columns = linkedMapOf<String,ArrayList<Any?>>()
-    public val rows : List<LinkedHashMap<String, Any?>>
+open class SimpleTable : Table {
+
+    public override val columns = linkedMapOf<String,ArrayList<Any?>>()
+    public override val rows : List<LinkedHashMap<String, Any?>>
     get() {
        val list = List(rowsCnt){ LinkedHashMap<String, Any?>() }
         for (entry in columns) {
@@ -13,14 +15,14 @@ class Table {
         }
         return list;
     }
-    public val columnsNames : Array<String>
+    public override val columnsNames : Array<String>
     get() = columns.keys.toTypedArray()
 
 
-    public val columnCnt : Int
+    public override val columnsCnt : Int
         get() = columns.size
 
-    public val rowsCnt : Int
+    public override val rowsCnt : Int
         get()  {
             if(columns.size == 0) return 0;
             return columns.values.map { it.size }.max()!!;
@@ -33,7 +35,7 @@ class Table {
         }
     }
 
-    public fun addValues(columnName: String, column : List<Any?>){
+    public override fun addColumn(columnName: String, column : List<Any?>){
         if( columns[columnName] == null)  columns[columnName] = ArrayList();
         columns[columnName]!!.addAll(column);
     }
@@ -42,14 +44,14 @@ class Table {
         if(columns[columnName] == null) columns[columnName] = ArrayList();
         columns[columnName]!!.add(value)
     }
-    public fun addRow(row: Map<String, Any?>) {
+    public override fun addRow(row: Map<String, Any?>) {
         for (columnName in row.keys) {
             if(columns[columnName] == null) columns[columnName] = ArrayList();
             columns[columnName]!!.add(row[columnName])
         }
     }
 
-    public fun removeRow(index: Int): Map<String, Any?> {
+    public override fun removeRow(index: Int): Map<String, Any?>? {
         val map = HashMap<String, Any?>()
         for (column in columns) {
             map[column.key] = column.value.removeAt(index);
@@ -57,7 +59,22 @@ class Table {
         return map;
     }
 
-    public fun removeColumn(columnName: String): ArrayList<Any?>? {
+    public override fun removeColumn(columnName: String): ArrayList<Any?>? {
        return columns.remove(columnName);
+    }
+
+    public fun merge(table: Table){
+
+        table.columnsNames.forEach {
+            if(this.columns[it] == null) {
+                addEmptyColumns(it)
+                for (i in 0 until rowsCnt){
+                    addValue(it, null)
+                }
+            }
+        }
+        table.columns.forEach{
+            addColumn(it.key, it.value);
+        }
     }
 }

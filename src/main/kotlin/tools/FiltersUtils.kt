@@ -1,6 +1,6 @@
 package tools
 
-class FiltersTools {
+class FiltersUtils {
    companion object {
        public fun getFilterLabels(str: String): Array<String>? {
            val list = arrayListOf<String>()

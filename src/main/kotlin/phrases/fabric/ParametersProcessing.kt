@@ -1,16 +1,15 @@
 package phrases.fabric
 
-import game.Game
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import tools.FiltersTools
+import tools.FiltersUtils
 
 class ParametersProcessing(public val parameters: HashMap<String, Any?> ) {
 
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
 
         public fun processSetParameter(str: String){
-            val labels = FiltersTools.getFilterLabels(str) ?: return
+            val labels = FiltersUtils.getFilterLabels(str) ?: return
             labels.forEach {
                 processSetParameterLabel(it)
             }

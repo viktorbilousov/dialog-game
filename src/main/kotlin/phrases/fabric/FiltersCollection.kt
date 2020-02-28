@@ -4,14 +4,18 @@ import game.Game
 import models.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import tools.FiltersTools.Companion.getFilterLabels
-import tools.FiltersTools.Companion.getFirstFilterLabel
-import tools.FiltersTools.Companion.removeLabels
+import tools.FiltersUtils.Companion.getFilterLabels
+import tools.FiltersUtils.Companion.getFirstFilterLabel
+import tools.FiltersUtils.Companion.removeLabels
 
 class FiltersCollection {
     companion object {
 
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+
+        public val applyAllPhrasesToOne = fun (phrases: Array<String>, count: Int) : Array<String>{
+            return arrayOf(phrases.joinToString(separator = "\n\n") { it })
+        }
 
         public fun parameterGetAnswersFilter(settings: HashMap<String, Any?>) =
             fun(answers: Array<Answer>, _: Int): Array<Answer> {
@@ -43,6 +47,42 @@ class FiltersCollection {
                 return@map it
             }.toTypedArray()
         }
+
+        public fun replaceLabelToTextAnswer(label: String, text: String) = fun(answers: Array<Answer>, _: Int): Array<Answer>{
+            return answers.map {
+                val labels =  getFilterLabels(it.text) ?: return@map it
+                if (labels.contains(label)) {
+                    val newAnswer = it;
+                    newAnswer.text = newAnswer.text.replace("[$label]", text)
+                    return@map newAnswer
+                }
+                else return@map it
+            }.toTypedArray()
+        }
+
+
+        public fun replaceLabelToTextPhrase(label: String, text: String) = fun(phrases: Array<String>, _: Int): Array<String>{
+            return phrases.map {
+                val labels =  getFilterLabels(it) ?: return@map it
+                if (labels.contains(label)){
+                    return@map it.replace("[$label]", text)
+                }
+                else return@map it
+            }.toTypedArray()
+        }
+
+        public fun addAnswersInsteadLabel(label: String, answers: Array<Answer>) = fun(answers: Array<Answer>, _: Int): Array<Answer>{
+            val res = arrayListOf<Answer>();
+             answers.forEach{
+                val firstLabel =  getFirstFilterLabel(it.text) ?: res.add(it)
+                if (firstLabel == label) {
+                    res.addAll(answers)
+                }
+                else res.add(it)
+            }
+            return res.toTypedArray()
+        }
+
         public fun removeLabelPhrasesFilter(exceptions: Array<String>) = fun(phrases: Array<String>, count: Int): Array<String> {
             return phrases.map {
                 if (getFirstFilterLabel(it) == "debug" || getFirstFilterLabel(it) == null) return@map it

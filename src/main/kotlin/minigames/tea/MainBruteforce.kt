@@ -1,14 +1,9 @@
-import minigames.tea.models.Collection
-import minigames.tea.models.MixedTea
 import minigames.tea.service.TeaQuality
-import minigames.tea.tools.MixedTeaTable
-import minigames.tea.tools.NamedTasteTable
-import minigames.tea.tools.TeaTable
-import tools.TablePrinter
+import minigames.tea.tables.TeaTable
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-class Main {
+class MainBruteforce {
     companion object{
         @JvmStatic
         fun main(args: Array<String>) {
@@ -25,9 +20,6 @@ class Main {
                 // if(Collections.getTeas().contains(it.key.toTea()))
                 if (entry.key.taste.toArray().filter { it > 0 }.size == 5) {
                     val quality = TeaQuality.nearestToCollection(entry.key);
-                    teaTable.add(quality.sourceTea)
-                    TablePrinter(MixedTeaTable(quality.sourceTea as MixedTea).table).print()
-
                     println(quality.sourceTea)
                     println(quality.nearestTea)
                     println(quality.weight)
@@ -52,7 +44,6 @@ class Main {
                 entry.key.taste.toArray().forEachIndexed { index: Int, i: Int -> if (i < 0) negativeTaste[index]++; }
 
             }
-            TablePrinter(teaTable.table).print()
 
 
 

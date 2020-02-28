@@ -1,6 +1,14 @@
 package minigames.tea.models
 
 data class Taste(var taste: Int, var color: Int, var smell: Int, var vitamin: Int, var aftertaste: Int){
+
+   companion object{
+       fun empty() : Taste{
+           return Taste(0,0,0,0,0)
+       }
+   }
+
+
     fun sum(taste: Taste){
         this.taste += taste.taste
         this.color += taste.color

@@ -2,8 +2,6 @@ package minigames.tea.service
 
 import minigames.tea.models.Collection
 import minigames.tea.models.Tea
-import minigames.tea.service.TasteMetric.Companion.calcAverageWeight
-import kotlin.reflect.full.memberFunctions
 
 class TeaQuality {
 
@@ -13,17 +11,23 @@ class TeaQuality {
         private val comparedTea = Collection.getTeas()
         private val teaMetricCalc: (t1 : Tea, t2 : Tea) -> Double = TasteMetric.Companion::calcAverageWeigh
 
-        public fun nearestToCollection(tea: Tea) : TeaQualityRecord{
 
-            val comparedTeaEntry = comparedTea
-                .associate { Pair(it, teaMetricCalc(it, tea)) }
-                .minBy { it.value }!!
-
-            return TeaQualityRecord(tea, comparedTeaEntry.key, comparedTeaEntry.value, getQuality(comparedTeaEntry.value)) ;
+        public fun calcQuality(sourseTea: Tea, benchmarkTea: Tea) : Quality{
+            val weight = teaMetricCalc(sourseTea, benchmarkTea)
+            return getQuality(sourseTea, weight) ;
         }
 
-       public fun getQuality(weight: Double) : Quality{
-            return when(weight){
+        public fun nearestToCollection(tea: Tea) : Tea {
+
+            return comparedTea
+                .associate { Pair(it, teaMetricCalc(it, tea)) }
+                .minBy { it.value }?.key!!
+        }
+
+       private fun getQuality(tea: Tea , weight: Double) : Quality{
+           tea.taste.toArray().forEach { if(it < 0) return Quality.BAD }
+
+           return when(weight){
                 in BAD_WEIGHT_WEIGHT_LIMIT .. Int.MAX_VALUE.toDouble() -> Quality.BAD
                 in GOOD_WEIGHT_WEIGHT_LIMIT..BAD_WEIGHT_WEIGHT_LIMIT -> Quality.MIDDLE
                 else -> Quality.GOOD
@@ -34,5 +38,4 @@ class TeaQuality {
     enum class Quality{
         GOOD, BAD, MIDDLE
     }
-
 }

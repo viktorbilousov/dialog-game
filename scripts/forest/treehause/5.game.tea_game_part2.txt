@@ -6,4 +6,41 @@ $startPointId=th.game.tea.p2.start
 
 th.game.tea.p2.start
 
-> [*] plug (plug)
+>  th.game.menu (th.game.menu)
+>  [NOT=game.tea.restart] th.game.p2.game (th.game.p2.game )
+
+
+---- th.game.p2.menu [minigames.tea.phrase.TeaMenuPhrase]
+
+@ [TEA MENU]
+@ test text
+
+
+> [TEA ANSWERS] (th.game.menu.set.TeaChosen)
+> back (th.game.tea.p2.start)
+
+---- th.game.menu.set.TeaChosen [phrases.AutoPhrase]
+
+text
+
+>[SET=p2.isTeaChosen] text (th.game.tea.p2.start)
+
+---- th.game.p2.game [minigames.tea.phrase.TeaGamePhrase]
+
+@ [GAME TABLE]
+@ test
+
+> [!5][FLOWER ANSWERS] (th.game.p2.game)
+> [5] exit (th.game.menu.set.MixedTeaChosen)
+
+
+
+---- th.game.menu.set.MixedTeaChosen [minigames.tea.phrase.TeaGameResult]
+
+@ [QUALITY]
+
+[ANSWER]
+
+
+>[SET=p2.isMixedTeaChosen][UNSET=game.tea.restart] ok (th.game.tea.p2.start)
+>[SET=game.tea.restart] restart (th.game.tea.p2.start)

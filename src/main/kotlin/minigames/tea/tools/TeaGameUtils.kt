@@ -20,7 +20,6 @@ class TeaGameUtils{
 
         private const val spaceCnt = 5;
         private const val namespaceCnt = 12;
-        private const val menuLabel = "menu"
 
         private fun calcSummaryTea(mixedTea: MixedTea): Taste {
             val summaryTaste = Taste.empty()

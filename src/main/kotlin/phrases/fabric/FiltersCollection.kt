@@ -71,12 +71,15 @@ class FiltersCollection {
             }.toTypedArray()
         }
 
-        public fun addAnswersInsteadLabel(label: String, answers: Array<Answer>) = fun(answers: Array<Answer>, _: Int): Array<Answer>{
+        public fun addAnswersInsteadLabel(label: String, inputAnswers: Array<Answer>) = fun(answers: Array<Answer>, _: Int): Array<Answer>{
             val res = arrayListOf<Answer>();
              answers.forEach{
                 val firstLabel =  getFirstFilterLabel(it.text) ?: res.add(it)
                 if (firstLabel == label) {
-                    res.addAll(answers)
+                    res.addAll(inputAnswers.map { inAnswer ->
+                        return@map Answer(it.id , inAnswer.text)
+                    }
+                    )
                 }
                 else res.add(it)
             }

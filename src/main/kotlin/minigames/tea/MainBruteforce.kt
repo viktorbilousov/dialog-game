@@ -19,13 +19,13 @@ class MainBruteforce {
             Bruteforce.find(5).forEach { entry ->
                 // if(Collections.getTeas().contains(it.key.toTea()))
                 if (entry.key.taste.toArray().filter { it > 0 }.size == 5) {
-                    val quality = TeaQuality.nearestToCollection(entry.key);
-                    println(quality.sourceTea)
+                    val quality = TeaQuality.calcQuality(entry.key, TeaQuality.nearestToCollection(entry.key));
+                   /* println(quality.sourceTea)
                     println(quality.nearestTea)
                     println(quality.weight)
-                    println(quality.quality)
+                    println(quality.quality)*/
                     println()
-                    when (quality.quality) {
+                    when (quality) {
                         TeaQuality.Quality.GOOD -> goodCnt++
                         TeaQuality.Quality.BAD -> badCnt++
                         else -> middleCnt++;

@@ -71,10 +71,20 @@ class FiltersCollection {
             }.toTypedArray()
         }
 
+        public fun replaceLabelToTextPhrase(label: String, textgen: () -> String ) = fun(phrases: Array<String>, _: Int): Array<String>{
+            return phrases.map {
+                val labels =  getFilterLabels(it) ?: return@map it
+                if (labels.contains(label)){
+                    return@map it.replace("[$label]", textgen.invoke())
+                }
+                else return@map it
+            }.toTypedArray()
+        }
+
         public fun addAnswersInsteadLabel(label: String, inputAnswers: Array<Answer>) = fun(answers: Array<Answer>, _: Int): Array<Answer>{
             val res = arrayListOf<Answer>();
              answers.forEach{
-                val firstLabel =  getFirstFilterLabel(it.text) ?: res.add(it)
+                val firstLabel =  getFirstFilterLabel(it.text) ?: res.add(it) //todo: bug fix
                 if (firstLabel == label) {
                     res.addAll(inputAnswers.map { inAnswer ->
                         return@map Answer(it.id , inAnswer.text)

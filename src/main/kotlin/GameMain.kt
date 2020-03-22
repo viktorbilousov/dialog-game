@@ -12,6 +12,7 @@ class GameMain {
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
         @JvmStatic
         fun main(args: Array<String>) {
+            println("test")
             logger.info("--- GAME STARTING ---")
             logger.info("")
             val game = Game()

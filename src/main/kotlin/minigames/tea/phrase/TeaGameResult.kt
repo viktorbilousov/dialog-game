@@ -15,8 +15,8 @@ class TeaGameResult (id: String, phrases: Array<String>, answers : Array<Answer>
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
     }
     init{
-        addPhrasesFilter("qualityText", FiltersCollection.replaceLabelToTextPhrase(qualityLabel, TeaGame.quality().toString() ) )
-        addPhrasesFilter("answerText", FiltersCollection.replaceLabelToTextPhrase(qualityAnswer, TeaGame.answer() ) )
+        addPhrasesFilter("qualityText", FiltersCollection.replaceLabelToTextPhrase(qualityLabel) { TeaGame.quality().toString() })
+        addPhrasesFilter("answerText", FiltersCollection.replaceLabelToTextPhrase(qualityAnswer){ TeaGame.answer() })
         addPhrasesFilter("applyPhrase", FiltersCollection.applyAllPhrasesToOne)
         this.setBeforeFun {
             val reset = Game.settings["game.tea.restart"] ?: false;

@@ -6,8 +6,8 @@ $startPointId=th.game.tea.p2.start
 
 th.game.tea.p2.start
 
->  th.game.menu (th.game.menu)
->  [NOT=game.tea.restart] th.game.p2.game (th.game.p2.game )
+>  th.game.p2.menu посмотреть меню (th.game.p2.menu)
+>  [NOT=game.tea.restart] th.game.p2.game выбрать чай (th.game.p2.game)
 
 
 ---- th.game.p2.menu [minigames.tea.phrase.TeaMenuPhrase]

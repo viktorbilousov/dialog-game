@@ -66,14 +66,17 @@ class TeaGamePhraseConfigurator(val phrase : FilteredPhrase){
         return this
     }
 
-    public fun gameTablePhrase() : TeaGamePhraseConfigurator {
-        phrase.addPhrasesFilter("addGametable", FiltersCollection.replaceLabelToTextPhrase(
-            tableLabel ,
+   public fun gameTablePhrase() : TeaGamePhraseConfigurator {
+        phrase.addPhrasesFilter("addGameTable", FiltersCollection.replaceLabelToTextPhrase(
+            tableLabel) {
+            if(TeaGame.goalTea == null) return@replaceLabelToTextPhrase "NULL"
+
             TeaGameUtils.getGameTable(
                 TeaGame.currentTea,
-                TeaGame.goalTea
+                TeaGame.goalTea!!
             )
-        ))
+            }
+        )
         return this
     }
 

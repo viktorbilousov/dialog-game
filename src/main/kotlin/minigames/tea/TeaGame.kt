@@ -11,19 +11,19 @@ class TeaGame {
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
 
         var currentTea = MixedTea();
-        lateinit var goalTea: Tea
+        var goalTea: Tea? = null
 
         public fun reset() {
             logger.info("GAME RESET")
             currentTea = MixedTea()
         }
         public fun quality(): TeaQuality.Quality{
-            val res = TeaQuality.calcQuality(currentTea, goalTea)
+            val res = TeaQuality.calcQuality(currentTea, goalTea!!)
             logger.info("GAME QUALITY: $res")
             return res
         }
         public fun answer() : String{
-            val res = TeaQuality.calcQuality(currentTea, goalTea).toString()
+            val res = TeaQuality.calcQuality(currentTea, goalTea!!).toString()
             logger.info("GAME ANSWER: $res")
             return res
         }

@@ -15,6 +15,7 @@ class FiltersUtils {
 
 
        public fun getFirstFilterLabel(text: String): String? {
+           if(text == "") return null;
            if (text.trim()[0] == '[' && text.trim().indexOf(']') > 1) {
                return text.trim().substring(1, text.trim().indexOf(']'))
            }

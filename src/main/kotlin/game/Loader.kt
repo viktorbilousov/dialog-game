@@ -39,7 +39,7 @@ class Loader(private val game: Game) {
                 game.phrases[it.id] = PhraseTextFabric.toPhrase(it);
             }
         } catch (e: Exception) {
-            logger.error("Phrases Load error: ${e.message}")
+            logger.error("Phrases Load error: ${e.cause}", e)
             error = true;
         }
 
@@ -48,7 +48,7 @@ class Loader(private val game: Game) {
         logger.info("")
 
         try {
-            routers = loadRouters(routersFolder, graphFolder);
+            routers = loadRouters(routersFolder, graphFolder)
         } catch (e: Exception) {
             logger.error("Router Loading error: ${e.message}", e)
             error = true;

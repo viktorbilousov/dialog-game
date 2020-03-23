@@ -83,16 +83,18 @@ class FiltersCollection {
 
         public fun addAnswersInsteadLabel(label: String, inputAnswers: Array<Answer>) = fun(answers: Array<Answer>, _: Int): Array<Answer>{
             val res = arrayListOf<Answer>();
-             answers.forEach{
-                val firstLabel =  getFirstFilterLabel(it.text) ?: res.add(it) //todo: bug fix
-                if (firstLabel == label) {
-                    res.addAll(inputAnswers.map { inAnswer ->
-                        return@map Answer(it.id , inAnswer.text)
-                    }
-                    )
-                }
-                else res.add(it)
-            }
+             answers.forEach {
+                 val firstLabel = getFirstFilterLabel(it.text)
+                 if (firstLabel == null || firstLabel != label) {
+                     res.add(it)
+                 }
+                 else {
+                     res.addAll(inputAnswers.map { inAnswer ->
+                         return@map Answer(it.id, inAnswer.text)
+                     }
+                     )
+                 }
+             }
             return res.toTypedArray()
         }
 

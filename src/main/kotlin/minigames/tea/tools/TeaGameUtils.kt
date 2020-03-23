@@ -79,7 +79,7 @@ class TeaGameUtils{
 
         public fun answerToTea(answer: Answer): Tea?{
             for (tea in Collection.getTeas()) {
-                if(tea.name == answer.id) return tea;
+                if(tea.name == answer.text) return tea
             }
             return null
         }

@@ -4,20 +4,19 @@ $startPointId=th.game.tea.p2.start
 
 ---- th.game.tea.p2.start
 
-th.game.tea.p2.start
+th.game.tea.p2.start [phrases.ParametricPhrase]
 
 >  th.game.p2.menu посмотреть меню (th.game.p2.menu)
->  [NOT=game.tea.restart] th.game.p2.game выбрать чай (th.game.p2.game)
+>  [NOT=game.tea.restart] th.game.p2.game сделать чай (th.game.p2.game)
 
 
 ---- th.game.p2.menu [minigames.tea.phrase.TeaMenuPhrase]
 
 @ [TEA MENU]
-@ test text
 
 
 > [TEA ANSWERS] (th.game.menu.set.TeaChosen)
-> back (th.game.tea.p2.start)
+> [debug] back (th.game.tea.p2.start)
 
 ---- th.game.menu.set.TeaChosen [phrases.AutoPhrase]
 

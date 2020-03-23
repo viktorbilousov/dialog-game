@@ -6,6 +6,7 @@ import models.Answer
 import models.items.phrase.FilteredPhrase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import phrases.fabric.FilteredPhraseConfigurator
 
 
 class TeaMenuPhrase(id: String, phrases: Array<String>, answers : Array<Answer>) : FilteredPhrase(id, phrases, answers){
@@ -13,7 +14,8 @@ class TeaMenuPhrase(id: String, phrases: Array<String>, answers : Array<Answer>)
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
     }
     init {
-        TeaGamePhraseConfigurator(this).teasMenuPhrase().teasAnswer(true).applyPhrases().legend()
+        FilteredPhraseConfigurator(this).parametric().applyPhrases()
+        TeaGamePhraseConfigurator(this).teasMenuPhrase().teasAnswer(true).legend()
         this.setAfterFun { answer ->
             val answ = TeaGameUtils.answerToTea(answer)!!;
             logger.info("Set goal tea as ${answ.name}")

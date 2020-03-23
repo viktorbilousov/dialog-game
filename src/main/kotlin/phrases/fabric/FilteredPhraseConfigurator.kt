@@ -3,7 +3,7 @@ package phrases.fabric
 import game.Game
 import models.items.phrase.FilteredPhrase
 
-class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
+open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
 
     public var settings: HashMap<String, Any?> = Game.settings;
 
@@ -64,6 +64,11 @@ class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
         phrase.addPhrasesFilter("condition.parameter.ifElse.phrases", FiltersCollection.ifElsePhrasesFilter(settings))
         phrase.addAnswerFilter("condition.parameter.ifElse.answer", FiltersCollection.ifElseAnswersFilter(settings))
         parameterSet(settings)
+        return this
+    }
+
+    public fun applyPhrases() : FilteredPhraseConfigurator{
+        phrase.addPhrasesFilter("applyAll", FilteredPhrase.Order.Last,  FiltersCollection.applyAllPhrasesToOne)
         return this
     }
 }

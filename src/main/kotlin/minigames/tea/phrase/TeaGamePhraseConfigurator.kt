@@ -9,6 +9,7 @@ import models.items.phrase.FilteredPhrase
 import models.items.phrase.PhrasePrinter
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import phrases.fabric.FilteredPhraseConfigurator
 import phrases.fabric.FiltersCollection
 import phrases.fabric.PrinterFabric
 import tools.table.TablePrinter
@@ -20,6 +21,7 @@ class TeaGamePhraseConfigurator(val phrase : FilteredPhrase){
         private  val teaAnswersLabel = "TEA ANSWERS"
         private  val flowerAnswersLabel = "FLOWER ANSWERS"
         private  val tableLabel = "GAME TABLE"
+
 
         public fun flowerAnswer(onlyFlowerName : Boolean): TeaGamePhraseConfigurator {
 
@@ -80,9 +82,6 @@ class TeaGamePhraseConfigurator(val phrase : FilteredPhrase){
         return this
     }
 
-    public fun applyPhrases() : TeaGamePhraseConfigurator {
-        phrase.addPhrasesFilter("applyAll", FilteredPhrase.Order.Last,  FiltersCollection.applyAllPhrasesToOne)
-        return this
-    }
+
 
 }

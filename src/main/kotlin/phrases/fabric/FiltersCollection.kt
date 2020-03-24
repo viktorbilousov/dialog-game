@@ -84,8 +84,8 @@ class FiltersCollection {
         public fun addAnswersInsteadLabel(label: String, inputAnswers: Array<Answer>) = fun(answers: Array<Answer>, _: Int): Array<Answer>{
             val res = arrayListOf<Answer>();
              answers.forEach {
-                 val firstLabel = getFirstFilterLabel(it.text)
-                 if (firstLabel == null || firstLabel != label) {
+                 val firstLabel = getFilterLabels(it.text)
+                 if (firstLabel == null || !firstLabel.contains(label)) {
                      res.add(it)
                  }
                  else {

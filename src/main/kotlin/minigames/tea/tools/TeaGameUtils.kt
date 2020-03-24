@@ -48,7 +48,13 @@ class TeaGameUtils{
 
         public fun getFlowersAsAnswers(onlyNames: Boolean): Array<Answer> {
             if (onlyNames) return Collection.getFlowers().map { Answer(it.name, it.name) }.toTypedArray()
-            return Collection.getFlowers().map { Answer(it.name, it.toString()) }.toTypedArray()
+            return Collection.getFlowers().map { Answer(it.name,
+                "${it.name}${getSpaces(12 - it.name.length)}" +
+                        "B=${getNumWithSign(it.taste.taste)}\t" +
+                        "Ц=${getNumWithSign(it.taste.color)}\t" +
+                        "З=${getNumWithSign(it.taste.smell)}\t" +
+                        "Вит=${getNumWithSign(it.taste.vitamin)}\t" +
+                        "П=${getNumWithSign(it.taste.aftertaste)}") }.toTypedArray()
         }
 
         public fun getTeasAsAnswers(onlyNames: Boolean): Array<Answer> {
@@ -78,16 +84,28 @@ class TeaGameUtils{
 
 
         public fun answerToTea(answer: Answer): Tea?{
+            val name = answer.text.split(" ")[0].trim();
             for (tea in Collection.getTeas()) {
-                if(tea.name == answer.text) return tea
+                if(tea.name == name) return tea
             }
             return null
         }
         public fun answerToFlower(answer: Answer): Flower?{
+            val name = answer.text.split(" ")[0].trim();
             for (tea in Collection.getFlowers()) {
-                if(tea.name == answer.id) return tea;
+                if(tea.name == name) return tea;
             }
             return null
+        }
+
+        public fun getNumWithSign(num: Int) : String{
+            if(num >= 0) return "+$num"
+            return "$num"
+        }
+        public fun getSpaces(num: Int) : String{
+            var spaces = "";
+            while (spaces.length < num) spaces += " ";
+            return spaces;
         }
 
     }

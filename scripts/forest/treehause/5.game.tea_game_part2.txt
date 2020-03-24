@@ -27,10 +27,9 @@ text
 ---- th.game.p2.game [minigames.tea.phrase.TeaGamePhrase]
 
 @ [GAME TABLE]
-@ test
 
 > [!5][FLOWER ANSWERS] (th.game.p2.game)
-> [5] exit (th.game.menu.set.MixedTeaChosen)
+> [5] оценить (th.game.menu.set.MixedTeaChosen)
 
 
 

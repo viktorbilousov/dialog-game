@@ -13,13 +13,14 @@ class TeaGamePhrase (id: String, phrases: Array<String>, answers : Array<Answer>
     private val logger = LoggerFactory.getLogger(this::class.java) as Logger
 
     init {
-        FilteredPhraseConfigurator(this).applyPhrases()
+        FilteredPhraseConfigurator(this).applyPhrases().count()
         TeaGamePhraseConfigurator(this).flowerAnswer(false).gameTablePhrase().legend()
         setAfterFun {
-            val answ = TeaGameUtils.answerToFlower(it)!!;
+            val answ = TeaGameUtils.answerToFlower(it) ?: return@setAfterFun
             logger.info("selected Flower is ${answ.name}")
             TeaGame.currentTea.addFlower(answ)
         }
+        // todo reset count
 
     }
 }

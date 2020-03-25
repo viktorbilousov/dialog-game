@@ -6,6 +6,7 @@ import models.items.phrase.FilteredPhrase
 open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
 
     public var settings: HashMap<String, Any?> = Game.settings;
+    public var gameVariables: HashMap<String, Any?> = Game.gameVariables;
 
     constructor(phrase: FilteredPhrase, settings: HashMap<String, Any?>) : this(phrase){
         this.settings = settings;
@@ -32,8 +33,8 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
     }
 
     public fun parametric() : FilteredPhraseConfigurator{
-        parameterSet(settings)
-        parameterGet(settings)
+        parameterSet(gameVariables)
+        parameterGet(gameVariables)
         return this;
     }
 

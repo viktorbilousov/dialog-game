@@ -1,5 +1,6 @@
 package minigames.tea.phrase
 
+import game.Game
 import minigames.tea.TeaGame
 import minigames.tea.tools.TeaGameUtils
 import models.Answer
@@ -20,7 +21,11 @@ class TeaGamePhrase (id: String, phrases: Array<String>, answers : Array<Answer>
             logger.info("selected Flower is ${answ.name}")
             TeaGame.currentTea.addFlower(answ)
         }
-        // todo reset count
-
+        setBeforeFun {
+            if(Game.boolGameVar("game.tea.restart")){
+                resetCount()
+                TeaGame.reset()
+            }
+        }
     }
 }

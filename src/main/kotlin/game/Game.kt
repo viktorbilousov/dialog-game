@@ -10,6 +10,14 @@ class Game {
 
     companion object{
        public val settings = HashMap<String, Any?>()
+       public val gameVariables = HashMap<String, Any?>()
+
+        public fun boolGameVar(name: String): Boolean
+        {
+            if(gameVariables[name] == null || gameVariables[name] !is Boolean) return false
+            return gameVariables[name].toString().toBoolean()
+        }
+
         init {
             settings["debug"] = false
             settings["world-router-id"] = "router.world"

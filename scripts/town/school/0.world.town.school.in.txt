@@ -2,8 +2,11 @@ $id=world.town.school.in
 $isResetToStart=true
 $startPointId=sh.entrypoint
 
----- sh.entrypoint [phrases.AutoPhrase]
+---- sh.entrypoint 
 
 plug
 
 > plug (plug)
+> world.town.school.game (school.game #enter)
+> world.town.school.visit (school.visit #enter)
+

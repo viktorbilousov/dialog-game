@@ -2,43 +2,59 @@ $id=treehause.game.tea_game.part2
 $isResetToStart=false
 $startPointId=th.game.tea.p2.start
 
----- th.game.tea.p2.start
+---- th.game.tea.p2.start [phrases.ParametricPhrase]
 
-th.game.tea.p2.start [phrases.ParametricPhrase]
+Ты открыла ящичек с чаем.
 
->  th.game.p2.menu посмотреть меню (th.game.p2.menu)
->  [NOT=game.tea.restart] th.game.p2.game сделать чай (th.game.p2.game)
+>  Собрать чай из трав самостоятельно (th.game.p2.game)
+>  Выбрать чай из списка (th.game.p2.menu)
+>  Cпросить какой он чай хочет (th.game.p2.ask.tea)
 
+---- th.game.p2.ask.tea [phrases.ParametricPhrase]
+
+@[GET=target_tea_вкусный] Знаешь, в прошлый раз ты такой ВКУСНЫЙ чай мне приготовила.
+ Не могла ли ты мне такой же сделать?
+@[GET=target_tea_ароматный]  Ну раз ты спрашиваешь, то ты помнишь тот чай, который очень вкусно ПАХНЕТ?
+Я бы с удовольствием его выпил бы
+@[GET=target_tea_обычный] Хмм... Да не заморачивайся, сделай как ОБЫЧНО.
+@[GET=target_tea_ягодный] Оооо, слушай, мне тааак понравился твой ЯГОДНЫЙ чай. Сделаешь мне такой пожалуйста?
+@[GET=target_tea_освежающий] Сегодня так душно на улице на самом, сделай мне пожалуйста что то ОСВЕЖАЮЩЕГО.
+
+> [SET=ASKED] Выбрать чай из списка (th.game.p2.menu)
 
 ---- th.game.p2.menu [minigames.tea.phrase.TeaMenuPhrase]
 
-@ [TEA MENU]
+@ [PUT=TEA MENU]
 
 
-> [TEA ANSWERS] (th.game.menu.set.TeaChosen)
+> [PUT=TEA ANSWERS] (th.game.p2.game)
 > [debug] back (th.game.tea.p2.start)
-
----- th.game.menu.set.TeaChosen [phrases.AutoPhrase]
-
-text
-
->[SET=p2.isTeaChosen] text (th.game.tea.p2.start)
 
 ---- th.game.p2.game [minigames.tea.phrase.TeaGamePhrase]
 
-@ [GAME TABLE]
+@ [PUT=GAME TABLE]
 
-> [!5][FLOWER ANSWERS] (th.game.p2.game)
+> [!5][PUT=FLOWER ANSWERS TABLE] (th.game.p2.game)
 > [5] оценить (th.game.menu.set.MixedTeaChosen)
 
 
 
 ---- th.game.menu.set.MixedTeaChosen [minigames.tea.phrase.TeaGameResult]
 
-@ [QUALITY]
 
-[ANSWER]
+@ Оценка чая: [PUT=QUALITY]
+@ [NOT=ASKED] Ближайшай чай по вкусу: [PUT=NEAREST_TEA]
+
+@ [PUT=ANSWER]
 
 
->[SET=p2.isMixedTeaChosen][UNSET=game.tea.restart] ok (th.game.tea.p2.start)
->[SET=game.tea.restart] restart (th.game.tea.p2.start)
+
+> [NOT=ASKED][SET=game_tea_restart] Спросить какой он чай хочет и составить еще раз (th.game.p2.ask.tea)
+> [SET=game_tea_restart]Составить чай еще раз (th.game.p2.game)
+> Заварить чай (th.game.end)
+
+---- th.game.end [phrases.AutoPhrase]
+
+exit
+
+> exit (exit #exit)

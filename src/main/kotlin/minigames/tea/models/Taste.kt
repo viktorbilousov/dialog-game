@@ -44,6 +44,4 @@ data class Taste(var taste: Int, var color: Int, var smell: Int, var vitamin: In
     public fun toArray(): Array<Int>{
         return arrayOf(taste, color, smell, vitamin, aftertaste)
     }
-
-
 }

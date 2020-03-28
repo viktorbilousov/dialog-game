@@ -1,8 +1,5 @@
-import game.Game
+import game.*
 import game.Game.Companion.settings
-import game.Loader
-import game.Runner
-import game.Tester
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

@@ -1,9 +1,6 @@
 package tools
 
-import models.Answer
 import models.items.phrase.Phrase
-import models.items.phrase.PhrasePrinter
-import phrases.fabric.AnswerChooserFabric
 
 class TestPhraseTools{
 

@@ -3,7 +3,6 @@ package game
 import models.World
 import models.items.DialogItem
 import models.items.dialog.Dialog
-import models.items.phrase.FilteredPhrase
 import models.items.text.PhraseText
 import models.items.text.PhraseTextFabric
 import models.items.text.PhraseTextStream
@@ -11,8 +10,6 @@ import models.router.Router
 import models.router.RouterStream
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import phrases.fabric.FilteredPhraseConfigurator
-import phrases.fabric.FiltersCollection
 import java.nio.file.Files
 import java.nio.file.Files.isRegularFile
 import java.nio.file.Paths

@@ -1,4 +1,4 @@
-package phrases.fabric
+package phrases.collections
 
 import models.Answer
 import models.items.phrase.PhrasePrinter
@@ -6,7 +6,7 @@ import tools.AnswersTool
 import tools.SimplePhrasePrinter
 import java.lang.StringBuilder
 
-class PrinterFabric {
+class PrinterCollection {
     companion object {
 
         private val defPrinter = SimplePhrasePrinter()

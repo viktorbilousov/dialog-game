@@ -1,9 +1,10 @@
 package game
 
+import minigames.tea.TeaGame
 import models.World
 import models.items.DialogItem
 import models.items.dialog.Dialog
-import phrases.fabric.PhraseFabric
+import phrases.collections.PhraseCollection
 import java.io.File
 
 class Game {
@@ -19,6 +20,9 @@ class Game {
         }
 
         init {
+
+            TeaGame.javaClass
+
             settings["debug"] = false
             settings["world-router-id"] = "router.world"
             settings["graphs-folder"] = File("src/main/resources/graphs").absolutePath
@@ -37,7 +41,7 @@ class Game {
 
     init{
 
-        phrases["plug"] = PhraseFabric.plugExitPhrase("plug");
+        phrases["plug"] = PhraseCollection.plugExitPhrase("plug");
 
         /* Loader(this).load(
              settings["phrases-folder"] as String,

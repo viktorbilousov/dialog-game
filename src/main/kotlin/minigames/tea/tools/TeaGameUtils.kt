@@ -29,20 +29,27 @@ class TeaGameUtils{
             return summaryTaste
         }
 
-        fun getGameTable(mixedTea: MixedTea, goalTea: Tea): String {
+        fun getGameTable(mixedTea: MixedTea, goalTea: Tea?): String {
             val summaryTaste = calcSummaryTea(mixedTea)
             val printer = TablePrinter()
             val mixedTeaTable = MixedTeaTable(mixedTea);
-            val goalTeaTable = TeaTable(goalTea);
             val summaryTable = NamedTasteTable()
+
+            var goalTeaTable : TeaTable? = null;
+            if(goalTea != null)
+                goalTeaTable = TeaTable(goalTea)
+
+
             summaryTable.addTaste("cумма", summaryTaste)
-            return printer
+            val res = printer
                 .table(mixedTeaTable)
                 .resize(5)
                 .line()
                 .table(summaryTable)
-                .table(goalTeaTable)
-                .toPrettyString();
+
+            if(goalTea != null) res.table(goalTeaTable!!)
+
+            return res.toPrettyString()
 
         }
 

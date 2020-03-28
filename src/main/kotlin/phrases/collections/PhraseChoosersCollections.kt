@@ -1,4 +1,4 @@
-package phrases.fabric
+package phrases.collections
 
 import models.items.phrase.PhraseChooser
 import java.util.*

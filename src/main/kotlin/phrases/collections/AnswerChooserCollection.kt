@@ -1,10 +1,9 @@
-package phrases.fabric
+package phrases.collections
 
 import models.Answer
 import models.items.phrase.AnswerChooser
-import tools.ConsoleAnswerChooser
 
-class AnswerChooserFabric {
+class AnswerChooserCollection {
     companion object{
         public fun auto() : AnswerChooser {
             return object : AnswerChooser {

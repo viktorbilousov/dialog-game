@@ -1,12 +1,39 @@
-package phrases.fabric
+package phrases.filters
 
+import models.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import tools.FiltersUtils
 
-class ParametersProcessing(public val parameters: HashMap<String, Any?> ) {
+class ParameterFilter(public val parameters: HashMap<String, Any?> ) {
 
+    companion object {
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+
+        public fun parameterGetAnswersFilter(settings: HashMap<String, Any?>) =
+            fun(answers: Array<Answer>, _: Int): Array<Answer> {
+                return answers.filter {
+                    filterParameter(it.text, ParameterFilter(settings))
+                }.toTypedArray()
+            }
+
+        public fun parameterGetPhasesFilter(settings: HashMap<String, Any?>) =
+            fun(phrases: Array<String>, _: Int): Array<String> {
+                return phrases.filter {
+                    filterParameter(it, ParameterFilter(settings))
+                }.toTypedArray()
+            }
+
+        private fun filterParameter(str: String, parameterFilter: ParameterFilter) : Boolean{
+            val labels = FiltersUtils.getFilterLabels(str) ?: return true
+            labels.forEach {
+                val isTrue = parameterFilter.processGetParameter(it) ?: return@forEach
+                if(!isTrue) return false
+            }
+            return true
+        }
+    }
+
 
         public fun processSetParameter(str: String){
             val labels = FiltersUtils.getFilterLabels(str) ?: return
@@ -71,5 +98,7 @@ class ParametersProcessing(public val parameters: HashMap<String, Any?> ) {
         private enum class ParameterAction{
             SET, UNSET, GET, NOT
         }
+
+
 
 }

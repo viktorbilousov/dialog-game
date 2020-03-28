@@ -13,6 +13,34 @@ class FiltersUtils {
            return list.toTypedArray();
        }
 
+       public fun getFilterLabelsInsideText(str: String): Array<String>?{
+           var label = ""
+           val labelsList = arrayListOf<String>()
+           var isFound = false;
+           loop@ for(c in str){
+               when(c) {
+                   '[' -> {
+                       isFound = true;
+                       continue@loop;
+                   }
+                   ']' -> {
+                       isFound = false;
+                       if (label.isNotEmpty()){
+                           labelsList.add(label)
+                           label = ""
+                       }
+                       continue@loop;
+                   }
+                   else -> {
+                       if(isFound) label += c
+                   }
+               }
+           }
+           if(labelsList.isEmpty()) return null;
+
+           return labelsList.toTypedArray()
+       }
+
 
        public fun getFirstFilterLabel(text: String): String? {
            if(text == "") return null;
@@ -34,6 +62,23 @@ class FiltersUtils {
            val lastLabel = getFirstFilterLabel(str) ?: return str
            return str.subSequence(lastLabel.length + 2, str.length).toString().trim()
 
+       }
+
+       public fun getParameterValue(label: String) : String?{
+           if (!label.contains('=')) return null;
+           val value = label.split("=")
+           return value[1].trim();
+       }
+
+        public fun getParameterName(label: String) : String?{
+           if (!label.contains('=')) return null;
+           val value = label.split("=")
+           return value[0].trim();
+       }
+
+       public fun isLabelParametric(label: String) : Boolean{
+           val arr = label.split("=")
+           return arr.size == 2 && arr[1].isNotEmpty()
        }
    }
 }

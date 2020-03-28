@@ -1,10 +1,10 @@
-package phrases.fabric
+package phrases.collections
 
 import models.Answer
 import models.AnswerType
 import models.items.phrase.SimplePhrase
 
-class PhraseFabric {
+class PhraseCollection {
     companion object{
         public fun plugExitPhrase(id: String) : SimplePhrase {
             return SimplePhrase(

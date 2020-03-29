@@ -1,0 +1,1 @@
+java -Dfile.encoding="UTF-8" -jar libs/dialog-creator-1.1.1.jar -i scripts -op src/main/resources/phrases -og  src/main/resources/graphs -orf src/main/resources/routers/routers.json

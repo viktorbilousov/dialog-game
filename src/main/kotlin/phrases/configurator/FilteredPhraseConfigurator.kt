@@ -3,6 +3,7 @@ package phrases.configurator
 import game.Game
 import game.GameData
 import models.Answer
+import models.items.phrase.AFilteredPhrase
 import models.items.phrase.FilteredPhrase
 import phrases.collections.AnswerChooserCollection
 import phrases.collections.FiltersCollection
@@ -22,20 +23,20 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
 
     init {
 
-        phrase.addAnswerFilter("put.answers", FilteredPhrase.Order.Last,
+        phrase.addAnswerFilter("put.answers", AFilteredPhrase.Order.Last,
             FiltersCollection.replaceAnswerFilter(GameData.variableAnswers)
         )
-        phrase.addPhrasesFilter("put.phrases", FilteredPhrase.Order.Last,
+        phrase.addPhrasesFilter("put.phrases", AFilteredPhrase.Order.Last,
             FiltersCollection.replacePhraseFilter(GameData.variablePhrases)
         )
 
-        phrase.addAnswerFilter("debug", FilteredPhrase.Order.Last,
+        phrase.addAnswerFilter("debug", AFilteredPhrase.Order.Last,
             FiltersCollection.debugAnswerFilter
         )
-        phrase.addPhrasesFilter("rm", FilteredPhrase.Order.Last,
+        phrase.addPhrasesFilter("rm", AFilteredPhrase.Order.Last,
             FiltersCollection.removeLabelPhrasesFilter
         )
-        phrase.addAnswerFilter("rm", FilteredPhrase.Order.Last,
+        phrase.addAnswerFilter("rm", AFilteredPhrase.Order.Last,
             FiltersCollection.removeLabelAnswersFilter
         )
     }
@@ -81,7 +82,7 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
 
     private fun parameterSet(settings: HashMap<String, Any?>): FilteredPhraseConfigurator {
         phrase.removeAnswerFilter("rm");
-        phrase.addAnswerFilter("rm.param", FilteredPhrase.Order.Last,
+        phrase.addAnswerFilter("rm.param", AFilteredPhrase.Order.Last,
             FiltersCollection.removeLabelAnswersFilter(
                 arrayOf(
                     "SET",
@@ -115,7 +116,7 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
     }
 
     public fun applyPhrases() : FilteredPhraseConfigurator {
-        phrase.addPhrasesFilter("applyAll", FilteredPhrase.Order.Last,
+        phrase.addPhrasesFilter("applyAll", AFilteredPhrase.Order.Last,
             FiltersCollection.applyAllPhrasesToOne
         )
         return this

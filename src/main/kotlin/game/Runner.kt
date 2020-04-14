@@ -3,13 +3,13 @@ package game
 import models.Answer
 import models.AnswerType
 import models.World
-import models.items.DialogItem
+import models.items.ADialogItem
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.lang.IllegalArgumentException
 
 
-class Runner(private val game: Game, private val world: World): Runnable {
+open class Runner(private val game: Game, private val world: World): Runnable {
 
     companion object{
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
@@ -21,7 +21,7 @@ class Runner(private val game: Game, private val world: World): Runnable {
         logger.info("<< run")
     }
 
-    private fun run(startPoint : DialogItem){
+    private fun run(startPoint : ADialogItem){
         logger.info(">> run $startPoint")
         var currentPoint =  startPoint
         var answer = Answer.enter()

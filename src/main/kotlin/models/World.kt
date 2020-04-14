@@ -1,12 +1,9 @@
 package models
 
-import game.Game
-import models.items.DialogItem
 import models.items.dialog.Dialog
 import models.router.Router
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.lang.IllegalArgumentException
 
 class World(public val worldRouter: Router) {
 

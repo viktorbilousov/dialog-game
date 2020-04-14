@@ -1,7 +1,8 @@
 package game
 
 import models.World
-import models.items.DialogItem
+import models.items.ADialogItem
+
 import models.items.dialog.Dialog
 import models.items.text.PhraseText
 import models.items.text.PhraseTextFabric
@@ -53,7 +54,7 @@ class Loader(private val game: Game) {
         }
 
         routers.forEach {
-            it.items = game.phrases as HashMap<String, DialogItem>;
+            it.items = game.phrases as HashMap<String, ADialogItem>;
         }
 
 
@@ -75,7 +76,7 @@ class Loader(private val game: Game) {
             logger.error("A World router not found!")
             error = true;
         } else {
-            globalRouter.items = game.dialogs as HashMap<String, DialogItem>
+            globalRouter.items = game.dialogs as HashMap<String, ADialogItem>
             game.world = World(globalRouter)
             logger.info("global router = ${game.world!!.worldRouter.id}")
 

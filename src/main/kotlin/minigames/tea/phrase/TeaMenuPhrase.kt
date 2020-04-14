@@ -15,7 +15,7 @@ class TeaMenuPhrase(id: String, phrases: Array<String>, answers : Array<Answer>)
     init {
         FilteredPhraseConfigurator(this).parametric().applyPhrases()
 
-        this.setAfterFun { answer ->
+        this.after =  { answer ->
             val answ = TeaGameUtils.answerToTea(answer)!!;
             logger.info("Set goal tea as ${answ.name}")
             TeaGame.goalTea = answ

@@ -41,7 +41,7 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
     }
     
     public fun auto() : FilteredPhraseConfigurator {
-        phrase.answerChooser = AnswerChooserCollection.auto()
+        phrase.answerChooser = AnswerChooserCollection.first()
         phrase.phrasePrinter = PrinterCollection.empty()
         return this
     }
@@ -90,9 +90,10 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
             )
         )
         phrase.phrasePrinter = PrinterCollection.parametric();
-        phrase.setAfterFun {
+        phrase.after = {
             ParameterFilter(settings).processSetParameter(it.text)
         }
+
         return this
     }
 
@@ -118,6 +119,11 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
             FiltersCollection.applyAllPhrasesToOne
         )
         return this
+    }
+
+    public fun auto(answerId: String){
+        phrase.phrasePrinter = PrinterCollection.empty()
+        phrase.answerChooser = AnswerChooserCollection.auto(answerId);
     }
 
     /*public fun put() : FilteredPhraseConfigurator {

@@ -14,7 +14,7 @@ class PhrasesTest {
     @Test
     fun test_AutoPhrase(){
        val phrase =  createTestPhrase<AutoPhrase>(arrayOf(Answer("ok", "ans1") , Answer("error", "answ2") ))
-        val res = phrase.run(Answer.empty())
+        val res = phrase.run()
         assert(res.id == "ok")
     }
 
@@ -33,10 +33,10 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametric()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
         val printer = TestPhraseTools.setTestPrinter(phrase)
 
-        phrase.run(Answer.empty())
+        phrase.run()
         assert(printer.lastPhrase == "ok")
     }
 
@@ -59,22 +59,22 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametricIfElseStatement()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
         val printer = TestPhraseTools.setTestPrinter(phrase)
 
-        phrase.run(Answer.empty())
+        phrase.run()
         assert(printer.lastPhrase == "if_answ")
 
         testParams["if"] = false;
         testParams["elseif"] = true;
 
-        phrase.run(Answer.empty())
+        phrase.run()
         assert(printer.lastPhrase == "elseif_answ")
 
         testParams["elseif"] = false;
         testParams["else"] = true;
 
-        phrase.run(Answer.empty())
+        phrase.run()
         assert(printer.lastPhrase == "else_answ")
     }
 
@@ -95,9 +95,9 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametricIfElseStatement()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
 
-        var res = phrase.run(Answer.empty())
+        var res = phrase.run()
         assert(res.text == "elseif2_ok")
     }
 
@@ -116,21 +116,21 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametricIfElseStatement()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
 
-        var res = phrase.run(Answer.empty())
+        var res = phrase.run()
         assert(res.text == "if_answ")
 
         testParams["if"] = false;
         testParams["elseif"] = true;
 
-         res = phrase.run(Answer.empty())
+         res = phrase.run()
         assert(res.text== "elseif_answ")
 
         testParams["elseif"] = false;
         testParams["else"] = true;
 
-        res = phrase.run(Answer.empty())
+        res = phrase.run()
         assert(res.text == "else_answ")
     }
 
@@ -150,10 +150,10 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametric()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
         val printer = TestPhraseTools.setTestPrinter(phrase)
 
-        phrase.run(Answer.empty())
+        phrase.run()
         assert(printer.lastPhrase == "ok")
     }
 
@@ -170,9 +170,9 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametric()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
 
-        val res = phrase.run(Answer.empty())
+        val res = phrase.run()
         assert(res.text == "ok")
     }
 
@@ -188,9 +188,9 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametric()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
 
-        val res = phrase.run(Answer.empty())
+        val res = phrase.run()
         assert(res.text == "ok")
     }
 
@@ -206,9 +206,9 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase).parametric()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
 
-        val res = phrase.run(Answer.empty())
+        val res = phrase.run()
         assert(res.text == "ok")
     }
 
@@ -223,9 +223,9 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametric()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
 
-        phrase.run(Answer.empty())
+        phrase.run()
         assert(testParams["test"] != null)
     }
 
@@ -240,9 +240,9 @@ class PhrasesTest {
             )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametric()
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
 
-        phrase.run(Answer.empty())
+        phrase.run()
         assert(testParams["test"] == false)
     }
 
@@ -256,12 +256,12 @@ class PhrasesTest {
                 Answer("*", "[*] other")
             )
         )
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
 
-        val first = phrase.run(Answer.empty())
-        val second = phrase.run(Answer.empty())
-        val third = phrase.run(Answer.empty())
-        val fourth = phrase.run(Answer.empty())
+        val first = phrase.run()
+        val second = phrase.run()
+        val third = phrase.run()
+        val fourth = phrase.run()
         assert(first.id == "1")
         assert(second.id == "2")
         assert(third .id == "*")
@@ -276,20 +276,20 @@ class PhrasesTest {
                 Answer("1", "first")
             )
         )
-        phrase.answerChooser = AnswerChooserCollection.auto();
+        phrase.answerChooser = AnswerChooserCollection.first();
         val printer = TestPrinter();
         phrase.phrasePrinter = printer;
 
-        val first = phrase.run(Answer.empty())
+        val first = phrase.run()
         assert(printer.lastPhrase == "phrase 1")
 
-        val second = phrase.run(Answer.empty())
+        val second = phrase.run()
         assert(printer.lastPhrase == "phrase 2")
 
-        val third = phrase.run(Answer.empty())
+        val third = phrase.run()
         assert(printer.lastPhrase == "other")
 
-        val fourth = phrase.run(Answer.empty())
+        val fourth = phrase.run()
         assert(printer.lastPhrase == "other")
 
     }

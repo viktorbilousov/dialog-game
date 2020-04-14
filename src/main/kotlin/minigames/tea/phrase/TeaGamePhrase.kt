@@ -18,12 +18,12 @@ class TeaGamePhrase (id: String, phrases: Array<String>, answers : Array<Answer>
     init {
         FilteredPhraseConfigurator(this).count().applyPhrases()
 
-        setAfterFun {
-            val answ = TeaGameUtils.answerToFlower(it) ?: return@setAfterFun
+        after = after@{
+            val answ = TeaGameUtils.answerToFlower(it) ?: return@after
             logger.info("selected Flower is ${answ.name}")
             TeaGame.currentTea.addFlower(answ)
         }
-        setBeforeFun {
+        before =  {
             logger.info("reset = ${Game.boolGameVar("game_tea_restart")}")
             if(Game.boolGameVar("game_tea_restart")){
                 resetCount()

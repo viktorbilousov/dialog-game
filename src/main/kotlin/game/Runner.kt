@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory
 import java.lang.IllegalArgumentException
 
 
-class Runner(private val game: Game, private val world: World) {
+class Runner(private val game: Game, private val world: World): Runnable {
 
     companion object{
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
     }
 
-    public fun run(){
+    public override fun run(){
         logger.info(">> run")
         run(world.start())
         logger.info("<< run")
@@ -26,7 +26,7 @@ class Runner(private val game: Game, private val world: World) {
         var currentPoint =  startPoint
         var answer = Answer.enter()
         loop@ while(true){
-            answer = currentPoint.run(answer)
+            answer = currentPoint.run()
             logger.info("answer from '${currentPoint.id}' is $answer")
             currentPoint =  when(answer.type){
                 AnswerType.ENTER -> world.enterTo(answer)
@@ -61,7 +61,7 @@ class Runner(private val game: Game, private val world: World) {
 
         for (it in game.dialogs.values) {
             if(it.containsItem(id)) {
-                val answ = it.startFrom(id, Answer.enter()) as Answer
+                val answ = it.startFrom(id) as Answer
                 logger.info("<< answer from $id is $answ" )
                 teleport(answ.id);
                 logger.info("<< goToPhrase $id" )

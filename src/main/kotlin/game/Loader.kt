@@ -21,6 +21,7 @@ import java.io.File
 class Loader(private val game: Game) {
     companion object {
         private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+
     }
 
     public fun load(phrasesTextFolder: String, routersFolder: String, graphFolder: String) {
@@ -52,7 +53,7 @@ class Loader(private val game: Game) {
         }
 
         routers.forEach {
-            it.items = game.phrases;
+            it.items = game.phrases as HashMap<String, DialogItem>;
         }
 
 

@@ -1,4 +1,4 @@
-package game.debug.autorunner
+package debug.items.runner
 
 import models.Answer
 import models.items.ADialogItem

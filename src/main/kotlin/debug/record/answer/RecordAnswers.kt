@@ -1,4 +1,4 @@
-package game.debug.record.models
+package debug.record.answer
 
 import models.Answer
 

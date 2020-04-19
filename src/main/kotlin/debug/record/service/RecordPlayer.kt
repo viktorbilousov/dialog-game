@@ -1,15 +1,19 @@
-package game.debug.record.models
+package debug.record.service
 
-class RecordPlayer(record: Record){
+import debug.record.models.Record
+
+class RecordPlayer(record: Record) {
     private var currentIndex = 0;
     private val array = record.toArray();
-    public fun getNextStep(): String{
+    fun getNextStep(): String {
         return array[currentIndex++];
     }
-    public fun haveNext() : Boolean{
+
+    fun haveNext(): Boolean {
         return currentIndex < array.size
     }
-    public fun restart() {
+
+    fun restart() {
         currentIndex = 0;
     }
 }

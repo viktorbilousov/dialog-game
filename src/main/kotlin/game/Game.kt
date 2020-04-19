@@ -2,6 +2,7 @@ package game
 
 import minigames.tea.TeaGame
 import models.World
+import models.items.dialog.ADialog
 import models.items.dialog.Dialog
 import models.items.phrase.APhrase
 import phrases.collections.PhraseCollection
@@ -33,7 +34,7 @@ class Game {
 
 
     val phrases = hashMapOf<String, APhrase>()
-    val dialogs = hashMapOf<String, Dialog>()
+    val dialogs = hashMapOf<String, ADialog>()
     var world: World? = null
     set(value) {
         field = value;

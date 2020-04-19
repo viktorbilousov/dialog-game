@@ -9,7 +9,7 @@ class Tester {
 
 companion object {
 
-    private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+    private val logger = LoggerFactory.getLogger(Tester::class.java) as Logger
 
     public fun testRouter(router: Router): Boolean{
         logger.info(">> Test router: ${router.id}")

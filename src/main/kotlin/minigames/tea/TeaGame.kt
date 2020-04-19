@@ -16,7 +16,7 @@ import kotlin.random.Random
 
 class TeaGame {
     companion object {
-        private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+        private val logger = LoggerFactory.getLogger(TeaGame::class.java) as Logger
 
         var currentTea = MixedTea();
         var goalTea: Tea? = null

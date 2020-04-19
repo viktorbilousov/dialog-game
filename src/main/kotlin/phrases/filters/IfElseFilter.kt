@@ -9,7 +9,7 @@ import tools.FiltersUtils
 class IfElseFilter {
     companion object{
 
-        private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+        private val logger = LoggerFactory.getLogger(IfElseFilter::class.java) as Logger
 
 
         public fun ifElseAnswersFilter(settings: HashMap<String, Any?>) = fun(answers: Array<Answer>, _: Int): Array<Answer> {

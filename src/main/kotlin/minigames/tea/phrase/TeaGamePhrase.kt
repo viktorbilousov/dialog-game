@@ -13,7 +13,7 @@ import phrases.collections.PrinterCollection
 
 class TeaGamePhrase (id: String, phrases: Array<String>, answers : Array<Answer>) : FilteredPhrase(id, phrases, answers){
 
-    private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+    private val logger = LoggerFactory.getLogger(TeaGamePhrase::class.java) as Logger
 
     init {
         FilteredPhraseConfigurator(this).count().applyPhrases()

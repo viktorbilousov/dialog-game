@@ -8,7 +8,7 @@ import tools.FiltersUtils
 class ParameterFilter(public val parameters: HashMap<String, Any?> ) {
 
     companion object {
-        private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+        private val logger = LoggerFactory.getLogger(ParameterFilter::class.java) as Logger
 
         public fun parameterGetAnswersFilter(settings: HashMap<String, Any?>) =
             fun(answers: Array<Answer>, _: Int): Array<Answer> {

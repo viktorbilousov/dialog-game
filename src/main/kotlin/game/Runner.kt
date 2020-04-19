@@ -12,7 +12,7 @@ import java.lang.IllegalArgumentException
 open class Runner(private val game: Game, private val world: World): Runnable {
 
     companion object{
-        private val logger = LoggerFactory.getLogger(this::class.java) as Logger
+        private val logger = LoggerFactory.getLogger(Runner::class.java) as Logger
     }
 
     public override fun run(){

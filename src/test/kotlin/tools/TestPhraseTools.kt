@@ -1,11 +1,11 @@
 package tools
 
-import models.items.phrase.Phrase
+import models.items.phrase.APhrase
 
 class TestPhraseTools{
 
     companion object{
-        public fun setTestPrinter(phrase: Phrase) : TestPrinter{
+        public fun setTestPrinter(phrase: APhrase) : TestPrinter{
             val printer = TestPrinter();
             phrase.phrasePrinter = printer;
             return printer;

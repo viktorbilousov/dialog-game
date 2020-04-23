@@ -1,5 +1,7 @@
 package tools
 
+import phrases.filters.Labels
+
 class FiltersUtils {
    companion object {
        public fun getFilterLabels(str: String): Array<String>? {
@@ -13,6 +15,15 @@ class FiltersUtils {
            return list.toTypedArray();
        }
 
+       public fun getSimpleLabels(str: String): Array<String>?{
+           val arr = getFilterLabels(str) ?: return null
+           return arr.filter { !isLabelParametric(it) }.toTypedArray()
+       }
+
+       public fun getParametricLabels(str: String): Array<String>?{
+           val arr = getFilterLabels(str) ?: return null
+           return arr.filter { isLabelParametric(it) }.toTypedArray()
+       }
        public fun getFilterLabelsInsideText(str: String): Array<String>?{
            var label = ""
            val labelsList = arrayListOf<String>()
@@ -80,5 +91,44 @@ class FiltersUtils {
            val arr = label.split("=")
            return arr.size == 2 && arr[1].isNotEmpty()
        }
+
+       public fun indexOfLabelAfter(index: Int, label: Labels, textLabels: Array<String>): Int?{
+           for (i in index until textLabels.size){
+               var currLabel: String? = (if(isLabelParametric(textLabels[i])) getParameterName(textLabels[i])
+               else textLabels[i])
+                   ?: return null;
+
+               currLabel = currLabel!!.toUpperCase()
+
+               if(currLabel.startsWith(label.label.toUpperCase())) {
+                   return i;
+               };
+           }
+           return null;
+       }
+       public fun indexOfLabel(label: Labels, textLabels: Array<String>): Int?{
+          return indexOfLabelAfter(0, label, textLabels)
+       }
+
+       public fun countOfLabels(textLabels: Array<String>, label: Labels) : Int{
+           return textLabels.filter { it.startsWith(label.label) }.count()
+       }
+
+//       public fun getParameterLabelsAfter(label: Labels, line:  String): Array<String>?{
+//           val labels = FiltersUtils.getFilterLabels(line) ?: return null
+//           val list = arrayListOf<String>()
+//           var addToList = false;
+//           labels.forEach {
+//               if(Labels.parse(it) == label) {
+//                   addToList = true
+//                   return@forEach
+//               };
+//               if(addToList) {
+//                   if (isLabelParametric(it)) list.add(it)
+//                   else addToList = false;
+//               }
+//           }
+//           return list.toTypedArray()
+//       }
    }
 }

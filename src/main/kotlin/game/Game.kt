@@ -3,22 +3,14 @@ package game
 import minigames.tea.TeaGame
 import models.World
 import models.items.dialog.ADialog
-import models.items.dialog.Dialog
 import models.items.phrase.APhrase
 import phrases.collections.PhraseCollection
 import java.io.File
 
 class Game {
 
-    companion object{
-       public val settings = HashMap<String, Any?>()
-       public val gameVariables = HashMap<String, Any?>()
-
-        public fun boolGameVar(name: String): Boolean
-        {
-            if(gameVariables[name] == null || gameVariables[name] !is Boolean) return false
-            return gameVariables[name].toString().toBoolean()
-        }
+    companion object {
+        public val settings = HashMap<String, Any?>()
 
         init {
 
@@ -36,11 +28,11 @@ class Game {
     val phrases = hashMapOf<String, APhrase>()
     val dialogs = hashMapOf<String, ADialog>()
     var world: World? = null
-    set(value) {
-        field = value;
-    }
+        set(value) {
+            field = value;
+        }
 
-    init{
+    init {
 
         phrases["plug"] = PhraseCollection.plugExitPhrase("plug");
 
@@ -53,12 +45,9 @@ class Game {
          Tester.testGame(this);*/
     }
 
-    private fun init(){
-
-    }
-    public fun debug(isEnable: Boolean){
+    public fun debug(isEnable: Boolean) {
         settings["debug"] = isEnable
-        if(isEnable) {
+        if (isEnable) {
             dialogs["world"]!!.router.startPointId = "debug.world.startpoint"
         }
     }

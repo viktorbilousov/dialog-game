@@ -8,17 +8,17 @@ import models.items.phrase.FilteredPhrase
 import phrases.collections.AnswerChooserCollection
 import phrases.collections.FiltersCollection
 import phrases.collections.PrinterCollection
-import phrases.filters.ParameterFilter
+import phrases.filters.ParamSetBooleanFilter
 
 open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
 
-    private var settings: HashMap<String, Any?> = Game.settings;
-    private var gameVariables: HashMap<String, Any?> = Game.gameVariables;
-    private var variablePhrasesBuffer: HashMap<String, () -> String> = GameData.variablePhrases;
-    private var variableAnswersBuffer: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers;
+   // private var settings: HashMap<String, Any?> = Game.settings;
+    private var gameVariables: HashMap<String, Any?> = GameData.gameVariables;
+   // private var variablePhrasesBuffer: HashMap<String, () -> String> = GameData.variablePhrases;
+   // private var variableAnswersBuffer: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers;
 
     constructor(phrase: FilteredPhrase, settings: HashMap<String, Any?>) : this(phrase){
-        this.settings = settings;
+        this.gameVariables = settings;
     }
 
     init {
@@ -92,7 +92,7 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
         )
         phrase.phrasePrinter = PrinterCollection.parametric();
         phrase.after = {
-            ParameterFilter(settings).processSetParameter(it.text)
+            ParamSetBooleanFilter(settings).processSetParameter(it.text)
         }
 
         return this
@@ -106,12 +106,12 @@ open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
 
     public fun parametricIfElseStatement() : FilteredPhraseConfigurator {
         phrase.addPhrasesFilter("condition.parameter.ifElse.phrases",
-            FiltersCollection.ifElsePhrasesFilter(settings)
+            FiltersCollection.ifElsePhrasesFilter(gameVariables)
         )
         phrase.addAnswerFilter("condition.parameter.ifElse.answer",
-            FiltersCollection.ifElseAnswersFilter(settings)
+            FiltersCollection.ifElseAnswersFilter(gameVariables)
         )
-        parameterSet(settings)
+        parameterSet(gameVariables)
         return this
     }
 

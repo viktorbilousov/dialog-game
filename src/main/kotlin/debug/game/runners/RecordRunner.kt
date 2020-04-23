@@ -25,7 +25,7 @@ class RecordRunner( game: Game, world: World) : Runner(game, world){
         val loaded = RecordFileIO.load();
         val set = HashSet<Record>();
         if(loaded != null) set.addAll(loaded);
-        Game.gameVariables["debug.records"] = set;
+        GameData.gameVariables["debug.records"] = set;
     }
 
 }

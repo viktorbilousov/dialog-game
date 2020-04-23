@@ -2,6 +2,11 @@ package phrases.collections
 
 import models.Answer
 import phrases.filters.*
+import phrases.filters.Inlinetext.DebugFilter
+import phrases.filters.Inlinetext.ParamGetBooleanFilter
+import phrases.filters.inlinechange.RemoveLabelFilter
+import phrases.filters.phrase.CountFilter
+import phrases.filters.phrase.IfElseFilter
 
 
 class FiltersCollection {
@@ -13,12 +18,12 @@ class FiltersCollection {
 
         public fun parameterGetAnswersFilter(settings: HashMap<String, Any?>) =
             fun(answers: Array<Answer>, count: Int): Array<Answer> {
-                return ParameterFilter.parameterGetAnswersFilter(settings)(answers, count)
+                return ParamGetBooleanFilter.parameterGetAnswersFilter(settings)(answers, count)
             }
 
         public fun parameterGetPhasesFilter(settings: HashMap<String, Any?>) =
             fun(phrases: Array<String>, count: Int): Array<String> {
-                return ParameterFilter.parameterGetPhasesFilter(settings)(phrases, count)
+                return ParamGetBooleanFilter.parameterGetPhasesFilter(settings)(phrases, count)
             }
 
         public val removeLabelPhrasesFilter = fun(phrases: Array<String>, count: Int): Array<String> {
@@ -50,20 +55,20 @@ class FiltersCollection {
             }
 
         public val notCountAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer>{
-            return CountFilter.notCountAnswer(answers, count)
+            return CountFilter().notCountAnswer(answers, count)
         }
 
         public val notCountPhrase = fun(phrases: Array<String>, count: Int): Array<String>{
-            return CountFilter.notCountPhrase(phrases, count)
+            return CountFilter().notCountPhrase(phrases, count)
         }
 
 
         public val countAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer> {
-            return CountFilter.countAnswer(answers, count)
+            return CountFilter().countAnswer(answers, count)
         }
 
         public val countPhrase = fun(phrases: Array<String>, count: Int): Array<String> {
-            return CountFilter.countPhrase(phrases, count)
+            return CountFilter().countPhrase(phrases, count)
 
         }
 

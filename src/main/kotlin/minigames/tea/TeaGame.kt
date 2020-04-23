@@ -53,7 +53,7 @@ class TeaGame {
             //ask.tea
             val index = Random.nextInt(Collection.getTeas().size)
             guessTea = Collection.getTeas()[index]
-            Game.gameVariables["target_tea_${guessTea.name}"] = true
+            GameData.gameVariables["target_tea_${guessTea.name}"] = true
 
         }
 

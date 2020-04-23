@@ -63,6 +63,6 @@ class AutoRunner(game: Game, world: World) : Runner(game, world){
             }
         }
         this.recordPlayer = RecordPlayer(records[num!!-1])
-        logger.info("selected record : ${records[num!!-1]}")
+        logger.info("selected record : ${records[num -1]}")
     }
 }

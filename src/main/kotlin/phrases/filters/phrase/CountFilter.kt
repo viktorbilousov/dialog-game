@@ -1,12 +1,33 @@
-package phrases.filters
+package phrases.filters.phrase
 
 import models.Answer
-import phrases.collections.FiltersCollection
+import phrases.filters.PhraseFilter
 import tools.FiltersUtils
 
-class CountFilter {
-    companion object{
-        public val notCountAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer>{
+/**
+[1]
+[2]
+[3]
+[4]
+[5]
+[6]
+[!6]
+[6]
+[*]
+ */
+class CountFilter : PhraseFilter {
+
+    override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
+        val res = notCountPhrase(phrases,count);
+        return countPhrase(res, count)
+    }
+
+    override fun filterAnswers(answer: Array<Answer>, count: Int): Array<Answer> {
+        val res = notCountAnswer(answer, count);
+        return countAnswer(res, count)
+    }
+
+    public val notCountAnswer = fun(answers: Array<Answer>, count: Int): Array<Answer>{
             return answers.filter {
                 val labels = FiltersUtils.getFilterLabels(it.text) ?: return@filter true
                 for (label in labels) {
@@ -86,5 +107,4 @@ class CountFilter {
 
         }
 
-    }
 }

@@ -1,6 +1,7 @@
 package minigames.tea.phrase
 
 import game.Game
+import game.GameData
 import minigames.tea.TeaGame
 import minigames.tea.tools.TeaGameUtils
 import models.Answer
@@ -24,11 +25,11 @@ class TeaGamePhrase (id: String, phrases: Array<String>, answers : Array<Answer>
             TeaGame.currentTea.addFlower(answ)
         }
         before =  {
-            logger.info("reset = ${Game.boolGameVar("game_tea_restart")}")
-            if(Game.boolGameVar("game_tea_restart")){
+            logger.info("reset = ${GameData.boolGameVar("game_tea_restart")}")
+            if(GameData.boolGameVar("game_tea_restart")){
                 resetCount()
                 TeaGame.reset()
-                Game.gameVariables["game_tea_restart"] = false;
+                GameData.gameVariables["game_tea_restart"] = false;
             }
 
         }

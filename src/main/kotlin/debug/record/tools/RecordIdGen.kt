@@ -2,6 +2,7 @@ package debug.record.tools
 
 import debug.record.models.Record
 import game.Game
+import game.GameData
 
 class RecordIdGen {
     companion object{
@@ -9,7 +10,7 @@ class RecordIdGen {
         private var lastId = 0;
 
         public fun getNextId(): String{
-            val set = Game.gameVariables["debug.records"] as HashSet<Record>?
+            val set = GameData.gameVariables["debug.records"] as HashSet<Record>?
             if(set == null) lastId++;
             set!!.forEach{
                 val numStr = it.id.substringAfter(prefix).toIntOrNull() ?: return@forEach;

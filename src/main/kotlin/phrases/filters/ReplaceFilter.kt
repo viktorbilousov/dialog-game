@@ -4,6 +4,8 @@ import models.Answer
 import tools.FiltersUtils
 
 class ReplaceFilter {
+
+
     companion object {
        /* public fun replaceLabelToTextAnswer(label: String, text: String) =
             fun(answers: Array<Answer>, _: Int): Array<Answer> {

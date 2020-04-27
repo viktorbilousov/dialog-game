@@ -2,8 +2,6 @@ package phrases
 
 
 import models.Answer
-import models.items.phrase.APhrase
-import models.items.phrase.DebugFilteredPhrase
 import models.items.phrase.FilteredPhrase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -12,7 +10,7 @@ import phrases.configurator.FilteredPhraseConfigurator
 import tools.TestPhraseTools
 import tools.TestPhraseWrapper
 
-class AutoFilterPhrase_Test {
+class GamePhrase_GetBoolean_Test {
     @Test
     fun simplePhraseTest(){
 
@@ -20,7 +18,7 @@ class AutoFilterPhrase_Test {
         val inputPhrases = arrayOf("phrase1", "phrase2", "phrase3")
 
         val phrase = TestPhraseWrapper(
-            TestPhraseTools.createTestPhrase<AutoFilterPhrase>(
+            TestPhraseTools.createTestPhrase<GamePhrase>(
                 inputPhrases,
                 inputAnswers
             )
@@ -37,7 +35,7 @@ class AutoFilterPhrase_Test {
         val inputPhrases = arrayOf("[>1] phrase1", "[>=1] phrase2", "[3] phrase3")
 
         val phrase = TestPhraseWrapper(
-            TestPhraseTools.createTestPhrase<AutoFilterPhrase>(
+            TestPhraseTools.createTestPhrase<GamePhrase>(
                 inputPhrases,
                 inputAnswers
             )
@@ -139,7 +137,7 @@ class AutoFilterPhrase_Test {
         testParams["test1"] = true;
         testParams["test2"] = true;
 
-        val phrase = TestPhraseTools.createTestPhrase<AutoFilterPhrase>(
+        val phrase = TestPhraseTools.createTestPhrase<GamePhrase>(
             arrayOf(
                 Answer("1", "[GET=test1][GET=test2][GET=test3] error"),
                 Answer("2", "[GET=test1][GET=test2] ok")

@@ -4,8 +4,9 @@ import models.Answer
 
 class GameData {
     companion object {
-        public val variablePhrases: HashMap<String, () -> String> = HashMap();
+        public val variablePhrases: HashMap<String, () -> Array<String>> = HashMap();
         public val variableAnswers: HashMap<String, () -> Array<Answer>> = HashMap();
+        public val variableTexts: HashMap<String, () -> String> = HashMap();
         public val gameVariables = HashMap<String, Any?>()
 
         public fun boolGameVar(name: String): Boolean
@@ -15,32 +16,33 @@ class GameData {
         }
 
 
-        public fun addPhrase(label: String, text: String) {
-            variablePhrases[label] = { text }
+        public fun addTextToReplace(key: String, text: String) {
+            variableTexts[key] = { text }
         }
 
-        public fun addPhrase(label: String, lambda: () -> String) {
-            variablePhrases[label] = lambda
+        public fun addTextToReplace(key: String, lambda: () -> String) {
+            variableTexts[key] = lambda
         }
 
-        public fun addAnswers(label: String, lambda: () -> Array<Answer>) {
-            variableAnswers[label] = lambda
+        public fun addPhraseToInsert(key: String, lambda: () -> Array<String>){
+            variablePhrases[key] = lambda
         }
 
-        public fun addAnswers(label: String, answText: String) {
-            addAnswers(label, arrayOf(answText))
+        public fun addPhraseToInsert(key: String, vararg phrases: String){
+            variablePhrases[key] = {phrases as Array<String>}
         }
 
-        public fun addAnswers(label: String, answ: Answer) {
-            addAnswers(label, arrayOf(answ))
+
+        public fun addAnswersToInsert(key: String, lambda: () -> Array<Answer>) {
+            variableAnswers[key] = lambda
         }
 
-        public fun addAnswers(label: String, answTexts: Array<String>) {
-            variableAnswers[label] = { answTexts.toList().map { Answer("NAN", it) }.toTypedArray() }
+        public fun addAnswersToInsert(key: String, vararg answTexts: String) {
+            variableAnswers[key] = { answTexts.toList().map { Answer("NAN", it) }.toTypedArray() }
         }
 
-        public fun addAnswers(label: String, answs: Array<Answer>) {
-            variableAnswers[label] = { answs }
+        public fun addAnswersToInsert(key: String, vararg answs: Answer) {
+            variableAnswers[key] = { answs as Array<Answer> }
         }
     }
 }

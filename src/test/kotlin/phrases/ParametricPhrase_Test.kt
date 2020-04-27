@@ -1,15 +1,13 @@
 package phrases
 
 import models.Answer
-import models.items.phrase.APhrase
-import models.items.phrase.DebugFilteredPhrase
+import models.items.phrase.FilteredPhrase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import phrases.collections.AnswerChooserCollection
 import phrases.configurator.FilteredPhraseConfigurator
 import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPhraseTools
-import tools.TestPhraseWrapper
 
 class ParametricPhrase_Test {
     @Test
@@ -17,7 +15,7 @@ class ParametricPhrase_Test {
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
-        val phrase =  createTestPhrase<ParametricPhrase>(
+        val phrase =  createTestPhrase<GamePhrase>(
             arrayOf(
                 "[GET=dsjfh] error" ,
                 "[GET=test] ok"
@@ -41,7 +39,7 @@ class ParametricPhrase_Test {
         testParams["test"] = true;
 
 
-        val phrase = createTestPhrase<ParametricPhrase>(
+        val phrase = createTestPhrase<GamePhrase>(
             arrayOf(
                 "[NOT=dsjfh] ok" ,
                 "[NOT=test] error"
@@ -64,13 +62,13 @@ class ParametricPhrase_Test {
         testParams["test1"] = true;
         testParams["test2"] = true;
 
-        val phrase =  createTestPhrase<ParametricPhrase>(
+        val phrase =  createTestPhrase<GamePhrase>(
             arrayOf(
                 Answer("1", "[GET=test1][GET=test2][GET=test3] error") ,
                 Answer("2", "[GET=test1][GET=test2] ok")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).parametric()
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
         phrase.answerChooser = AnswerChooserCollection.first();
 
         val res = phrase.run()
@@ -82,13 +80,13 @@ class ParametricPhrase_Test {
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
-        val phrase =  createTestPhrase<ParametricPhrase>(
+        val phrase =  createTestPhrase<FilteredPhrase>(
             arrayOf(
                 Answer("1", "[GET=dsjfh] error") ,
                 Answer("2", "[GET=test] ok")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).parametric()
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
         phrase.answerChooser = AnswerChooserCollection.first();
 
         val res = phrase.run()
@@ -100,7 +98,7 @@ class ParametricPhrase_Test {
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
-        val phrase =  createTestPhrase<ParametricPhrase>(
+        val phrase =  createTestPhrase<GamePhrase>(
             arrayOf(
                 Answer("1", "[NOT=dsjfh] ok") ,
                 Answer("2", "[NOT=test] erroe")
@@ -118,7 +116,7 @@ class ParametricPhrase_Test {
     fun SET_answer_(){
         val testParams = hashMapOf<String, Any?>()
 
-        val phrase =  createTestPhrase<ParametricPhrase>(
+        val phrase =  createTestPhrase<GamePhrase>(
             arrayOf(
                 Answer("1", "[SET=test] ok")
             )
@@ -135,7 +133,7 @@ class ParametricPhrase_Test {
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
-        val phrase =  createTestPhrase<ParametricPhrase>(
+        val phrase =  createTestPhrase<GamePhrase>(
             arrayOf(
                 Answer("1", "[UNSET=test] ok")
             )
@@ -152,7 +150,7 @@ class ParametricPhrase_Test {
     fun SETV_answer_() {
         val testParams = hashMapOf<String, Any?>()
 
-        val phrase = createTestPhrase<ParametricPhrase>( arrayOf(
+        val phrase = createTestPhrase<GamePhrase>( arrayOf(
             "[SETV][value1=some_value] ok"
         )
         )
@@ -170,7 +168,7 @@ class ParametricPhrase_Test {
     fun UNSETV_answer_() {
         val testParams = hashMapOf<String, Any?>()
         testParams["value"] = "test"
-        val phrase = createTestPhrase<ParametricPhrase>( arrayOf(
+        val phrase = createTestPhrase<GamePhrase>( arrayOf(
             "[UNSETV=value1] ok"
         )
         )

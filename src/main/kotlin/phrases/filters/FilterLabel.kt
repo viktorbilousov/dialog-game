@@ -25,8 +25,12 @@ enum class FilterLabel (val label: String) {
     FI_SYS("FI_SYS"),
 
 
-    // <- ReplaceAnswerFilter, ReplacePhraseFilter ->
+    // <- PutFilter ->
     PUT("PUT"),
+
+    //  <- IncertFilter ->
+
+    INST("INST"),
 
 
     //<- DebugFilter ->

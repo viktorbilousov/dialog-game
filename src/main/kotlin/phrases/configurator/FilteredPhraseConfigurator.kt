@@ -8,16 +8,13 @@ import org.slf4j.Logger
 //import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import phrases.collections.AnswerChooserCollection
+import phrases.collections.PhraseChoosersCollections
 import phrases.collections.PrinterCollection
 import phrases.filters.FilterLabel
-import phrases.filters.inline.text.DebugFilter
-import phrases.filters.inline.text.GetBooleanFilter
-import phrases.configurator.ParamSetBoolean
 import phrases.filters.inline.change.RemoveLabelFilter
-import phrases.filters.inline.text.IfElseFilterV2
 import phrases.filters.phrase.*
 import phrases.filters.PhraseFilter
-import phrases.filters.inline.text.GetVariableFilter
+import phrases.filters.inline.text.*
 
 open class FilteredPhraseConfigurator(private val phrase: AFilteredPhrase) {
 
@@ -36,8 +33,6 @@ open class FilteredPhraseConfigurator(private val phrase: AFilteredPhrase) {
     init {
         removeLabelFilter.addException(FilterLabel.DEBUG)
         addFilter(phrase, "debug", DebugFilter(), AFilteredPhrase.Order.Last);
-        addAnswerFilter(phrase, "put", ReplaceAnswerFilter(GameData.variableAnswers), AFilteredPhrase.Order.Last);
-        addPhraseFilter(phrase, "put", ReplacePhraseFilter(GameData.variablePhrases), AFilteredPhrase.Order.Last);
         addFilter(phrase, "rm", removeLabelFilter, AFilteredPhrase.Order.Last);
     }
 
@@ -125,21 +120,17 @@ open class FilteredPhraseConfigurator(private val phrase: AFilteredPhrase) {
     }
 
     public fun autoFilter(
-        variablePhrases: HashMap<String, () -> String> = GameData.variablePhrases,
+        variableTexts: HashMap<String, () -> String> = GameData.variableTexts,
+        variablePhrases: HashMap<String, () -> Array<String>> = GameData.variablePhrases,
         variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers,
         gameVariables: HashMap<String, Any?> = GameData.gameVariables
     ) : FilteredPhraseConfigurator{
-        addFilter(phrase, "autofilter", AutoFilter(variablePhrases, variableAnswers, gameVariables))
+        addFilter(phrase, "autofilter", AutoFilter(
+            variableTexts, variablePhrases, variableAnswers, gameVariables))
         parametricSet()
         return this;
     }
 
-
-    public fun parametricIfElseStatement(): FilteredPhraseConfigurator {
-        addFilter(phrase, "ifElse", IfElseFilter(gameVariables))
-        parameterSet(gameVariables)
-        return this
-    }
 
     public fun applyPhrases(): FilteredPhraseConfigurator {
         addPhraseFilter(phrase, "applyAll", ApplyPhrasesFilter())
@@ -176,5 +167,10 @@ open class FilteredPhraseConfigurator(private val phrase: AFilteredPhrase) {
         order: AFilteredPhrase.Order = AFilteredPhrase.Order.First
     ) {
         phrase.addPhrasesFilter("$filterName.phrases", order, filter::filterPhrases)
+    }
+
+    public fun randomPhrase() : FilteredPhraseConfigurator{
+        phrase.phraseChooser = PhraseChoosersCollections.random()
+        return this;
     }
 }

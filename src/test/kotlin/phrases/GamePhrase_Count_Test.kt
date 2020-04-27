@@ -6,10 +6,10 @@ import phrases.collections.AnswerChooserCollection
 import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPrinter
 
-class CountPhrase_Test {
+class GamePhrase_Count_Test {
     @Test
-    fun test_CountPhrase_answer(){
-        val phrase =  createTestPhrase<CountPhrase>(
+    fun test_GamePhrase_answer(){
+        val phrase =  createTestPhrase<AutoPhrase>(
             arrayOf(
                 Answer("1", "[1] first") ,
                 Answer("*", "[*] other"),
@@ -30,8 +30,8 @@ class CountPhrase_Test {
     }
 
     @Test
-    fun test_CountPhrase_phrase(){
-        val phrase =  createTestPhrase<CountPhrase>(
+    fun test_GamePhrase_phrase(){
+        val phrase =  createTestPhrase<GamePhrase>(
             arrayOf( "[*] other", "[1] phrase 1", "[!2] not phrase 3", "[2] phrase 2", "[!2] not phrase 3"),
             arrayOf(
                 Answer("1", "first")
@@ -56,7 +56,7 @@ class CountPhrase_Test {
 
     @Test
     fun test_operators_less_lessEqual(){
-        val phrase =  createTestPhrase<CountPhrase>(
+        val phrase =  createTestPhrase<GamePhrase>(
             arrayOf(
             Answer("1", "[<2] 1"),
             Answer("2", "[<=2] 2"),
@@ -76,7 +76,7 @@ class CountPhrase_Test {
 
     @Test
     fun test_operators_more_moreEqual(){
-        val phrase =  createTestPhrase<CountPhrase>(
+        val phrase =  createTestPhrase<GamePhrase>(
             arrayOf(
                 Answer("3", "[>2] 3"),
                 Answer("2", "[>1] 2"),

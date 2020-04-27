@@ -22,4 +22,8 @@ class TestPhraseWrapper(_phrase: AFilteredPhrase) {
 
         }
     }
+
+    public fun run(): Answer {
+       return  phrase.run()
+    }
 }

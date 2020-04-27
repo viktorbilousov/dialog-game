@@ -4,7 +4,9 @@ import phrases.filters.FilterLabel
 import phrases.filters.InlineChangeTextPhraseFilter
 import tools.FiltersUtils
 
-
+/**
+ * remove all labels
+ */
 class RemoveLabelFilter() : InlineChangeTextPhraseFilter {
 
     private var exceptions = mutableSetOf<FilterLabel>()

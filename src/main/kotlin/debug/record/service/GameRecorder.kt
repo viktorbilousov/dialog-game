@@ -8,6 +8,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.lang.IllegalStateException
+import java.util.*
 
 class GameRecorder {
     companion object{
@@ -39,6 +40,7 @@ class GameRecorder {
             if(!isRecorded) return null;
             isRecorded = false;
             logger.info("<< stop Record")
+            currentRecord?.let { it.description = readDescription() ?: it.id}
             return currentRecord;
         }
 
@@ -53,6 +55,16 @@ class GameRecorder {
             if(!isRecorded) throw IllegalStateException("Record is stopped")
             currentRecord!!.addNextStep(choice.id)
             logger.info("Step ${choice.id} recorded!")
+        }
+
+        private fun readDescription(): String?{
+            println("Enter the description:\n>")
+            val input = Scanner(System.`in`)
+            val stringInput = input.nextLine()
+            if (stringInput == null || stringInput == "") {
+                return null
+            }
+            return stringInput;
         }
 
 

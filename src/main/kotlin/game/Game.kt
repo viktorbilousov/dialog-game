@@ -25,6 +25,9 @@ class Game {
     }
 
 
+    public val isDebug: Boolean
+    get() = settings["debug"] == true
+
     val phrases = hashMapOf<String, APhrase>()
     val dialogs = hashMapOf<String, ADialog>()
     var world: World? = null

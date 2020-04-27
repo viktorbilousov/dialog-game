@@ -2,6 +2,7 @@ package debug.game.runners
 
 import debug.record.models.Record
 import debug.record.phrase.GameRecordPhrase
+import debug.record.service.GameRecorder
 import debug.record.service.RecordFileIO
 import game.Game
 import game.GameData
@@ -11,6 +12,7 @@ import models.items.dialog.ADialog
 import models.items.dialog.DebugDialog
 import models.items.dialog.Dialog
 import models.items.phrase.DebugFilteredPhrase
+import java.lang.Exception
 import java.util.HashSet
 
 class RecordRunner( game: Game, world: World) : Runner(game, world){
@@ -28,4 +30,15 @@ class RecordRunner( game: Game, world: World) : Runner(game, world){
         GameData.gameVariables["debug.records"] = set;
     }
 
+    override fun run() {
+        try {
+            super.run()
+        }catch (e: Exception){
+            if(GameRecorder.isRecorded){
+                val record = GameRecorder.stopRecord() ?: return
+                RecordFileIO.safe(record)
+                throw e;
+            }
+        }
+    }
 }

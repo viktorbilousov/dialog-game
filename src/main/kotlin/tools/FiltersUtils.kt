@@ -102,5 +102,11 @@ class FiltersUtils {
            return FilterLabel.parse(label)
        }
 
+       public fun getParametricLabels(srt: String, filterLabel: FilterLabel ) : Array<String>?{
+          return getFilterLabelsTexts(srt)?.filter{parseLabel(it) == filterLabel && isLabelParametric(it)}?.toTypedArray()
+       }
+       public fun getFirstParametricLabelsText(srt: String, filterLabel: FilterLabel ) : String?{
+           return getParametricLabels(srt, filterLabel)?.get(0)
+       }
    }
 }

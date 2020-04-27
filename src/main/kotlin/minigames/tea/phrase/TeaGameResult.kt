@@ -10,10 +10,7 @@ import phrases.configurator.FilteredPhraseConfigurator
 
 class TeaGameResult (id: String, phrases: Array<String>, answers : Array<Answer>) : FilteredPhrase(id, phrases, answers){
 
-    companion object {
-        private val logger = LoggerFactory.getLogger(TeaGameResult::class.java) as Logger
-    }
     init{
-        FilteredPhraseConfigurator(this).parametric().applyPhrases()
+        FilteredPhraseConfigurator(this).autoFilter().applyPhrases()
     }
 }

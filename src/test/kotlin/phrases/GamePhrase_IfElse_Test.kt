@@ -1,21 +1,22 @@
 package phrases
 
 import models.Answer
+import models.items.phrase.FilteredPhrase
 import org.junit.jupiter.api.Test
 import phrases.collections.AnswerChooserCollection
 import phrases.configurator.FilteredPhraseConfigurator
 import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPhraseTools
 
-class ParametricIfElsePhrase_Test {
+class GamePhrase_IfElse_Test {
     @Test
-    fun test_ParametricIfElsePhrase_phrase(){
+    fun test_GamePhrase_phrase(){
         val testParams = hashMapOf<String, Any?>()
         testParams["if"] = true;
         testParams["elseif"] = false;
         testParams["else"] = false;
 
-        val phrase =  createTestPhrase<ParametricIfElsePhrase>(
+        val phrase =  createTestPhrase<FilteredPhrase>(
             arrayOf(
                 "[IF] [GET=if] if_answ" ,
                 "[ELSE IF] [GET=elseif] elseif_answ",
@@ -25,7 +26,7 @@ class ParametricIfElsePhrase_Test {
                 Answer("1", "answ")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).parametricIfElseStatement()
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
         phrase.answerChooser = AnswerChooserCollection.first();
         val printer = TestPhraseTools.setTestPrinter(phrase)
 
@@ -47,13 +48,13 @@ class ParametricIfElsePhrase_Test {
 
 
     @Test
-    fun test_ParametricIfElsePhrase_answer_multiply(){
+    fun test_GamePhrase_answer_multiply(){
         val testParams = hashMapOf<String, Any?>()
         testParams["test1"] = true;
         testParams["test2"] = false;
         testParams["test3"] = true;
 
-        val phrase =  createTestPhrase<ParametricIfElsePhrase>(
+        val phrase =  createTestPhrase<FilteredPhrase>(
             arrayOf(
                 Answer("1", "[IF][GET=test2] if_answ") ,
                 Answer("2", "[ELSE IF][GET=test1][GET=test2] elseif1_false"),
@@ -61,7 +62,7 @@ class ParametricIfElsePhrase_Test {
                 Answer("4", "[ELSE] else_answ")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).parametricIfElseStatement()
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
         phrase.answerChooser = AnswerChooserCollection.first();
 
         var res = phrase.run()
@@ -69,20 +70,20 @@ class ParametricIfElsePhrase_Test {
     }
 
     @Test
-    fun test_ParametricIfElsePhrase_answer(){
+    fun test_GamePhrase_answer(){
         val testParams = hashMapOf<String, Any?>()
         testParams["if"] = true;
         testParams["elseif"] = false;
         testParams["else"] = false;
 
-        val phrase =  createTestPhrase<ParametricIfElsePhrase>(
+        val phrase =  createTestPhrase<FilteredPhrase>(
             arrayOf(
                 Answer("1", "[IF][GET=if] if_answ") ,
                 Answer("2", "[ELSE IF][GET=elseif] elseif_answ"),
                 Answer("3", "[ELSE][GET=else] else_answ")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).parametricIfElseStatement()
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
         phrase.answerChooser = AnswerChooserCollection.first();
 
         var res = phrase.run()

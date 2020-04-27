@@ -1,4 +1,4 @@
-package phrases.filters.phrase
+package phrases.filters.inline.text
 
 import models.Answer
 import org.slf4j.Logger

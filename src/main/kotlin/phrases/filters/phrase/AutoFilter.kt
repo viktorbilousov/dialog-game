@@ -4,16 +4,15 @@ import game.GameData
 import models.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import phrases.filters.inline.text.GetVariableFilter
-import phrases.filters.inline.text.IfElseFilterV2
-import phrases.filters.inline.text.IntComparingFilter
-import phrases.filters.inline.text.GetBooleanFilter
 import phrases.filters.FilterLabel
 import phrases.filters.PhraseFilter
+import phrases.filters.inline.change.PutFilter
+import phrases.filters.inline.text.*
 import tools.FiltersUtils
 
 class AutoFilter(
-    variablePhrases: HashMap<String, () -> String> = GameData.variablePhrases,
+    variableText: HashMap<String, () -> String> = GameData.variableTexts,
+    variablePhrases: HashMap<String, () -> Array<String>> = GameData.variablePhrases,
     variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers,
     gameVariables: HashMap<String, Any?> = GameData.gameVariables
 ) : PhraseFilter {
@@ -25,8 +24,8 @@ class AutoFilter(
     private val phraseFiltersList = arrayListOf<FilterData>()
 
     init {
-        addFilter(ReplacePhraseFilter(variablePhrases), true, FilterLabel.PUT)
-        addFilter(ReplaceAnswerFilter(variableAnswers), true, FilterLabel.PUT)
+        addFilter(PutFilter(variableText), FilterLabel.PUT)
+        addFilter(InsertFilter(variablePhrases, variableAnswers), true, FilterLabel.INST)
         addFilter(IfElsePreparingFilter(), true, FilterLabel.IF, FilterLabel.ELSE, FilterLabel.ELSEIF, FilterLabel.FI)
         addFilter(IntComparingFilter(gameVariables), FilterLabel.INT)
         addFilter(GetBooleanFilter(gameVariables), FilterLabel.GET, FilterLabel.NOT)
@@ -80,7 +79,7 @@ class AutoFilter(
             val list = getFilterOrderList(filteredPhrases);
             list.removeAll(completedFilters)
             list.forEach {
-                logger.info("call filter: ${it}")
+                logger.info("-----> call filter: ${it}")
                 filteredPhrases = it.filter.filterPhrases(filteredPhrases, count);
                 completedFilters.add(it);
                 if (it.isNeedRebuild) {
@@ -116,7 +115,7 @@ class AutoFilter(
             val list = getFilterOrderList(filteredAnswers.map { it.text }.toTypedArray());
             list.removeAll(completedFilters)
             list.forEach {
-                logger.info("call filter: ${it}")
+                logger.info("----->  call filter: ${it}")
                 filteredAnswers = it.filter.filterAnswers(filteredAnswers, count);
                 completedFilters.add(it);
                 if (it.isNeedRebuild) {

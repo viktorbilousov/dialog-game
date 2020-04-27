@@ -13,7 +13,7 @@ class TeaMenuPhrase(id: String, phrases: Array<String>, answers : Array<Answer>)
         private val logger = LoggerFactory.getLogger(TeaMenuPhrase::class.java) as Logger
     }
     init {
-        FilteredPhraseConfigurator(this).parametric().applyPhrases()
+        FilteredPhraseConfigurator(this).autoFilter().applyPhrases()
 
         this.after =  { answer ->
             val answ = TeaGameUtils.answerToTea(answer)!!;

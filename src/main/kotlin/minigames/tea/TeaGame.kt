@@ -1,6 +1,5 @@
 package minigames.tea
 
-import game.Game
 import game.GameData
 import minigames.tea.models.Collection
 import minigames.tea.models.MixedTea
@@ -34,21 +33,21 @@ class TeaGame {
             val nearestTea = "NEAREST_TEA"
 
 
-            GameData.addPhrase(qualityLabel){ quality() }
-            GameData.addPhrase(qualityAnswer) { answer() }
-            GameData.addPhrase(nearestTea) { TeaQuality.nearestToCollection(currentTea).name }
-            GameData.addPhrase(legendLabel, TeaGameUtils.getLegend())
-            GameData.addPhrase(menuLabel, TablePrinter().table(TeaTable().addAll(Collection.getTeas())).toPrettyString())
-            GameData.addPhrase(gameTableLabel){
+            GameData.addTextToReplace(qualityLabel){ quality() }
+            GameData.addTextToReplace(qualityAnswer) { answer() }
+            GameData.addTextToReplace(nearestTea) { TeaQuality.nearestToCollection(currentTea).name }
+            GameData.addTextToReplace(legendLabel, TeaGameUtils.getLegend())
+            GameData.addTextToReplace(menuLabel, TablePrinter().table(TeaTable().addAll(Collection.getTeas())).toPrettyString())
+            GameData.addTextToReplace(gameTableLabel){
                 TeaGameUtils.getGameTable(
                     currentTea,
                     goalTea
                 )
             }
 
-            GameData.addAnswers(teaAnswersLabel, TeaGameUtils.getTeasAsAnswers(true))
-            GameData.addAnswers(flowerAnswersLabel, TeaGameUtils.getFlowersAsAnswers(true))
-            GameData.addAnswers(flowerFullAnswersLabel, TeaGameUtils.getFlowersAsAnswers(false))
+            GameData.addAnswersToInsert(teaAnswersLabel, *TeaGameUtils.getTeasAsAnswers(true))
+            GameData.addAnswersToInsert(flowerAnswersLabel, *TeaGameUtils.getFlowersAsAnswers(true))
+            GameData.addAnswersToInsert(flowerFullAnswersLabel, *TeaGameUtils.getFlowersAsAnswers(false))
             //ask.tea
             val index = Random.nextInt(Collection.getTeas().size)
             guessTea = Collection.getTeas()[index]

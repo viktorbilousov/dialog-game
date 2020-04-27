@@ -6,6 +6,6 @@ import phrases.configurator.FilteredPhraseConfigurator
 
 class AutoPhrase(id: String, phrases: Array<String>,  answers: Array<Answer>) : FilteredPhrase(id, phrases, answers){
     init {
-        FilteredPhraseConfigurator(this).count().auto()
+        FilteredPhraseConfigurator(this).autoFilter().auto()
     }
 }

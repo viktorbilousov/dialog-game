@@ -11,7 +11,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.start [phrases.CountParametricPhrase]
+---- th.game.tea.p1.start 
 
 - "Таааак, надо приготовить чай" - тихо сказала ты себе. 
 
@@ -34,7 +34,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.tea.1 [phrases.ParametricPhrase]
+---- th.game.tea.p1.tea.1 
 
 Так стоп, а сыпать я его куда буду? 
 
@@ -43,7 +43,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.drawer.ur [phrases.ParametricPhrase]
+---- th.game.tea.p1.drawer.ur 
 
 @[GET=tea] В этом ящичке лежали различные чаи
 @[NOT=tea] В этом ящичке лежали различные чаи, но пока чайник не кипит и кружечки не найдены, выбирать что то рановато.
@@ -62,7 +62,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.search [phrases.RandomParametricPhrase]
+---- th.game.tea.p1.search [phrases.RandomGamePhrase]
 
 @ [GET=kettle] - "Блин, ну и где же этот чайник?"
 @ [GET=kettle] - "Давай посмотрим еще где нибудь"
@@ -90,7 +90,7 @@ game.treehause.tea_game.part2
 > поискать на полочках между ящиками (th.game.tea.p1.shelf)
 
 
----- th.game.tea.p1.shelf [phrases.ParametricPhrase]
+---- th.game.tea.p1.shelf 
 
 @ [NOT=is_fire_found] На этой маленькой полочке хранились всякие безделушки и специи: маленькие керамические игрушки, которые как бы свисают с краев, небольшие солонки с перцем и солью, разные масла и другие непонятные специи.
 
@@ -102,7 +102,7 @@ game.treehause.tea_game.part2
 
 
 
-----  th.game.tea.p1.drawer.dr [phrases.ParametricPhrase]
+----  th.game.tea.p1.drawer.dr 
 
 @ [GET=kettle] На полочках этого ящичка была всякая кухонная утворь: сковородки, кастрюли, формы для запикания и прочее. И о чудо, а вот и 
 чайник!  
@@ -119,7 +119,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.kettle.descr [phrases.ParametricPhrase]
+---- th.game.tea.p1.kettle.descr 
 
 Ты взяла в руки обычный металический чайник, как будто взятый из прямиком из дома родителей. Но при этом он был покрыт красиво окрашен в бордовый цвет с болшим белым горошком. На носике у него находился свисток. 
 
@@ -133,7 +133,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.drawer.ul [phrases.ParametricPhrase]
+---- th.game.tea.p1.drawer.ul 
 
 @ [GET=cup] А туууут лежало просто невообразимое количество кружечек для чая. И все были невероятно цветными или красивыми! Давай выберем что ли парочку?
 
@@ -149,7 +149,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.cup.select [phrases.ParametricPhrase]
+---- th.game.tea.p1.cup.select 
 
 "Ого"- подумала ты, когда увидила количество разнообразных чашек.
 Выбор кружек был просто оромен, хотя и очень странным потому что почти все кружки были разные.
@@ -172,7 +172,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.cup.select.1 [phrases.ParametricPhrase]
+---- th.game.tea.p1.cup.select.1 
 
 @ [GET=GLASS1_1] Ты взяла самую обычную кружку из всех. По крайней мере она точно была придназначена для чая, а не для
 чего то еще. Теперь надо выбрать еще одну для гостя.
@@ -237,7 +237,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.cup.select.2 [phrases.ParametricPhrase]
+---- th.game.tea.p1.cup.select.2 
 
 
 @ [GET=GLASS2_1] Ты взяла самую обычную кружку из всех. По крайней мере она точно была придназначена для чая, а не для
@@ -294,7 +294,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.cupfound [phrases.ParametricPhrase]
+---- th.game.tea.p1.cupfound 
 
 @[NOT=is_kettle_ready] отлично, кружки есть. Теперь надо разобраться с чайником
 
@@ -309,7 +309,7 @@ game.treehause.tea_game.part2
 
 
 
-----  th.game.tea.p1.drawer.dl [phrases.CountParametricPhrase]
+----  th.game.tea.p1.drawer.dl 
 
 @ [NOT=kettle] На полочках этого ящичка были всякие принадлежности для уборки: тряпки, мочалочки, мусорные пакеты и прочее. 
 @ [GET=kettle] На полочках этого ящичка были всякие принадлежности для уборки: тряпки, мочалочки, мусорные пакеты и прочее. 
@@ -337,7 +337,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.plate [phrases.ParametricIfElsePhrase]
+---- th.game.tea.p1.plate 
 
 @ [GET=is_kettle_ready] На плите стоит чайник, в котором закипает вода
 
@@ -361,7 +361,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.plate.gas [phrases.ParametricPhrase]
+---- th.game.tea.p1.plate.gas 
 
 @ [GET=is_gas_on] Плита зажглась на радость тебе и теперь ты можешь поставить чайник
 @ [NOT=is_gas_on] Ты начала крутить ручку газа, но ничего не произашло.
@@ -375,7 +375,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.kettle.ready [phrases.ParametricIfElsePhrase]
+---- th.game.tea.p1.kettle.ready 
 
 @ [GET=is_kettle_ready][GET=is_cup_found]  Замечательно, чайник закипает, кружки выбраны. Осталось только найти чай
 @ [NOT=is_cup_found] А чай сыпать то куда будем?
@@ -389,7 +389,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.sink [phrases.ParametricPhrase]
+---- th.game.tea.p1.sink 
 
 @ [GET=kettle] Как ни странно, но возле раковины находилось только мыло и разная посуда с изображением эвкалипта. Ни чайника,
  даже следа от него не было видно. 
@@ -414,7 +414,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.sink.wasser.r1 [phrases.CountParametricPhrase]
+---- th.game.tea.p1.sink.wasser.r1 
 
 @ [NOT=is_gas_on] Послышалось какое-то шипение 
 @ [GET=is_gas_on] Ты что то закрыла, но никакого звука не произошло
@@ -428,7 +428,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.sink.wasser.l1 [phrases.ParametricPhrase]
+---- th.game.tea.p1.sink.wasser.l1 
 
 @ [NOT=is_wasser_on] Что то булькнуло и пошло по трубам 
 @ [GET=is_wasser_on] Ты что то закрыла, но никакого звука не произошло 
@@ -442,7 +442,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.sink.wasser.l2 [phrases.ParametricPhrase]
+---- th.game.tea.p1.sink.wasser.l2 
 
 @ [NOT=is_wasser_on] Ты услышала какой-то скрип со стороны крана, но ничего более
 @ [GET=is_wasser_on][NOT=is_full_wasser] Ура, пошла вода)
@@ -453,7 +453,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.sink.wasser.r2 [phrases.CountPhrase]
+---- th.game.tea.p1.sink.wasser.r2 
 
 @ [1] Поздравляю! Ты открыла мусоный ящик. Непонятно зачем ты это сделала, но можешь сделать это еще раз, если тебе сильно хочется
 @ [2] Юху, ты зделала это еще раз, круто
@@ -482,7 +482,7 @@ game.treehause.tea_game.part2
 
 
 
----- th.game.tea.p1.wasser.descr  [phrases.ParametricPhrase]
+---- th.game.tea.p1.wasser.descr  
 
 Наконец-то ты смогла налить воду в чайник. Теперь осталось его закипятить
 

@@ -57,7 +57,7 @@ mail
 > Как мне это сделать? (th.dialog.crock.end.4)
 
 
----- th.dialog.crock.end.3 [phrases.CountPhrase]
+---- th.dialog.crock.end.3 
 
 @[1] Ну ты же все таки на почте работаешь, это твоя работа
 @[2] Ты сама нашла эту работу, наверное она тебе нравится
@@ -72,7 +72,7 @@ mail
 
 
 
----- th.dialog.crock.end.3.1 [models.items.phrase.RandomPhrase]
+---- th.dialog.crock.end.3.1 [phrases.RandomGamePhrase]
 
 @ Да ты издеваешься что ли?
 @ Это уже не смешно

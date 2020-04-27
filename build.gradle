@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'viktor.project'
-version '0.2'
+version '0.3'
 
 sourceCompatibility = 1.8
 
@@ -33,10 +33,10 @@ def inputFolder = "./scripts"
 def outputGraphFolder = "src/main/resources/graphs"
 def outputPhraseTextFolder = "src/main/resources/phrases"
 def outputRouterFile = "src/main/resources/routers/routers.json"
-def jarPath = "libs/dialog-creator-1.1.1.jar"
-def defaultClass = "phrases.AutoFilterPhrase"
+def jarPath = "libs/dialog-creator-1.1.2.jar"
+def defaultClass = "phrases.GamePhrase"
 
-/*task buildDialog {
+task buildDialog {
 
     group = 'dialog'
     description = 'Parse dialogs from scrips files'
@@ -55,7 +55,7 @@ def defaultClass = "phrases.AutoFilterPhrase"
     }
    // commandLine 'cmd', '/c', 'java', '-Dfile.encoding="UTF-8"', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
     // standardOutput = stdout
-}*/
+}
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"

@@ -2,7 +2,7 @@ $id=treehause.game.tea_game.part2
 $isResetToStart=false
 $startPointId=th.game.tea.p2.start
 
----- th.game.tea.p2.start [phrases.ParametricPhrase]
+---- th.game.tea.p2.start 
 
 Ты открыла ящичек с чаем.
 
@@ -11,7 +11,7 @@ $startPointId=th.game.tea.p2.start
 >  Cпросить какой он чай хочет (th.game.p2.ask.tea)
 > [debug] to next (th.game.end)
 
----- th.game.p2.ask.tea [phrases.ParametricPhrase]
+---- th.game.p2.ask.tea 
 
 @[GET=target_tea_вкусный] Я же уже говорил, сделай воооот тот ВКУСНЫЙ чай пожалуйста, как ты в прошлый раз готовила.
 
@@ -28,14 +28,14 @@ $startPointId=th.game.tea.p2.start
 @ [PUT=TEA MENU]
 
 
-> [PUT=TEA ANSWERS] (th.game.p2.game)
+> [INST=TEA ANSWERS] (th.game.p2.game)
 > [debug] back (th.game.tea.p2.start)
 
 ---- th.game.p2.game [minigames.tea.phrase.TeaGamePhrase]
 
 @ [PUT=GAME TABLE]
 
-> [!5][PUT=FLOWER ANSWERS TABLE] (th.game.p2.game)
+> [!5][INST=FLOWER ANSWERS TABLE] (th.game.p2.game)
 > [5] оценить (th.game.menu.set.MixedTeaChosen)
 
 
@@ -46,7 +46,7 @@ $startPointId=th.game.tea.p2.start
 @ Оценка чая: [PUT=QUALITY]
 @ [NOT=ASKED] Ближайшай чай по вкусу: [PUT=NEAREST_TEA]
 
-@ [PUT=ANSWER]
+@ [INST=ANSWER]
 
 
 

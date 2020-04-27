@@ -3,8 +3,7 @@ $isResetToStart=false
 $startPointId=th.start.1
 
 
----- th.start.1 [models.items.phrase.RandomPhrase]
-
+---- th.start.1 [phrases.RandomGamePhrase]
 @(звук будильника)
 
 @(громкий звук будильника)
@@ -16,7 +15,7 @@ $startPointId=th.start.1
 >[debug] to th.start.12 (th.start.12)
 
 
----- th.start.1.1 [models.items.phrase.RandomPhrase]
+---- th.start.1.1 [phrases.RandomGamePhrase]
 
 @ Будильник все еще продолжает звонить и раздражать тебя
 @ Ты пытаешься уснуть, но будильник не дает тебе этого сделать
@@ -147,7 +146,7 @@ $startPointId=th.start.1
 > открыть дверь (th.start.end )
 
 
----- th.start.13 [phrases.CountPhrase]
+---- th.start.13
 
 @ [1] В дверь постучали еще раз.
 @ [2] В дверь постучали еще раз, только более настойчиво.
@@ -215,7 +214,7 @@ $startPointId=th.start.1
 > Игнорировать стук (th.start.15.1)
 
 
----- th.start.15.1 [phrases.CountPhrase]
+---- th.start.15.1
 
 @ [1] В дверь постучали еще раз.
 @ [2] В дверь постучали еще раз, только более настойчиво.

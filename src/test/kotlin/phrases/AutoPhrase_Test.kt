@@ -2,7 +2,7 @@ package phrases
 
 import models.Answer
 import org.junit.jupiter.api.Test
-import tools.PhrasesTestUtils.Companion.createTestPhrase
+import tools.TestPhraseTools.Companion.createTestPhrase
 
 class AutoPhrase_Test {
     @Test

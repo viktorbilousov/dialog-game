@@ -1,15 +1,19 @@
 package phrases
 
 import models.Answer
+import models.items.phrase.APhrase
+import models.items.phrase.DebugFilteredPhrase
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import phrases.collections.AnswerChooserCollection
 import phrases.configurator.FilteredPhraseConfigurator
-import tools.PhrasesTestUtils.Companion.createTestPhrase
+import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPhraseTools
+import tools.TestPhraseWrapper
 
 class ParametricPhrase_Test {
     @Test
-    fun test_ParametricPhrase_phrase_get(){
+    fun GET_phrase(){
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
@@ -32,7 +36,7 @@ class ParametricPhrase_Test {
 
 
     @Test
-    fun test_ParametricPhrase_phrase_not(){
+    fun NOT_phrase(){
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
@@ -55,7 +59,7 @@ class ParametricPhrase_Test {
     }
 
     @Test
-    fun test_ParametricPhrase_answer_multiply_get(){
+    fun GET_answer_multiply(){
         val testParams = hashMapOf<String, Any?>()
         testParams["test1"] = true;
         testParams["test2"] = true;
@@ -74,7 +78,7 @@ class ParametricPhrase_Test {
     }
 
     @Test
-    fun test_ParametricPhrase_answer_get(){
+    fun GET_answer(){
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
@@ -92,7 +96,7 @@ class ParametricPhrase_Test {
     }
 
     @Test
-    fun test_ParametricPhrase_answer_not(){
+    fun NOT_answer(){
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
@@ -111,7 +115,7 @@ class ParametricPhrase_Test {
 
 
     @Test
-    fun test_ParametricPhrase_answer_set(){
+    fun SET_answer_(){
         val testParams = hashMapOf<String, Any?>()
 
         val phrase =  createTestPhrase<ParametricPhrase>(
@@ -127,7 +131,7 @@ class ParametricPhrase_Test {
     }
 
     @Test
-    fun test_ParametricPhrase_answer_unset(){
+    fun UNSET_answer(){
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
@@ -142,4 +146,42 @@ class ParametricPhrase_Test {
         phrase.run()
         assert(testParams["test"] == false)
     }
+
+
+    @Test
+    fun SETV_answer_() {
+        val testParams = hashMapOf<String, Any?>()
+
+        val phrase = createTestPhrase<ParametricPhrase>( arrayOf(
+            "[SETV][value1=some_value] ok"
+        )
+        )
+        FilteredPhraseConfigurator(phrase, testParams).parametric().auto()
+        phrase.run()
+
+        Assertions.assertEquals(testParams["value1"], "some_value")
+      //  Assertions.assertEquals(testParams["value2"], "124")
+      //  Assertions.assertEquals(testParams["value3"], "null")
+       // Assertions.assertEquals(testParams["value4"], "-1234")
+
+    }
+
+    @Test
+    fun UNSETV_answer_() {
+        val testParams = hashMapOf<String, Any?>()
+        testParams["value"] = "test"
+        val phrase = createTestPhrase<ParametricPhrase>( arrayOf(
+            "[UNSETV=value1] ok"
+        )
+        )
+        FilteredPhraseConfigurator(phrase, testParams).parametric().auto()
+        phrase.run()
+
+        Assertions.assertEquals(testParams["value1"], null)
+        //  Assertions.assertEquals(testParams["value2"], "124")
+        //  Assertions.assertEquals(testParams["value3"], "null")
+        // Assertions.assertEquals(testParams["value4"], "-1234")
+
+    }
+
 }

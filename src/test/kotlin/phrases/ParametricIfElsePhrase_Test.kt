@@ -4,7 +4,7 @@ import models.Answer
 import org.junit.jupiter.api.Test
 import phrases.collections.AnswerChooserCollection
 import phrases.configurator.FilteredPhraseConfigurator
-import tools.PhrasesTestUtils.Companion.createTestPhrase
+import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPhraseTools
 
 class ParametricIfElsePhrase_Test {
@@ -100,5 +100,5 @@ class ParametricIfElsePhrase_Test {
         res = phrase.run()
         assert(res.text == "else_answ")
     }
-
 }
+

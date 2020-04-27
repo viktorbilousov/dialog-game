@@ -3,7 +3,7 @@ package phrases
 import models.Answer
 import org.junit.jupiter.api.Test
 import phrases.collections.AnswerChooserCollection
-import tools.PhrasesTestUtils.Companion.createTestPhrase
+import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPrinter
 
 class CountPhrase_Test {
@@ -52,6 +52,44 @@ class CountPhrase_Test {
 
         val fourth = phrase.run()
         assert(printer.lastPhrase == "other")
+    }
 
+    @Test
+    fun test_operators_less_lessEqual(){
+        val phrase =  createTestPhrase<CountPhrase>(
+            arrayOf(
+            Answer("1", "[<2] 1"),
+            Answer("2", "[<=2] 2"),
+            Answer("3", "[<=3] 3")
+        )
+        )
+        phrase.answerChooser = AnswerChooserCollection.first();
+        val list = arrayListOf<String>()
+        for (i in 1 .. 3){
+            list.add(phrase.run().id)
+        }
+        assert(list[0] == "1")
+        assert(list[1] == "2")
+        assert(list[2] == "3")
+
+    }
+
+    @Test
+    fun test_operators_more_moreEqual(){
+        val phrase =  createTestPhrase<CountPhrase>(
+            arrayOf(
+                Answer("3", "[>2] 3"),
+                Answer("2", "[>1] 2"),
+                Answer("1", "[>=1] 1")
+            )
+        )
+        phrase.answerChooser = AnswerChooserCollection.first();
+        val list = arrayListOf<String>()
+        for (i in 1 .. 3){
+            list.add(phrase.run().id)
+        }
+        assert(list[0] == "1")
+        assert(list[1] == "2")
+        assert(list[2] == "3")
     }
 }

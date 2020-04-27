@@ -1,139 +1,180 @@
 package phrases.configurator
 
-import game.Game
 import game.GameData
 import models.Answer
 import models.items.phrase.AFilteredPhrase
 import models.items.phrase.FilteredPhrase
+import org.slf4j.Logger
+//import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import phrases.collections.AnswerChooserCollection
-import phrases.collections.FiltersCollection
 import phrases.collections.PrinterCollection
-import phrases.filters.ParamSetBooleanFilter
+import phrases.filters.FilterLabel
+import phrases.filters.inline.text.DebugFilter
+import phrases.filters.inline.text.GetBooleanFilter
+import phrases.configurator.ParamSetBoolean
+import phrases.filters.inline.change.RemoveLabelFilter
+import phrases.filters.inline.text.IfElseFilterV2
+import phrases.filters.phrase.*
+import phrases.filters.PhraseFilter
+import phrases.filters.inline.text.GetVariableFilter
 
-open class FilteredPhraseConfigurator(private val phrase: FilteredPhrase) {
+open class FilteredPhraseConfigurator(private val phrase: AFilteredPhrase) {
 
-   // private var settings: HashMap<String, Any?> = Game.settings;
+    companion object{
+        private val logger = LoggerFactory.getLogger(FilteredPhraseConfigurator::class.java) as Logger
+    }
+
     private var gameVariables: HashMap<String, Any?> = GameData.gameVariables;
-   // private var variablePhrasesBuffer: HashMap<String, () -> String> = GameData.variablePhrases;
-   // private var variableAnswersBuffer: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers;
 
-    constructor(phrase: FilteredPhrase, settings: HashMap<String, Any?>) : this(phrase){
+    private var removeLabelFilter = RemoveLabelFilter();
+
+    constructor(phrase: FilteredPhrase, settings: HashMap<String, Any?>) : this(phrase) {
         this.gameVariables = settings;
     }
 
     init {
-
-        phrase.addAnswerFilter("put.answers", AFilteredPhrase.Order.Last,
-            FiltersCollection.replaceAnswerFilter(GameData.variableAnswers)
-        )
-        phrase.addPhrasesFilter("put.phrases", AFilteredPhrase.Order.Last,
-            FiltersCollection.replacePhraseFilter(GameData.variablePhrases)
-        )
-
-        phrase.addAnswerFilter("debug", AFilteredPhrase.Order.Last,
-            FiltersCollection.debugAnswerFilter
-        )
-        phrase.addPhrasesFilter("rm", AFilteredPhrase.Order.Last,
-            FiltersCollection.removeLabelPhrasesFilter
-        )
-        phrase.addAnswerFilter("rm", AFilteredPhrase.Order.Last,
-            FiltersCollection.removeLabelAnswersFilter
-        )
+        removeLabelFilter.addException(FilterLabel.DEBUG)
+        addFilter(phrase, "debug", DebugFilter(), AFilteredPhrase.Order.Last);
+        addAnswerFilter(phrase, "put", ReplaceAnswerFilter(GameData.variableAnswers), AFilteredPhrase.Order.Last);
+        addPhraseFilter(phrase, "put", ReplacePhraseFilter(GameData.variablePhrases), AFilteredPhrase.Order.Last);
+        addFilter(phrase, "rm", removeLabelFilter, AFilteredPhrase.Order.Last);
     }
-    
-    public fun auto() : FilteredPhraseConfigurator {
+
+    public fun auto(): FilteredPhraseConfigurator {
         phrase.answerChooser = AnswerChooserCollection.first()
         phrase.phrasePrinter = PrinterCollection.empty()
         return this
     }
 
-    public fun count() : FilteredPhraseConfigurator {
-        phrase.addAnswerFilter("condition.answers",
-            FiltersCollection.countAnswer
-        )
-        phrase.addAnswerFilter("condition.answers.not",
-            FiltersCollection.notCountAnswer
-        )
-        phrase.addPhrasesFilter("condition.phrases",
-            FiltersCollection.countPhrase
-        )
-        phrase.addPhrasesFilter("condition.phrases.not",
-            FiltersCollection.notCountPhrase
-        )
+    public fun count(): FilteredPhraseConfigurator {
+        addFilter(phrase, "cnt", CountFilter());
         return this
     }
 
-    public fun parametric() : FilteredPhraseConfigurator {
+    public fun parametric(): FilteredPhraseConfigurator {
         parameterSet(gameVariables)
         parameterGet(gameVariables)
-        return this;
+        parameterSetVariable(gameVariables)
+        parameterGetVariable(gameVariables);
+        return this
+    }
+
+    public fun parametricSet() : FilteredPhraseConfigurator{
+        parameterSet(gameVariables)
+        parameterSetVariable(gameVariables)
+        return this
+    }
+
+    public fun parametricGet(): FilteredPhraseConfigurator {
+        parameterGet(gameVariables)
+        parameterGetVariable(gameVariables);
+        return this
+    }
+
+    private fun parameterGetVariable(gameVariables: java.util.HashMap<String, Any?>) : FilteredPhraseConfigurator {
+        addFilter(phrase, "getv", GetVariableFilter(gameVariables))
+        return this
     }
 
 
     private fun parameterGet(settings: HashMap<String, Any?>): FilteredPhraseConfigurator {
-        phrase.addAnswerFilter("condition.parameter.answer",
-            FiltersCollection.parameterGetAnswersFilter(settings)
-        )
-        phrase.addPhrasesFilter("condition.parameter.phrases",
-            FiltersCollection.parameterGetPhasesFilter(settings)
-        )
+        addFilter(phrase, "get", GetBooleanFilter(settings));
         return this
     }
 
     private fun parameterSet(settings: HashMap<String, Any?>): FilteredPhraseConfigurator {
-        phrase.removeAnswerFilter("rm");
-        phrase.addAnswerFilter("rm.param", AFilteredPhrase.Order.Last,
-            FiltersCollection.removeLabelAnswersFilter(
-                arrayOf(
-                    "SET",
-                    "UNSET"
-                )
-            )
-        )
-        phrase.phrasePrinter = PrinterCollection.parametric();
+       removeLabelFilter.addException(FilterLabel.SET, FilterLabel.UNSET)
+
+        phrase.phrasePrinter = PrinterCollection.hideLabels();
+        val oldAfter = phrase.after;
         phrase.after = {
-            ParamSetBooleanFilter(settings).processSetParameter(it.text)
+            logger.info(">> process SET ${it.text}")
+            oldAfter.invoke(it)
+            ParamSetBoolean(settings).processSetParameter(it.text)
+            logger.info("<< process SET")
+        }
+
+        return this
+    }
+
+    private fun parameterSetVariable(settings: HashMap<String, Any?>): FilteredPhraseConfigurator {
+        removeLabelFilter.addException(FilterLabel.SETV, FilterLabel.UNSETV)
+
+        phrase.phrasePrinter = PrinterCollection.hideLabels();
+        val oldAfter = phrase.after;
+        phrase.after = {
+            logger.info(">> process SETV : ${it.text}")
+            oldAfter.invoke(it)
+            ParamSetValue(settings).process(it.text)
+            logger.info("<< process SETV")
         }
 
         return this
     }
 
 
-    public fun build() : FilteredPhrase{
+    public fun build(): AFilteredPhrase {
         return this.phrase
     }
 
+    public fun ifElseV2() : FilteredPhraseConfigurator{
+        addFilter(phrase, "ifElseV2Preparing", IfElsePreparingFilter())
+        addFilter(phrase, "ifElseV2", IfElseFilterV2())
+        return this;
+    }
 
-    public fun parametricIfElseStatement() : FilteredPhraseConfigurator {
-        phrase.addPhrasesFilter("condition.parameter.ifElse.phrases",
-            FiltersCollection.ifElsePhrasesFilter(gameVariables)
-        )
-        phrase.addAnswerFilter("condition.parameter.ifElse.answer",
-            FiltersCollection.ifElseAnswersFilter(gameVariables)
-        )
+    public fun autoFilter(
+        variablePhrases: HashMap<String, () -> String> = GameData.variablePhrases,
+        variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers,
+        gameVariables: HashMap<String, Any?> = GameData.gameVariables
+    ) : FilteredPhraseConfigurator{
+        addFilter(phrase, "autofilter", AutoFilter(variablePhrases, variableAnswers, gameVariables))
+        parametricSet()
+        return this;
+    }
+
+
+    public fun parametricIfElseStatement(): FilteredPhraseConfigurator {
+        addFilter(phrase, "ifElse", IfElseFilter(gameVariables))
         parameterSet(gameVariables)
         return this
     }
 
-    public fun applyPhrases() : FilteredPhraseConfigurator {
-        phrase.addPhrasesFilter("applyAll", AFilteredPhrase.Order.Last,
-            FiltersCollection.applyAllPhrasesToOne
-        )
+    public fun applyPhrases(): FilteredPhraseConfigurator {
+        addPhraseFilter(phrase, "applyAll", ApplyPhrasesFilter())
         return this
     }
 
-    public fun auto(answerId: String){
+    public fun auto(answerId: String) {
         phrase.phrasePrinter = PrinterCollection.empty()
         phrase.answerChooser = AnswerChooserCollection.auto(answerId);
     }
+    private fun addFilter(
+        phrase: AFilteredPhrase,
+        filterName: String,
+        filter: PhraseFilter,
+        order: AFilteredPhrase.Order = AFilteredPhrase.Order.First
+    ) {
+        phrase.addAnswerFilter("$filterName.answers", order, filter::filterAnswers)
+        phrase.addPhrasesFilter("$filterName.phrases", order, filter::filterPhrases)
+    }
 
-    /*public fun put() : FilteredPhraseConfigurator {
-        phrase.addAnswerFilter("put.answers", FilteredPhrase.Order.Last,
-            FiltersCollection.replaceAnswerFilter(GameData.variableAnswers)
-        )
-        phrase.addPhrasesFilter("put.phrases", FilteredPhrase.Order.Last,
-            FiltersCollection.replacePhraseFilter(GameData.variablePhrases)
-        )
-        return this
-    }*/
+    private fun addAnswerFilter(
+        phrase: AFilteredPhrase,
+        filterName: String,
+        filter: PhraseFilter,
+        order: AFilteredPhrase.Order = AFilteredPhrase.Order.First
+    ) {
+        phrase.addAnswerFilter("$filterName.answers", order, filter::filterAnswers)
+    }
+
+    private fun addPhraseFilter(
+        phrase: AFilteredPhrase,
+        filterName: String,
+        filter: PhraseFilter,
+        order: AFilteredPhrase.Order = AFilteredPhrase.Order.First
+    ) {
+        phrase.addPhrasesFilter("$filterName.phrases", order, filter::filterPhrases)
+    }
 }

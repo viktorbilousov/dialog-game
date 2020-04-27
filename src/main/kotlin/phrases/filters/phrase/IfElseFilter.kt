@@ -3,8 +3,8 @@ package phrases.filters.phrase
 import models.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import phrases.filters.Inlinetext.ParamGetBooleanFilter
-import phrases.filters.Labels
+import phrases.filters.inline.text.GetBooleanFilter
+import phrases.filters.FilterLabel
 import phrases.filters.PhraseFilter
 import tools.FiltersUtils
 
@@ -36,7 +36,7 @@ class IfElseFilter(private val settings: HashMap<String, Any?>) : PhraseFilter {
                 it.text
             )
             }.filter { s ->
-                if(FiltersUtils.getFirstFilterLabel(s.text) == Labels.IF.label) skeepToNext = false;
+                if(FiltersUtils.getFirstFilterLabelText(s.text) == FilterLabel.IF.label) skeepToNext = false;
                 if(skeepToNext) return@filter false;
                 val res =
                     processIfElse(s.text, settings)
@@ -55,7 +55,7 @@ class IfElseFilter(private val settings: HashMap<String, Any?>) : PhraseFilter {
                 it
             )
             }.filter { s ->
-                if(FiltersUtils.getFirstFilterLabel(s) == Labels.IF.label) skeepToNext = false;
+                if(FiltersUtils.getFirstFilterLabelText(s) == FilterLabel.IF.label) skeepToNext = false;
                 if(skeepToNext) return@filter false;
                 val res = processIfElse(s, settings)
                 skeepToNext = res;
@@ -69,20 +69,20 @@ class IfElseFilter(private val settings: HashMap<String, Any?>) : PhraseFilter {
 
         private fun notContainIfLabels(line : String): Boolean{
 
-            return FiltersUtils.getFirstFilterLabel(line) == null
+            return FiltersUtils.getFirstFilterLabelText(line) == null
                     || (
-                        Labels.parse(FiltersUtils.getFirstFilterLabel(line)!!) != Labels.IF
-                        && Labels.parse(FiltersUtils.getFirstFilterLabel(line)!!) != Labels.ELSE
-                        && Labels.parse(FiltersUtils.getFirstFilterLabel(line)!!)!= Labels.ELSEIF
+                        FilterLabel.parse(FiltersUtils.getFirstFilterLabelText(line)!!) != FilterLabel.IF
+                        && FilterLabel.parse(FiltersUtils.getFirstFilterLabelText(line)!!) != FilterLabel.ELSE
+                        && FilterLabel.parse(FiltersUtils.getFirstFilterLabelText(line)!!)!= FilterLabel.ELSEIF
                     )
         }
 
         private fun processIfElse(str: String, settings: HashMap<String, Any?>) : Boolean{
-            val labels = FiltersUtils.getFilterLabels(str) ?: return true
+            val labels = FiltersUtils.getFilterLabelsTexts(str) ?: return true
             when(labels[0]){
-                Labels.IF.label, Labels.ELSEIF.label -> {
+                FilterLabel.IF.label, FilterLabel.ELSEIF.label -> {
                     for (i in 1 until labels.size){
-                        val res = ParamGetBooleanFilter(settings).processGetParameter(labels[i])
+                        val res = GetBooleanFilter(settings).processGetParameter(labels[i])
                         if(res == null){
                             logger.warn("processIfElse > label '${labels[i]}' in line $str return null")
                             continue;
@@ -91,7 +91,7 @@ class IfElseFilter(private val settings: HashMap<String, Any?>) : PhraseFilter {
                     }
                     return true
                 }
-                Labels.ELSE.label -> return true;
+                FilterLabel.ELSE.label -> return true;
             }
             return true
         }

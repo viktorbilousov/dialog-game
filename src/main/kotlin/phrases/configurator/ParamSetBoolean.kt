@@ -1,8 +1,9 @@
-package phrases.filters
+package phrases.configurator
 
-import models.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import phrases.filters.FilterLabel
+import phrases.filters.InlineTextPhraseFilter
 import tools.FiltersUtils
 
 /**
@@ -11,14 +12,19 @@ import tools.FiltersUtils
  * [NOT=key]
  * [GET=key]
  */
-class ParamSetBooleanFilter(public val parameters: HashMap<String, Any?> ) {
+class ParamSetBoolean(private val parameters: HashMap<String, Any?> ) : InlineTextPhraseFilter {
 
     companion object {
-        private val logger = LoggerFactory.getLogger(ParamSetBooleanFilter::class.java) as Logger
+        private val logger = LoggerFactory.getLogger(ParamSetBoolean::class.java) as Logger
+    }
+
+    override fun filterText(itemText: String, count: Int): Boolean {
+        processSetParameter(itemText)
+        return true;
     }
 
     public fun processSetParameter(str: String) {
-        val labels = FiltersUtils.getFilterLabels(str) ?: return
+        val labels = FiltersUtils.getFilterLabelsTexts(str) ?: return
         labels.forEach {
             processSetParameterLabel(it)
         }
@@ -29,15 +35,15 @@ class ParamSetBooleanFilter(public val parameters: HashMap<String, Any?> ) {
 
         val value = getParameterValue(label) ?: return
         val name = FiltersUtils.getParameterName(label) ?: return
-        val action = Labels.parse(name) ?: return;
+        val action = FilterLabel.parse(name) ?: return;
         when (action) {
-            Labels.SET -> {
+            FilterLabel.SET -> {
                 parameters[value] = true
-                logger.info("SET $value = true ")
+                logger.info("[SET] $value = true ")
             }
-            Labels.UNSET -> {
+            FilterLabel.UNSET -> {
                 parameters[value] = false
-                logger.info("SET $value = false")
+                logger.info("[UNSET] $value = false")
             }
             else -> return;
         }

@@ -1,10 +1,9 @@
-package phrases.filters.Inlinetext
+package phrases.filters.inline.text
 
-import models.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import phrases.filters.InlineTextPhraseFilter
-import phrases.filters.Labels
+import phrases.filters.FilterLabel
 import tools.FiltersUtils
 import java.lang.IllegalArgumentException
 
@@ -23,17 +22,18 @@ class IntComparingFilter(private val parameters: HashMap<String, Any?> ) :
             Pair(">=", { left, right -> left >= right }),
             Pair("<=", { left, right -> left <= right }),
             Pair("==", { left, right -> left == right }),
-            Pair("!=", { left, right -> left != right })
+            Pair("!=", { left, right -> left != right }),
+            Pair("=", { left, right -> left == right })
         )
 
-        private val logger = LoggerFactory.getLogger(ParamGetBooleanFilter::class.java) as Logger
+        private val logger = LoggerFactory.getLogger(GetBooleanFilter::class.java) as Logger
     }
 
     override fun filterText(itemText: String, count: Int): Boolean {
-        val labels = FiltersUtils.getFilterLabels(itemText) ?: return true;
+        val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true;
         labels.forEachIndexed(){ i, it ->
-            val label = Labels.parse(it) ?: return@forEachIndexed
-            if(label == Labels.INT) {
+            val label = FilterLabel.parse(it) ?: return@forEachIndexed
+            if(label == FilterLabel.INT) {
                 val keysLabel = labels[i+1];
                 if(!processInt(keysLabel)) return false
             }
@@ -43,22 +43,13 @@ class IntComparingFilter(private val parameters: HashMap<String, Any?> ) :
 
     public fun processInt(valueLabel: String): Boolean {
 
-        var array: Array<String>? = null
-        var operator: (Int, Int) -> Boolean =
-            { a, b -> throw IllegalArgumentException("Operator not recognised in label $valueLabel") }
-        for (op in operators) {
-            if (valueLabel.split(op.key).size == 2) {
-                operator = op.value;
-                array = valueLabel.split(op.key).toTypedArray()
-                break
-            }
-        }
-        if (array == null) {
-            throw IllegalArgumentException("Operator not recognised in label $valueLabel")
-        }
+        val operatorKey = findOperator(valueLabel)
+            ?: throw IllegalArgumentException("Operator not recognised in label $valueLabel")
+        val operator: (Int, Int) -> Boolean = operators[operatorKey]!!
+        val array = valueLabel.split(operatorKey)
 
-        val leftValue = getValue(array[0]) ?: throw IllegalArgumentException("LeftValue not recognised ${array[0]}")
-        val rightValue = getValue(array[1]) ?: throw IllegalArgumentException("RightValue not recognised  ${array[1]}")
+        val leftValue = getValue(array[0])  ?: return false
+        val rightValue = getValue(array[1]) ?: return false
 
         return operator(leftValue, rightValue)
     }
@@ -71,5 +62,10 @@ class IntComparingFilter(private val parameters: HashMap<String, Any?> ) :
 
         return null
     }
+
+    private fun findOperator(line: String) : String?{
+       return operators.keys.filter { line.contains(it)}.maxBy { it.length } ?: return null
+    }
+
 
 }

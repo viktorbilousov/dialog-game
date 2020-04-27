@@ -1,22 +1,22 @@
-package phrases.filters.Inlinetext
+package phrases.filters.inline.text
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import phrases.filters.InlineTextPhraseFilter
-import phrases.filters.Labels
+import phrases.filters.FilterLabel
 import tools.FiltersUtils
 
 /**
  *
- * [IF]
+ * [IF_SYS]
  * [GET=bool1][NOT=bool3]
- * [ELSE IF]
+ * [ELSEIF_SYS]
  * [key1=v]
- * [ELSE]
+ * [ELSE_SYS]
  * [SETV=SET]
- * [FI]
+ * [FI_SYS]
  */
-class IfElseFilterV2(private val settings: HashMap<String, Any?>) : InlineTextPhraseFilter {
+class IfElseFilterV2() : InlineTextPhraseFilter {
 
 
     companion object {
@@ -27,22 +27,22 @@ class IfElseFilterV2(private val settings: HashMap<String, Any?>) : InlineTextPh
     private var valueReturned = false;
 
     override fun filterText(itemText: String, count: Int): Boolean {
-        val firstLabel = FiltersUtils.getFirstFilterLabel(itemText) ?: return true
+        val firstLabel = FiltersUtils.getFirstFilterLabelText(itemText) ?: itemText
 
-        when (Labels.parse(firstLabel)) {
-            Labels.IF -> {
+        when (FilterLabel.parse(firstLabel)) {
+            FilterLabel.IF_SYS -> {
                 if (startFound) logger.error("FI not found!")
                 startFound = true;
                 return false
             }
-            Labels.FI -> {
+            FilterLabel.FI_SYS -> {
                 if (!startFound) logger.error("IF not found!")
                 startFound = false;
                 valueReturned = false;
                 return false
             }
-            Labels.ELSEIF, Labels.ELSE -> {
-                if (startFound) logger.error("IF not found!")
+            FilterLabel.ELSEIF_SYS, FilterLabel.ELSE_SYS -> {
+                if (!startFound) logger.error("IF not found!")
                 return false;
             }
             else -> {

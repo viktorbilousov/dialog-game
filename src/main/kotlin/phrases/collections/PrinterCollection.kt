@@ -2,6 +2,7 @@ package phrases.collections
 
 import models.Answer
 import models.items.phrase.PhrasePrinter
+import phrases.filters.inline.change.RemoveLabelFilter
 import tools.AnswersTool
 import tools.SimplePhrasePrinter
 import java.lang.StringBuilder
@@ -25,10 +26,10 @@ class PrinterCollection {
             }
         }
 
-        public fun parametric() = object : PhrasePrinter {
+        public fun hideLabels() = object : PhrasePrinter {
             override fun printTextDialog(text: String, answer: Array<Answer>) {
                 val copy = AnswersTool.copyArrayOrAnswers(answer);
-                val answersFiltered = FiltersCollection.removeLabelAnswersFilter.invoke(copy, 0);
+                val answersFiltered = RemoveLabelFilter().filterAnswers(copy, 0);
                 defPrinter.printTextDialog(text, answersFiltered);
             }
         }

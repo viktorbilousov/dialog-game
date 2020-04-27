@@ -26,7 +26,7 @@ class AutoRunner(game: Game, world: World) : Runner(game, world){
     init {
 
         val map = game.dialogs.values
-            .map { ADialog.createFrom<DebugDialog>(it) }.associateBy { it.id }
+            .map { ADialog.convertTo<DebugDialog>(it) }.associateBy { it.id }
         map.values.forEach{ it.transformIfCurrentItemIsPhrase = phrase@ { ph ->
             if(recordPlayer.haveNext()) RunnerConfigurator.setRunner(ph,
                 DialogItemAutoRunner(recordPlayer.getNextStep())

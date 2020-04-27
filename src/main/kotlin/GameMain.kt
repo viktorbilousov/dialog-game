@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory
 class GameMain {
     companion object{
 
-        private val runner : Class<out Runner> = RecordRunner::class.java;
+        private val runner : Class<out Runner> = Runner::class.java;
 
         private val logger = LoggerFactory.getLogger(GameMain::class.java) as Logger
         @JvmStatic

@@ -4,6 +4,7 @@ import debug.record.service.GameRecorder
 import debug.record.answer.RecordAnswers
 import debug.record.service.RecordFileIO
 import models.Answer
+import models.items.ADialogItem
 import models.items.phrase.*
 import models.items.runner.RunnerConfigurator
 import org.slf4j.Logger
@@ -17,7 +18,7 @@ class GameRecordPhrase(id: String, phrases: Array<String>,  answers: Array<Answe
         private val logger = LoggerFactory.getLogger(GameRecordPhrase::class.java) as Logger
     }
 
-    override fun initFrom(source: APhrase) {
+    override fun initFrom(source: ADialogItem) {
         super.initFrom(source)
         initialisirung()
     }

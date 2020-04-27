@@ -1,30 +1,27 @@
 package tools
 
-import phrases.filters.Labels
+import phrases.filters.FilterLabel
 
 class FiltersUtils {
    companion object {
-       public fun getFilterLabels(str: String): Array<String>? {
+       public fun getFilterLabelsTexts(str: String): Array<String>? {
            val list = arrayListOf<String>()
            var line = str;
-           while (getFirstFilterLabel(line) != null) {
-               list.add(getFirstFilterLabel(line)!!);
-               line = removeLastLabel(line)!!
+           while (getFirstFilterLabelText(line) != null) {
+               list.add(getFirstFilterLabelText(line)!!);
+               line = removeFirstLabel(line)!!
            }
            if (list.isEmpty()) return null
            return list.toTypedArray();
        }
 
-       public fun getSimpleLabels(str: String): Array<String>?{
-           val arr = getFilterLabels(str) ?: return null
-           return arr.filter { !isLabelParametric(it) }.toTypedArray()
+       public fun getFilterLabels(str: String): Array<FilterLabel>? {
+           val labels = getFilterLabelsTexts(str) ?: return null
+           return labels.filter { parseLabel(it) != null }.map { parseLabel(it)!! }.toTypedArray()
        }
 
-       public fun getParametricLabels(str: String): Array<String>?{
-           val arr = getFilterLabels(str) ?: return null
-           return arr.filter { isLabelParametric(it) }.toTypedArray()
-       }
-       public fun getFilterLabelsInsideText(str: String): Array<String>?{
+
+           public fun getFilterLabelsInsideText(str: String): Array<String>?{
            var label = ""
            val labelsList = arrayListOf<String>()
            var isFound = false;
@@ -53,7 +50,7 @@ class FiltersUtils {
        }
 
 
-       public fun getFirstFilterLabel(text: String): String? {
+       public fun getFirstFilterLabelText(text: String): String? {
            if(text == "") return null;
            if (text.trim()[0] == '[' && text.trim().indexOf(']') > 1) {
                return text.trim().substring(1, text.trim().indexOf(']'))
@@ -61,16 +58,22 @@ class FiltersUtils {
            return null
        }
 
+       public fun getFirstFilterLabel(text: String): FilterLabel? {
+           val label = getFirstFilterLabelText(text) ?: return null
+           return parseLabel(label);
+       }
+
+
        public fun removeLabels(str: String): String {
            var line = str;
            while (true) {
-               val lastLabel = getFirstFilterLabel(line) ?: return line
+               val lastLabel = getFirstFilterLabelText(line) ?: return line
                line = line.subSequence(lastLabel.length + 2, line.length).toString().trim()
            }
        }
 
-       public fun removeLastLabel(str: String): String? {
-           val lastLabel = getFirstFilterLabel(str) ?: return str
+       public fun removeFirstLabel(str: String): String? {
+           val lastLabel = getFirstFilterLabelText(str) ?: return str
            return str.subSequence(lastLabel.length + 2, str.length).toString().trim()
 
        }
@@ -92,43 +95,12 @@ class FiltersUtils {
            return arr.size == 2 && arr[1].isNotEmpty()
        }
 
-       public fun indexOfLabelAfter(index: Int, label: Labels, textLabels: Array<String>): Int?{
-           for (i in index until textLabels.size){
-               var currLabel: String? = (if(isLabelParametric(textLabels[i])) getParameterName(textLabels[i])
-               else textLabels[i])
-                   ?: return null;
-
-               currLabel = currLabel!!.toUpperCase()
-
-               if(currLabel.startsWith(label.label.toUpperCase())) {
-                   return i;
-               };
+       public fun parseLabel(label: String) : FilterLabel? {
+           if(isLabelParametric(label)){
+               return FilterLabel.parse(getParameterName(label)!!)
            }
-           return null;
-       }
-       public fun indexOfLabel(label: Labels, textLabels: Array<String>): Int?{
-          return indexOfLabelAfter(0, label, textLabels)
+           return FilterLabel.parse(label)
        }
 
-       public fun countOfLabels(textLabels: Array<String>, label: Labels) : Int{
-           return textLabels.filter { it.startsWith(label.label) }.count()
-       }
-
-//       public fun getParameterLabelsAfter(label: Labels, line:  String): Array<String>?{
-//           val labels = FiltersUtils.getFilterLabels(line) ?: return null
-//           val list = arrayListOf<String>()
-//           var addToList = false;
-//           labels.forEach {
-//               if(Labels.parse(it) == label) {
-//                   addToList = true
-//                   return@forEach
-//               };
-//               if(addToList) {
-//                   if (isLabelParametric(it)) list.add(it)
-//                   else addToList = false;
-//               }
-//           }
-//           return list.toTypedArray()
-//       }
    }
 }

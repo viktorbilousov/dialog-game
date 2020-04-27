@@ -16,7 +16,7 @@ import java.util.HashSet
 class RecordRunner( game: Game, world: World) : Runner(game, world){
     init {
        val map = game.dialogs.values
-           .map { ADialog.createFrom<DebugDialog>(it) }.associateBy { it.id }
+           .map { ADialog.convertTo<DebugDialog>(it) }.associateBy { it.id }
         map.values.forEach{ it.transformIfCurrentItemIsPhrase<GameRecordPhrase>() }
 
         game.dialogs.clear();

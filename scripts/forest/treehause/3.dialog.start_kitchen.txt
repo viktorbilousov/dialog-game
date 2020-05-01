@@ -2,7 +2,7 @@ $id=treehause.dialog.start_kitchen
 $isResetToStart=false
 $startPointId=th.croc.kitchen.start
 
----- th.croc.kitchen.6 [phrases.AutoPhrase]
+---- th.croc.kitchen.6 [dialog.game.phrases.AutoPhrase]
 
 th.croc.kitchen.tea
 
@@ -27,7 +27,7 @@ th.croc.kitchen.tea
 > О, как ты понял? (th.croc.kitchen.2)
 > Ты знаешь что это? (th.croc.kitchen.3)
 > Не понимаю о чем ты (th.croc.kitchen.4)
-> [debug] to game p1 (th.croc.kitchen.6)
+> [dialog.game.debug] to game p1 (th.croc.kitchen.6)
 
 
 ---- th.croc.kitchen.1

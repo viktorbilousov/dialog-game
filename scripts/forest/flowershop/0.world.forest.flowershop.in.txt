@@ -3,7 +3,7 @@ $isResetToStart=true
 $startPointId=fw.entrypoint
 
 
----- fw.entrypoint [phrases.AutoPhrase]
+---- fw.entrypoint [dialog.game.phrases.AutoPhrase]
 
 plug
 

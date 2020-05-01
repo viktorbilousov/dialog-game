@@ -10,7 +10,7 @@ world.sea
 > пойти на пляж (world.sea.beach)
 > пойти к дому родителей (world.sea.parenthause)
 > пойти обратно к перекрестку (world.crossroad)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
 
 ---- world.sea.beach
@@ -18,7 +18,7 @@ world.sea
 world.sea.beach
 
 > вернуться обратно (world.sea)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
 
 ---- world.sea.parenthause
@@ -28,7 +28,7 @@ world.sea.parenthause
 > ввойти внутрь (world.sea.parentgarden.in #enter)
 > пойти в сад (world.sea.parentgarden )
 > вернуться обратно (world.sea)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
 
 ---- world.sea.parentgarden
@@ -37,4 +37,4 @@ world.sea.parentgarden
 
 > ввойти внутрь (world.sea.parentgarden.in #enter)
 > вернуться к зданию (world.sea.parenthause)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)

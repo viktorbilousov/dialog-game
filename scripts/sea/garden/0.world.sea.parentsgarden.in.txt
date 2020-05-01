@@ -2,7 +2,7 @@ $id=world.sea.parentgarden.in
 $isResetToStart=true
 $startPointId=garden.entrypoint
 
----- garden.entrypoint [phrases.AutoPhrase]
+---- garden.entrypoint [dialog.game.phrases.AutoPhrase]
 
 plug
 

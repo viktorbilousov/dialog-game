@@ -3,7 +3,7 @@ $isResetToStart=false
 $startPointId=th.start.1
 
 
----- th.start.1 [phrases.RandomGamePhrase]
+---- th.start.1 [dialog.game.phrases.RandomGamePhrase]
 @(звук будильника)
 
 @(громкий звук будильника)
@@ -11,11 +11,11 @@ $startPointId=th.start.1
 
 >игнорировать (th.start.1.1)
 >проснуться   (th.start.2)
->[debug] to end (th.start.end)
->[debug] to th.start.12 (th.start.12)
+>[dialog.game.debug] to end (th.start.end)
+>[dialog.game.debug] to th.start.12 (th.start.12)
 
 
----- th.start.1.1 [phrases.RandomGamePhrase]
+---- th.start.1.1 [dialog.game.phrases.RandomGamePhrase]
 
 @ Будильник все еще продолжает звонить и раздражать тебя
 @ Ты пытаешься уснуть, но будильник не дает тебе этого сделать
@@ -228,6 +228,6 @@ $startPointId=th.start.1
 > Встать и открыть дверь (th.start.end )
 
 
-----th.start.end [phrases.AutoPhrase]
+----th.start.end [dialog.game.phrases.AutoPhrase]
 text
 > to dialog.treehause.meet_crock (treehause.dialog.meet_crock #enter)

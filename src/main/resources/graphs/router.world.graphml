@@ -236,7 +236,6 @@
     </node>
     <node id="n18">
       <data key="d4" xml:space="preserve"><![CDATA[treehause.dialog.crock.end]]></data>
-      <data key="d6"/>
       <data key="d7">
         <y:ShapeNode>
           <y:Geometry height="30.0" width="171.728515625" x="388.4373294890873" y="543.0"/>
@@ -613,7 +612,6 @@
       </data>
     </edge>
     <edge id="e29" source="n15" target="n18">
-      <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="15.0" tx="-42.93212890625" ty="-15.0">
@@ -626,14 +624,11 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e30" source="n18" target="n3">
+    <edge id="e30" source="n18" target="n0">
       <data key="d10"/>
       <data key="d11">
         <y:PolyLineEdge>
-          <y:Path sx="42.93212890624994" sy="-15.0" tx="39.9833984375" ty="15.0">
-            <y:Point x="517.2337301587302" y="250.5"/>
-            <y:Point x="499.1052238343254" y="250.5"/>
-          </y:Path>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
           <y:BendStyle smoothed="false"/>

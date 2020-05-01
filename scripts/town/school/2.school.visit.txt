@@ -2,7 +2,7 @@ $id=school.visit
 $isResetToStart=true
 $startPointId=sh.visit.entrypoint
 
----- sh.visit.entrypoint [phrases.AutoPhrase]
+---- sh.visit.entrypoint [dialog.game.phrases.AutoPhrase]
 
 sh.visit.1
 

@@ -2,12 +2,12 @@ $id=world.town.home.in
 $isResetToStart=true
 $startPointId=home.town.entrypoint
 
----- home.town.entrypoint [phrases.AutoPhrase]
+---- home.town.entrypoint [dialog.game.phrases.AutoPhrase]
 
 plug
 
 > plug (plug)
-> [debug] (home.town.1)
+> [dialog.game.debug] (home.town.1)
 
 ---- home.town.1
 

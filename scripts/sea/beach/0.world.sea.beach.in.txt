@@ -2,7 +2,7 @@ $id=world.sea.beach.in
 $isResetToStart=true
 $startPointId=beach.entrypoint
 
----- beach.entrypoint [phrases.AutoPhrase]
+---- beach.entrypoint [dialog.game.phrases.AutoPhrase]
 
 plug
 

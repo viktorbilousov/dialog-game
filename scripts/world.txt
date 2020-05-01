@@ -2,9 +2,9 @@ $id=world
 $isResetToStart=false
 $startPointId=world.startpoint
 
----- debug.world.startpoint
+---- dialog.game.debug.world.startpoint
 
-debug.world.startpoint
+dialog.game.debug.world.startpoint
 
 > startpoint (world.startpoint)
 > crossroad (world.crossroad)
@@ -26,7 +26,7 @@ debug.world.startpoint
 > .    |-- parentgarden (world.sea.parentgarden)
 > exit (exit #exit)
 
----- world.startpoint [phrases.AutoPhrase]
+---- world.startpoint [dialog.game.phrases.AutoPhrase]
 
 world.startpoint
 
@@ -40,7 +40,7 @@ world.crossroad
 > пойти налево в лес (world.forest)
 > пойти вперед в город (world.town)
 > пойти направо к морю (world.sea)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
 
 ---- world.forest

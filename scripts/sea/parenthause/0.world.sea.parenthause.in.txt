@@ -2,7 +2,7 @@ $id=world.sea.parenthause.in
 $isResetToStart=true
 $startPointId=ph.entrypoint
 
----- ph.entrypoint [phrases.AutoPhrase]
+---- ph.entrypoint [dialog.game.phrases.AutoPhrase]
 
 plug
 

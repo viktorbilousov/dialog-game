@@ -2,7 +2,7 @@ $id=treehause.dialog.meet_crock
 $isResetToStart=false
 $startPointId=th.croc.start
 
----- th.croc.door.end [phrases.AutoPhrase]
+---- th.croc.door.end [dialog.game.phrases.AutoPhrase]
 
 th.croc.door.end
 

@@ -9,7 +9,7 @@ $startPointId=th.game.tea.p2.start
 >  Собрать чай из трав самостоятельно (th.game.p2.game)
 >  Выбрать чай из списка (th.game.p2.menu)
 >  Cпросить какой он чай хочет (th.game.p2.ask.tea)
-> [debug] to next (th.game.end)
+> [dialog.game.debug] to next (th.game.end)
 
 ---- th.game.p2.ask.tea 
 
@@ -23,15 +23,15 @@ $startPointId=th.game.tea.p2.start
 
 > [SET=ASKED] Выбрать чай из списка (th.game.p2.menu)
 
----- th.game.p2.menu [minigames.tea.phrase.TeaMenuPhrase]
+---- th.game.p2.menu [dialog.game.minigames.tea.phrase.TeaMenuPhrase]
 
 @ [PUT=TEA MENU]
 
 
 > [INST=TEA ANSWERS] (th.game.p2.game)
-> [debug] back (th.game.tea.p2.start)
+> [dialog.game.debug] back (th.game.tea.p2.start)
 
----- th.game.p2.game [minigames.tea.phrase.TeaGamePhrase]
+---- th.game.p2.game [dialog.game.minigames.tea.phrase.TeaGamePhrase]
 
 @ [PUT=GAME TABLE]
 
@@ -40,7 +40,7 @@ $startPointId=th.game.tea.p2.start
 
 
 
----- th.game.menu.set.MixedTeaChosen [minigames.tea.phrase.TeaGameResult]
+---- th.game.menu.set.MixedTeaChosen [dialog.game.minigames.tea.phrase.TeaGameResult]
 
 
 @ Оценка чая: [PUT=QUALITY]
@@ -54,7 +54,7 @@ $startPointId=th.game.tea.p2.start
 > [SET=game_tea_restart]Составить чай еще раз (th.game.p2.game)
 > Заварить чай и сесть за стол (th.game.end)
 
----- th.game.end [phrases.AutoPhrase]
+---- th.game.end [dialog.game.phrases.AutoPhrase]
 
 exit
 

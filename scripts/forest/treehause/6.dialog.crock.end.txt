@@ -8,7 +8,7 @@ $startPointId=th.dialog.crock.end.start
 Спасибо тебе Амели, с самого утра хотел выпить вкусного чая. Вообще не могу без него день начать. Смотри какие я тебе конфетки принес. Угощайся кстати. 
 
 > Рассмотреть коробку конфет (th.dialog.crock.end.coockydescr)
-> [debug] to exit (th.dialog.crock.end.exit)
+> [dialog.game.debug] to exit (th.dialog.crock.end.exit)
 
 
 ---- th.dialog.crock.end.coockydescr 
@@ -72,7 +72,7 @@ mail
 
 
 
----- th.dialog.crock.end.3.1 [phrases.RandomGamePhrase]
+---- th.dialog.crock.end.3.1 [dialog.game.phrases.RandomGamePhrase]
 
 @ Да ты издеваешься что ли?
 @ Это уже не смешно
@@ -94,8 +94,8 @@ mail
 
 > *Выйти в город* (th.dialog.crock.end.exit)
 
----- th.dialog.crock.end.exit [phrases.AutoPhrase]
+---- th.dialog.crock.end.exit [dialog.game.phrases.AutoPhrase]
 
 exit
 
-> exit (world.forest.treehause #enter)
+> exit (world #enter)

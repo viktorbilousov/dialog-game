@@ -1,1 +1,1 @@
-[{"answers" : [{"answ_id" : "plug", "text" : "plug", "type" : "SIMPLE"}], "class" : "phrases.AutoPhrase", "id" : "beach.entrypoint", "texts" : ["plug"]}]
+[{"answers" : [{"answ_id" : "plug", "text" : "plug", "type" : "SIMPLE"}], "class" : "dialog.game.phrases.AutoPhrase", "id" : "beach.entrypoint", "texts" : ["plug"]}]

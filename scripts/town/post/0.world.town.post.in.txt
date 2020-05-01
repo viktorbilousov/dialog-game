@@ -2,7 +2,7 @@ $id=world.town.post.in
 $isResetToStart=true
 $startPointId=post.entrypoint
 
----- post.entrypoint [phrases.AutoPhrase]
+---- post.entrypoint [dialog.game.phrases.AutoPhrase]
 
 plug
 

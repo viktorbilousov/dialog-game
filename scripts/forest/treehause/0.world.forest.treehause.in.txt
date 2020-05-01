@@ -2,7 +2,7 @@ $id=world.forest.treehause.in
 $isResetToStart=true
 $startPointId=th.entrypoint
 
----- th.entrypoint [phrases.AutoPhrase]
+---- th.entrypoint [dialog.game.phrases.AutoPhrase]
 text
 
 > [1] go to start (treehause.dialog.start_dialog #enter)

@@ -3,7 +3,7 @@ $isResetToStart=true
 $startPointId=sloth.entrypoint
 
 
----- sloth.entrypoint [phrases.AutoPhrase]
+---- sloth.entrypoint [dialog.game.phrases.AutoPhrase]
 
 plug
 

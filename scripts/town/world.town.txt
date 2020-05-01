@@ -11,7 +11,7 @@ world.town
 > пойти на почту (world.town.post)
 > пойти в дом (world.town.home)
 > пойти на автобусную остановку (world.town.busstop)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
 
 ---- world.town.home
@@ -20,7 +20,7 @@ world.town.home
 
 > зайти внутрь (world.town.home.in #enter)
 > вернуться в город (world.town)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
 
 ---- world.town.post
@@ -29,7 +29,7 @@ world.town.post
 
 > зайти внутрь (world.city.post.in #enter)
 > вернуться в город (world.town)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
 
 ---- world.town.school
@@ -38,7 +38,7 @@ world.town.school
 
 > зайти внутрь (world.town.school.in #enter)
 > вернуться в город (world.town)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
 
 ---- world.town.busstop
@@ -47,5 +47,5 @@ world.town.busstop
 
 > отправиться загород (world.suburb)
 > вернуться в город (world.town)
-> [debug] teleport (debug.world.startpoint)
+> [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 

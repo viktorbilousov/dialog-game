@@ -1,23 +1,35 @@
 package tools
 
-import models.Answer
-import models.items.phrase.*
+import dialog.system.models.Answer
+import dialog.system.models.items.phrase.APhrase
+import dialog.system.models.items.phrase.FilteredPhrase
+
 
 class TestPhraseTools{
 
     companion object{
-        public fun setTestPrinter(phrase: APhrase) : TestPrinter{
+        public fun setTestPrinter(phrase: APhrase) : TestPrinter {
             val printer = TestPrinter();
             phrase.phrasePrinter = printer;
             return printer;
         }
 
         public inline fun <reified T : FilteredPhrase> createTestPhrase(answers: Array<Answer>): T {
-            return createTestPhrase(arrayOf("phrase1", "phrase2"), answers)
+            return createTestPhrase(
+                arrayOf(
+                    "phrase1",
+                    "phrase2"
+                ), answers
+            )
         }
 
         public inline fun <reified T : FilteredPhrase> createTestPhrase(answers: Array<String>): T {
-            return createTestPhrase(arrayOf("phrase1", "phrase2"), answers)
+            return createTestPhrase(
+                arrayOf(
+                    "phrase1",
+                    "phrase2"
+                ), answers
+            )
         }
 
         public inline fun <reified T : FilteredPhrase> createTestPhrase(

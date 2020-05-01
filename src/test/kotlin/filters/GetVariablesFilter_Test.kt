@@ -2,7 +2,7 @@ package filters
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import phrases.filters.inline.text.GetVariableFilter
+import dialog.game.phrases.filters.inline.text.GetVariableFilter
 
 
 /**

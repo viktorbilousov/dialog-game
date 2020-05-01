@@ -1,8 +1,10 @@
 package phrases
 
-import models.Answer
+import dialog.game.phrases.AutoPhrase
+import dialog.game.phrases.GamePhrase
+import dialog.system.models.Answer
 import org.junit.jupiter.api.Test
-import phrases.collections.AnswerChooserCollection
+import dialog.game.phrases.collections.AnswerChooserCollection
 import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPrinter
 

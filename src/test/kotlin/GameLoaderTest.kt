@@ -1,16 +1,16 @@
 import com.tinkerpop.blueprints.Vertex
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph
+import dialog.system.models.Answer
+import dialog.system.models.AnswerType
+import dialog.system.models.Indexable
+import dialog.system.models.items.text.PhraseText
+import dialog.system.models.items.text.PhraseTextStream
+import dialog.system.models.router.Router
+import dialog.system.models.router.RouterStream
 import game.Game
-import game.Loader
-import game.Tester
-import models.Answer
-import models.AnswerType
-import models.Indexable
+import dialog.game.maingame.Loader
+import dialog.game.maingame.Tester
 
-import models.items.text.PhraseText
-import models.items.text.PhraseTextStream
-import models.router.Router
-import models.router.RouterStream
 import org.junit.jupiter.api.Test
 import java.io.File
 

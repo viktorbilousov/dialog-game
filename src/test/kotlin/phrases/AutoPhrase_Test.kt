@@ -1,6 +1,7 @@
 package phrases
 
-import models.Answer
+import dialog.game.phrases.AutoPhrase
+import dialog.system.models.Answer
 import org.junit.jupiter.api.Test
 import tools.TestPhraseTools.Companion.createTestPhrase
 

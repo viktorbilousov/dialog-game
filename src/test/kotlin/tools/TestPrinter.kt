@@ -1,7 +1,8 @@
 package tools
 
-import models.Answer
-import models.items.phrase.PhrasePrinter
+import dialog.system.models.Answer
+import dialog.system.models.items.phrase.PhrasePrinter
+
 
 class TestPrinter()  : PhrasePrinter {
     public var lastPhrase : String? = null

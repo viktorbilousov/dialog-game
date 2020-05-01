@@ -1,12 +1,13 @@
 package phrases
 
 
-import models.Answer
-import models.items.phrase.FilteredPhrase
+import dialog.game.phrases.GamePhrase
+import dialog.system.models.items.phrase.FilteredPhrase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import phrases.collections.AnswerChooserCollection
-import phrases.configurator.FilteredPhraseConfigurator
+import dialog.game.phrases.collections.AnswerChooserCollection
+import dialog.game.phrases.configurator.FilteredPhraseConfigurator
+import dialog.system.models.Answer
 import tools.TestPhraseTools
 import tools.TestPhraseWrapper
 

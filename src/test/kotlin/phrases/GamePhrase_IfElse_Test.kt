@@ -1,12 +1,13 @@
 package phrases
 
-import models.Answer
-import models.items.phrase.FilteredPhrase
+import dialog.system.models.Answer
+import dialog.system.models.items.phrase.FilteredPhrase
 import org.junit.jupiter.api.Test
-import phrases.collections.AnswerChooserCollection
-import phrases.configurator.FilteredPhraseConfigurator
+import dialog.game.phrases.collections.AnswerChooserCollection
+import dialog.game.phrases.configurator.FilteredPhraseConfigurator
 import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPhraseTools
+import tools.TestPhraseWrapper
 
 class GamePhrase_IfElse_Test {
     @Test
@@ -67,6 +68,42 @@ class GamePhrase_IfElse_Test {
 
         var res = phrase.run()
         assert(res.text == "elseif2_ok")
+    }
+
+
+    @Test
+    fun test_GamePhrase_answer_multiplyAnswer(){
+        val testParams = hashMapOf<String, Any?>()
+        testParams["test1"] = false;
+        testParams["test2"] = true;
+        testParams["test3"] = false;
+
+        val phrase =  createTestPhrase<FilteredPhrase>(
+            arrayOf(
+                Answer("1", "[IF][GET=test1] if_answ") ,
+                Answer("2", "[ELSE IF][GET=test2] elseif1_ok3"),
+                Answer("2", "elseif1_ok1"),
+                Answer("2", "elseif1_ok2"),
+                Answer("3", "[ELSE IF][GET=test3][GET=test1] elseif2_false"),
+                Answer("4", "[ELSE] else_answ")
+            )
+        )
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
+        phrase.answerChooser = AnswerChooserCollection.first();
+
+       val wp =  TestPhraseWrapper(phrase);
+
+        val expectedAnswersText = arrayOf(
+            "elseif1_ok3",
+            "elseif1_ok1",
+            "elseif1_ok2"
+        )
+
+        wp.run()
+        val result = wp.resultAnswers.map { it.text }
+
+        expectedAnswersText.forEachIndexed{i , it -> assert(it == result[i])}
+
     }
 
     @Test

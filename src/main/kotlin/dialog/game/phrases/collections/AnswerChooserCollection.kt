@@ -43,7 +43,7 @@ class AnswerChooserCollection {
         }
 
 
-        public fun autoPlayer(recordPlayer: RecordPlayer) : AnswerChooser{
+        public fun autoPlayer(recordPlayer: RecordPlayer, defaultAnswerChooser: AnswerChooser) : AnswerChooser{
             return object : AnswerChooser{
                 override fun chooseAnswer(answers: Array<Answer>): Answer {
                     if(recordPlayer.haveNext()) {
@@ -53,7 +53,7 @@ class AnswerChooserCollection {
                         }
                         throw IllegalArgumentException("answer $id not exit")
                     }else{
-                        return console().chooseAnswer(answers)
+                        return defaultAnswerChooser.chooseAnswer(answers)
                     }
                 }
             }

@@ -108,5 +108,10 @@ class FiltersUtils {
        public fun getFirstParametricLabelsText(srt: String, filterLabel: FilterLabel) : String?{
            return getParametricLabels(srt, filterLabel)?.get(0)
        }
+
+       public fun isContainLabel(str: String, label: FilterLabel): Boolean{
+           return getFilterLabels(str)?.contains(label) ?: return false;
+       }
+
    }
 }

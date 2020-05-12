@@ -1,7 +1,7 @@
 package dialog.game.debug.game.runners
 
 import game.Game
-import dialog.game.maingame.Runner
+import dialog.game.game.Runner
 import dialog.game.debug.record.models.Record
 import dialog.game.debug.record.service.RecordFileIO
 import dialog.game.debug.record.service.RecordPlayer
@@ -26,7 +26,7 @@ class AutoRunner(game: Game, world: World) : Runner(game, world){
         val map = game.dialogs.values
             .map { ADialog.convertTo<DebugDialog>(it) }.associateBy { it.id }
         map.values.forEach{ it.transformIfCurrentItemIsPhrase = phrase@ { ph ->
-            ph.answerChooser = AnswerChooserCollection.autoPlayer(recordPlayer)
+            ph.answerChooser = AnswerChooserCollection.autoPlayer(recordPlayer, ph.answerChooser)
             return@phrase ph;
         } }
 

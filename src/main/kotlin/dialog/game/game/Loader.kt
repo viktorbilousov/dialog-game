@@ -2,6 +2,7 @@ package dialog.game.game
 
 
 import dialog.game.models.World
+import dialog.game.services.WorldRouterCreator
 import dialog.system.models.items.ADialogItem
 import dialog.system.models.items.dialog.Dialog
 import dialog.system.models.items.text.PhraseText
@@ -78,8 +79,11 @@ class Loader(private val game: Game) {
         }
 
         if (globalRouter == null) {
-            logger.error("A World router not found!")
-            error = true;
+            logger.warn("A World router not found! Creating new router!")
+//            logger.info("")
+            globalRouter = WorldRouterCreator.create(game.dialogs)
+            RouterStream.write(globalRouter, "TestWorldRouter", graphFolder )
+//            error = true;
         } else {
             globalRouter.items = game.dialogs as HashMap<String, ADialogItem>
             game.world = World(globalRouter)
@@ -179,5 +183,5 @@ class Loader(private val game: Game) {
         logger.info("<< loadRouters")
         return routersList;
     }
-
+    
 }

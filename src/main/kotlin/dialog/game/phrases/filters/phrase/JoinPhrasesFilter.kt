@@ -8,10 +8,11 @@ import tools.FiltersUtils
 /**
  * [JOIN] as first label
  */
+// todo: not only first label
 class JoinPhrasesFilter : PhraseFilter {
     override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
         if(isContainJoinLabel(phrases)) return arrayOf(phrases
-            .filter {  FiltersUtils.getFirstFilterLabel(it) != FilterLabel.JOIN }
+            .filter {  FiltersUtils.isContainLabel(it, FilterLabel.JOIN) }
             .joinToString(separator = "\n") { it })
         return phrases;
     }
@@ -21,9 +22,8 @@ class JoinPhrasesFilter : PhraseFilter {
     }
 
     private fun isContainJoinLabel(phrases: Array<String>) : Boolean{
-        val joinLabel = FilterLabel.JOIN
         phrases.forEach {
-            FiltersUtils.getFirstFilterLabel(it)?.let{ firstLabel ->  if( firstLabel== joinLabel) return true }
+           if( FiltersUtils.isContainLabel(it, FilterLabel.JOIN)) return true;
         }
         return false
     }

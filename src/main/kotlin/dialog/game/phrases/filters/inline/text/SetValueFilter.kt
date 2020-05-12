@@ -12,11 +12,11 @@ import tools.FiltersUtils
  * [SETV][key=null]
  * [UNSETV=key]
  */
-class ParamSetValue(private val parameters: HashMap<String, Any?> ) :
+class SetValueFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter {
 
     companion object {
-        private val logger = LoggerFactory.getLogger(ParamSetValue::class.java) as Logger
+        private val logger = LoggerFactory.getLogger(SetValueFilter::class.java) as Logger
     }
 
     override fun filterText(itemText: String, count: Int): Boolean {

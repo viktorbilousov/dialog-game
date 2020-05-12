@@ -8,8 +8,8 @@ import dialog.system.models.items.text.PhraseTextStream
 import dialog.system.models.router.Router
 import dialog.system.models.router.RouterStream
 import game.Game
-import dialog.game.maingame.Loader
-import dialog.game.maingame.Tester
+import dialog.game.game.Loader
+import dialog.game.game.Tester
 
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -98,6 +98,7 @@ class GameLoaderTest {
         r.startPointId= minIndex.toString()
        return r
     }
+
 
 
 

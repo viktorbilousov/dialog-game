@@ -81,7 +81,16 @@ class Mail {
         SHOW_ALL,
         HIDE_ALL,
         SHOW_NUMBERS_AND_SENDER_NAME,
-        SHOW_NUMBERS,
+        SHOW_NUMBERS;
+
+        companion object {
+            public fun parse(str: String): MailType? {
+                MailType.values().forEach {
+                    if (str == it.name) return it;
+                }
+                return null;
+            }
+        }
     }
 
    private data class MailText(public var reciever: Array<String>, public var sender: Array<String>);

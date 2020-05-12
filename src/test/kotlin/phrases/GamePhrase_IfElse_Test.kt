@@ -5,6 +5,7 @@ import dialog.system.models.items.phrase.FilteredPhrase
 import org.junit.jupiter.api.Test
 import dialog.game.phrases.collections.AnswerChooserCollection
 import dialog.game.phrases.configurator.FilteredPhraseConfigurator
+import org.junit.jupiter.api.Assertions
 import tools.TestPhraseTools.Companion.createTestPhrase
 import tools.TestPhraseTools
 import tools.TestPhraseWrapper
@@ -27,24 +28,25 @@ class GamePhrase_IfElse_Test {
                 Answer("1", "answ")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter()
+        val testPhrase = TestPhraseWrapper(phrase)
         phrase.answerChooser = AnswerChooserCollection.first();
         val printer = TestPhraseTools.setTestPrinter(phrase)
 
-        phrase.run()
-        assert(printer.lastPhrase == "if_answ")
+        testPhrase.run()
+        Assertions.assertEquals( "if_answ", testPhrase.resultPhrases[0])
 
         testParams["if"] = false;
         testParams["elseif"] = true;
 
-        phrase.run()
-        assert(printer.lastPhrase == "elseif_answ")
+        testPhrase.run()
+        Assertions.assertEquals("elseif_answ", testPhrase.resultPhrases[0])
 
         testParams["elseif"] = false;
         testParams["else"] = true;
 
-        phrase.run()
-        assert(printer.lastPhrase == "else_answ")
+        testPhrase.run()
+        Assertions.assertEquals("else_answ", testPhrase.resultPhrases[0])
     }
 
 
@@ -63,7 +65,7 @@ class GamePhrase_IfElse_Test {
                 Answer("4", "[ELSE] else_answ")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter()
         phrase.answerChooser = AnswerChooserCollection.first();
 
         var res = phrase.run()
@@ -88,7 +90,7 @@ class GamePhrase_IfElse_Test {
                 Answer("4", "[ELSE] else_answ")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
+        FilteredPhraseConfigurator(phrase, gameVariables = testParams).autoFilter()
         phrase.answerChooser = AnswerChooserCollection.first();
 
        val wp =  TestPhraseWrapper(phrase);
@@ -120,7 +122,7 @@ class GamePhrase_IfElse_Test {
                 Answer("3", "[ELSE][GET=else] else_answ")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
+        FilteredPhraseConfigurator(phrase, gameVariables = testParams).autoFilter()
         phrase.answerChooser = AnswerChooserCollection.first();
 
         var res = phrase.run()
@@ -137,6 +139,42 @@ class GamePhrase_IfElse_Test {
 
         res = phrase.run()
         assert(res.text == "else_answ")
+    }
+
+    @Test
+    fun test_multiplyElse(){
+        val testParams = hashMapOf<String, Any?>()
+        testParams["if"] = false;
+        testParams["elseif"] = false;
+        testParams["else"] = true;
+
+        val phrase =  createTestPhrase<FilteredPhrase>(
+            arrayOf(
+                "[IF][GET=if] if_answ" ,
+                "[ELSE IF][GET=elseif] elseif_answ",
+                "[ELSE]",
+                "else_answ1",
+                "else_answ2",
+                "else_answ3",
+                "[FI]"
+            )
+        )
+
+        FilteredPhraseConfigurator(phrase, gameVariables = testParams).autoFilter()
+
+        val expected = arrayOf(
+            "else_answ1",
+            "else_answ2",
+            "else_answ3"
+        )
+        val testPhrase = TestPhraseWrapper(phrase);
+        testPhrase.run()
+
+        testPhrase.resultAnswers.forEach{ println(it.text)}
+
+        expected.forEachIndexed { i, it -> Assertions.assertEquals(it, testPhrase.resultAnswers.map { it.text }[i]) }
+
+
     }
 }
 

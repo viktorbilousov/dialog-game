@@ -79,7 +79,7 @@ class GamePhrase_GetBoolean_Test {
             )
         )
 
-        FilteredPhraseConfigurator(phrase.phrase).autoFilter(gameVariables = testParams)
+        FilteredPhraseConfigurator(phrase.phrase, gameVariables = testParams).autoFilter()
 
 
         val expectedAnswers =   arrayOf("elseif2")
@@ -119,7 +119,7 @@ class GamePhrase_GetBoolean_Test {
             )
         )
 
-        FilteredPhraseConfigurator(phrase.phrase).autoFilter(gameVariables = testParams)
+        FilteredPhraseConfigurator(phrase.phrase, gameVariables = testParams).autoFilter()
 
 
         val expectedAnswers =   arrayOf("elseif2")
@@ -145,7 +145,7 @@ class GamePhrase_GetBoolean_Test {
             )
         )
 
-        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams);
+        FilteredPhraseConfigurator(phrase, gameVariables = testParams).autoFilter();
         phrase.answerChooser = AnswerChooserCollection.first();
 
         val res = phrase.run()

@@ -16,7 +16,7 @@ class ParametricPhrase_Test {
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
-        val phrase =  createTestPhrase<GamePhrase>(
+        val phrase =  createTestPhrase<FilteredPhrase>(
             arrayOf(
                 "[GET=dsjfh] error" ,
                 "[GET=test] ok"
@@ -69,7 +69,7 @@ class ParametricPhrase_Test {
                 Answer("2", "[GET=test1][GET=test2] ok")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter()
         phrase.answerChooser = AnswerChooserCollection.first();
 
         val res = phrase.run()
@@ -87,7 +87,7 @@ class ParametricPhrase_Test {
                 Answer("2", "[GET=test] ok")
             )
         )
-        FilteredPhraseConfigurator(phrase, testParams).autoFilter(gameVariables = testParams)
+        FilteredPhraseConfigurator(phrase, testParams).autoFilter()
         phrase.answerChooser = AnswerChooserCollection.first();
 
         val res = phrase.run()
@@ -114,10 +114,10 @@ class ParametricPhrase_Test {
 
 
     @Test
-    fun SET_answer_(){
+    fun SET_answer(){
         val testParams = hashMapOf<String, Any?>()
 
-        val phrase =  createTestPhrase<GamePhrase>(
+        val phrase =  createTestPhrase<FilteredPhrase>(
             arrayOf(
                 Answer("1", "[SET=test] ok")
             )
@@ -126,7 +126,7 @@ class ParametricPhrase_Test {
         phrase.answerChooser = AnswerChooserCollection.first();
 
         phrase.run()
-        assert(testParams["test"] != null)
+        Assertions.assertNotNull(testParams["test"])
     }
 
     @Test
@@ -134,7 +134,7 @@ class ParametricPhrase_Test {
         val testParams = hashMapOf<String, Any?>()
         testParams["test"] = true;
 
-        val phrase =  createTestPhrase<GamePhrase>(
+        val phrase =  createTestPhrase<FilteredPhrase>(
             arrayOf(
                 Answer("1", "[UNSET=test] ok")
             )
@@ -151,14 +151,14 @@ class ParametricPhrase_Test {
     fun SETV_answer_() {
         val testParams = hashMapOf<String, Any?>()
 
-        val phrase = createTestPhrase<GamePhrase>( arrayOf(
+        val phrase = createTestPhrase<FilteredPhrase>( arrayOf(
             "[SETV][value1=some_value] ok"
         )
         )
         FilteredPhraseConfigurator(phrase, testParams).parametric().auto()
         phrase.run()
 
-        Assertions.assertEquals(testParams["value1"], "some_value")
+        Assertions.assertEquals( "some_value", testParams["value1"])
       //  Assertions.assertEquals(testParams["value2"], "124")
       //  Assertions.assertEquals(testParams["value3"], "null")
        // Assertions.assertEquals(testParams["value4"], "-1234")

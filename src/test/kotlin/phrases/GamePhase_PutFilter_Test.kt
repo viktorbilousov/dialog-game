@@ -24,7 +24,7 @@ class GamePhase_PutFilter_Test {
             arrayOf("[PUT=phrase_text3] phrase1", "[PUT=phrase_text4] phrase2" ),
             arrayOf("[PUT=answ_text1] asnwer1", "[PUT=answ_text2] asnwer2" )
         )
-        FilteredPhraseConfigurator(phrase).autoFilter(variableTexts = variableTexts)
+        FilteredPhraseConfigurator(phrase, variableTexts = variableTexts).autoFilter()
         val wrapper = TestPhraseWrapper(phrase);
 
         wrapper.run()

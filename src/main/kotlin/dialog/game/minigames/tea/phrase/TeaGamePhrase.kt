@@ -16,7 +16,7 @@ class TeaGamePhrase (id: String, phrases: Array<String>, answers : Array<Answer>
     private val logger = LoggerFactory.getLogger(TeaGamePhrase::class.java) as Logger
 
     init {
-        FilteredPhraseConfigurator(this).autoFilter().applyPhrases()
+        FilteredPhraseConfigurator(this).autoFilter().join()
 
         after = after@{
             val answ = TeaGameUtils.answerToFlower(it) ?: return@after

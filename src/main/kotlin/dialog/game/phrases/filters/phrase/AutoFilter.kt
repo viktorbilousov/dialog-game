@@ -5,13 +5,15 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.PhraseFilter
+import dialog.game.phrases.filters.inline.SetBooleanPhraseFilter
+import dialog.game.phrases.filters.inline.SetVariablesPhraseFilter
 import dialog.game.phrases.filters.inline.change.PutFilter
 import dialog.game.phrases.filters.inline.text.*
 import dialog.system.models.Answer
-import phrases.filters.phrase.IfElsePreparingFilter
+import dialog.game.phrases.filters.phrase.IfElsePreparingFilter
 import tools.FiltersUtils
 
-class AutoFilter(
+open class AutoFilter(
     variableText: HashMap<String, () -> String> = GameData.variableTexts,
     variablePhrases: HashMap<String, () -> Array<String>> = GameData.variablePhrases,
     variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers,
@@ -27,10 +29,13 @@ class AutoFilter(
     init {
         addFilter(PutFilter(variableText), FilterLabel.PUT)
         addFilter(InsertFilter(variablePhrases, variableAnswers), true, FilterLabel.INST)
-        addFilter(IfElsePreparingFilter(), true, FilterLabel.IF, FilterLabel.ELSE, FilterLabel.ELSEIF, FilterLabel.FI)
+        addFilter(IfElsePreparingFilterV2(), true, FilterLabel.IF, FilterLabel.ELSE, FilterLabel.ELSEIF, FilterLabel.FI)
+        addFilter(RandomFilter(), FilterLabel.RAND)
         addFilter(IntComparingFilter(gameVariables), FilterLabel.INT)
         addFilter(GetBooleanFilter(gameVariables), FilterLabel.GET, FilterLabel.NOT)
         addFilter(GetVariableFilter(gameVariables), FilterLabel.GETV, FilterLabel.NOTV)
+        addFilter(SetBooleanPhraseFilter(gameVariables), FilterLabel.SET, FilterLabel.UNSET)
+        addFilter(SetVariablesPhraseFilter(gameVariables), FilterLabel.SETV, FilterLabel.UNSETV)
         addFilter(CountFilter()) { CountFilter.isCountLabel(it) }
         addFilter(
             IfElseFilterV2(),

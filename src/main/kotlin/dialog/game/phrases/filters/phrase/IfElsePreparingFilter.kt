@@ -7,6 +7,36 @@ import dialog.system.models.Answer
 import tools.FiltersUtils
 import java.lang.IllegalArgumentException
 
+
+/**
+ * [IF/ ELSE IF][if/else if condition]
+ * [text condition1] text1
+ * [text condition2] text1
+ *
+ *
+ * ---- example 1
+ * [IF][if condition][THEN][text condition1] text1
+ * [text condition2] text2
+ * [ELSE IF][else if condition][THEN][text condition] text
+ * [ElSE][else condition] text
+ *  transform to
+ *
+ * [IF_SYS]
+ * [if condition][text condition1] text2
+ * [if condition][text condition2] text1
+ * [ELSEIF_SYS][else if condition]
+ * [text condition] text
+ * [ElSE_SYS]
+ * text
+ * [FI_SYS]
+ * ----
+ *
+ *
+ * [IF][if conditions] text
+ * [ELSE IF][else if condition] text
+ * [ElSE][else condition] text
+ *
+ */
 class IfElsePreparingFilter() : PhraseFilter {
     override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
         val list = arrayListOf<String>()

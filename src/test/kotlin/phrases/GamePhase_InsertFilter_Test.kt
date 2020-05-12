@@ -23,8 +23,7 @@ class GamePhase_InsertFilter_Test {
             arrayOf("[INST=phrases1] phr1"),
             arrayOf("[INST=text1] ans21" )
         )
-        FilteredPhraseConfigurator(phrase).autoFilter(variableAnswers = variableAnswers,
-            variablePhrases = variablePhrases)
+        FilteredPhraseConfigurator(phrase, variableAnswers = variableAnswers, variablePhrases = variablePhrases).autoFilter()
         val wrapper = TestPhraseWrapper(phrase);
 
         wrapper.run()

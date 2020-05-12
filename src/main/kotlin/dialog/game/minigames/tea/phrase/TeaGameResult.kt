@@ -7,6 +7,6 @@ import dialog.system.models.items.phrase.FilteredPhrase
 class TeaGameResult (id: String, phrases: Array<String>, answers : Array<Answer>) : FilteredPhrase(id, phrases, answers){
 
     init{
-        FilteredPhraseConfigurator(this).autoFilter().applyPhrases()
+        FilteredPhraseConfigurator(this).autoFilter().join()
     }
 }

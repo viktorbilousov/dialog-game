@@ -49,10 +49,21 @@ enum class FilterLabel (val label: String) {
     //<- GetVariableFilter ->
     GETV("GETV"),
     NOTV("NOTV"),
-    ERROR("ERROR"),
-    JOIN("JOIN");
+
+    //<- JoinVariableFilter ->
+    JOIN("JOIN"),
+
+    //<- MailFilter ->
+    MAIL("MAIL"),
+    //<- RAND ->
+    RAND("RAND"),
+
+    //<- IntSimpleArithmeticsFilter ->
+    SETI("SETI");
+
 
     companion object {
+
         public fun parse(string: String): FilterLabel? {
             values().forEach { if (it.label.toUpperCase() == string.toUpperCase()) return it }
             return null

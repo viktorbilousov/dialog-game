@@ -5,8 +5,8 @@ import dialog.game.debug.record.phrase.GameRecordPhrase
 import dialog.game.debug.record.service.GameRecorder
 import dialog.game.debug.record.service.RecordFileIO
 import game.Game
-import dialog.game.maingame.GameData
-import dialog.game.maingame.Runner
+import dialog.game.game.GameData
+import dialog.game.game.Runner
 import dialog.game.models.World
 import dialog.system.models.items.dialog.ADialog
 import dialog.system.models.items.dialog.DebugDialog

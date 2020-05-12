@@ -1,6 +1,6 @@
 package dialog.game.minigames.tea
 
-import dialog.game.maingame.GameData
+import dialog.game.game.GameData
 import dialog.game.minigames.tea.models.Collection
 import dialog.game.minigames.tea.models.MixedTea
 import dialog.game.minigames.tea.models.Tea

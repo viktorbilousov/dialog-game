@@ -1,4 +1,4 @@
-package dialog.game.phrases.configurator
+package dialog.game.phrases.filters.inline.text
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

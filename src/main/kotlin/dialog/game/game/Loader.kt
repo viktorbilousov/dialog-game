@@ -1,4 +1,4 @@
-package dialog.game.maingame
+package dialog.game.game
 
 
 import dialog.game.models.World

@@ -1,4 +1,4 @@
-package dialog.game.maingame
+package dialog.game.game
 
 import dialog.system.models.router.Router
 import dialog.system.tools.RouterTester
@@ -102,7 +102,7 @@ companion object {
                 .isAllVertexHasItems()
                 .isItemsLinkedCorrectly();
         } catch (e: java.lang.Exception) {
-            logger.error("world router $router not passed all test: ${e.message}r")
+            logger.error("world router $router not passed all test: ${e.message}")
             logger.info("<< testGlobalRouter false")
             return false;
         }

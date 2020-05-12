@@ -1,6 +1,6 @@
 package dialog.game.phrases.filters.phrase
 
-import dialog.game.maingame.GameData
+import dialog.game.game.GameData
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.FilterLabel

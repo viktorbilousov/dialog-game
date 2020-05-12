@@ -1,6 +1,6 @@
 package dialog.game.minigames.tea.phrase
 
-import dialog.game.maingame.GameData
+import dialog.game.game.GameData
 import dialog.game.minigames.tea.TeaGame
 import dialog.game.minigames.tea.tools.TeaGameUtils
 import org.slf4j.Logger

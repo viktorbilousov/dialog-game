@@ -1,4 +1,4 @@
-package phrases.filters.phrase
+package dialog.game.phrases.filters.phrase
 
 import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.PhraseFilter

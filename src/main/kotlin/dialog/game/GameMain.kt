@@ -3,9 +3,9 @@ package dialog.game
 import dialog.game.debug.game.runners.AutoRunner
 import dialog.game.debug.game.runners.RecordRunner
 import dialog.game.debug.record.service.GameRecorder
-import dialog.game.maingame.Loader
-import dialog.game.maingame.Runner
-import dialog.game.maingame.Tester
+import dialog.game.game.Loader
+import dialog.game.game.Runner
+import dialog.game.game.Tester
 import dialog.game.models.World
 import game.*
 import game.Game.Companion.settings

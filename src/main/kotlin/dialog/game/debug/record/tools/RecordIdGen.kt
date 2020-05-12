@@ -1,7 +1,7 @@
 package dialog.game.debug.record.tools
 
 import dialog.game.debug.record.models.Record
-import dialog.game.maingame.GameData
+import dialog.game.game.GameData
 
 class RecordIdGen {
     companion object{

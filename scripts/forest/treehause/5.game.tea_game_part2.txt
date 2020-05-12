@@ -8,18 +8,18 @@ $startPointId=th.game.tea.p2.start
 
 >  Собрать чай из трав самостоятельно (th.game.p2.game)
 >  Выбрать чай из списка (th.game.p2.menu)
->  Cпросить какой он чай хочет (th.game.p2.ask.tea)
+>  Спросить какой он чай хочет (th.game.p2.ask.tea)
 > [dialog.game.debug] to next (th.game.end)
 
----- th.game.p2.ask.tea 
+---- th.game.p2.ask.tea
 
 @[GET=target_tea_вкусный] Я же уже говорил, сделай воооот тот ВКУСНЫЙ чай пожалуйста, как ты в прошлый раз готовила.
 
-@[GET=target_tea_ароматный]  Вот тот, который ПАХНЕТ вкусно. 
+@[GET=target_tea_ароматный]  Вот тот, который ПАХНЕТ вкусно.
 Я бы с удовольствием его выпил бы еще разочек.
 @[GET=target_tea_обычный] Да сделай просто как ОБЫЧНО.
 @[GET=target_tea_ягодный] Там где побольше ЯГОД пожалуйста
-@[GET=target_tea_освежающий] Сегодня мне что то жарко, так что сделай что бы ОСВЕЖИТЬСЯ немного. 
+@[GET=target_tea_освежающий] Сегодня мне что то жарко, так что сделай что бы ОСВЕЖИТЬСЯ немного.
 
 > [SET=ASKED] Выбрать чай из списка (th.game.p2.menu)
 
@@ -44,7 +44,7 @@ $startPointId=th.game.tea.p2.start
 
 
 @ Оценка чая: [PUT=QUALITY]
-@ [NOT=ASKED] Ближайшай чай по вкусу: [PUT=NEAREST_TEA]
+@ [NOT=ASKED] Ближайший чай по вкусу: [PUT=NEAREST_TEA]
 
 @ [INST=ANSWER]
 
@@ -59,3 +59,4 @@ $startPointId=th.game.tea.p2.start
 exit
 
 > exit (treehause.dialog.crock.end #enter)
+

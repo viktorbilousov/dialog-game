@@ -1,0 +1,79 @@
+$id=post.afterSchool
+$isResetToStart=true
+$startPointId=post.afterSchool.entrypoint
+
+---- post.afterSchool.entrypoint [dialog.game.phrases.AutoPhrase]
+
+entrypoint
+
+> goto (post.afterSchool.start)
+
+---- post.afterSchool.start
+
+О привет! Ну что, как там маэстро, ты уже была у него?,
+
+> Да, я отнесла ему посылку (post.afterSchool.1)
+> Нет, еще не была у него (post.afterSchool.2)
+
+
+
+---- post.afterSchool.1
+
+Ну что он там?,
+
+> Прикинь, он реально по ходу гей, токлько тсссс (post.afterSchool.1_1)
+> Он меня заставил учиться (post.afterSchool.1_2)
+> Ой, он такая прелесть (post.afterSchool.1_22)
+> Ненавижу его (post.afterSchool.1_21)
+> Ничего, нормально (post.afterSchool.1_6)
+
+
+---- post.afterSchool.1_1
+
+Я ТАК И ЗНАЛА!!!! Пойду вале расскажу. ВАЛЯЯЯЯЯЯЯЯЯЯ......
+* Уходит в подсобку *
+
+> Медленно разочаровываться в коалах, выходить из ступора и идти на улицу (town.post.out #exit)
+
+
+
+---- post.afterSchool.1_2
+
+ХА! Наверное тебе тоже 2-ку поставил! Он такой козел этот волк!,
+
+>   ДА, да, точно точно (post.afterSchool.1_21)
+>  Та нет, он на самом деле хороший, чего ты так на него? (post.afterSchool.1_22)
+
+
+---- post.afterSchool.1_21
+
+* Твоя коллега уважительно на тебя посмотрела * 
+
+Ладно, спасибо что зашла, а cейчас мне надо немного поработать!
+
+> Попрощаться и выйти на улицу  (town.post.out #exit)
+
+---- post.afterSchool.1_22
+
+*Твоя коллега презрительно на тебя посмотрела, хмыкнула и развернулась*
+
+> Молча выйти на улицу (town.post.out #exit)
+
+
+---- post.afterSchool.1_6
+
+Ну нормально так нормально. Ладно, спасибо что зашла, а чейчас не мешай другим работать пожалуйста!
+
+> Попрощаться и выйти на улицу  (town.post.out #exit)
+
+
+---- post.afterSchool.2
+
+Ну так чего ты стоишь? Иди работай и другим не мешай!
+
+> Мысленно послать ее и выйти на улицу   (town.post.out #exit)
+
+
+
+
+

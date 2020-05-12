@@ -1,4 +1,4 @@
-$id=world.suburb.computerstore.in
+$id=suburb.computerstore.in
 $isResetToStart=true
 $startPointId=store.entrypoint
 

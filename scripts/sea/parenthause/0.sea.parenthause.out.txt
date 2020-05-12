@@ -1,0 +1,9 @@
+$id=sea.parenthause.out
+$isResetToStart=true
+$startPointId=ph.end
+
+---- ph.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (world #exit)

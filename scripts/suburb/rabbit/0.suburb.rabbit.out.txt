@@ -1,0 +1,9 @@
+$id=suburb.rabbit.out
+$isResetToStart=true
+$startPointId=rabbit.end
+
+---- rabbit.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (world #exit)

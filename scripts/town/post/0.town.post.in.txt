@@ -1,0 +1,12 @@
+$id=town.post.in
+$isResetToStart=true
+$startPointId=post.entrypoint
+
+---- post.entrypoint [dialog.game.phrases.AutoPhrase]
+
+world.town.post.in
+
+> [1] go to first time (post.firstTime #enter)
+> [2] go to after school (post.afterSchool #enter)
+> [*] go to last dialog (post.lastDialog #exit)
+

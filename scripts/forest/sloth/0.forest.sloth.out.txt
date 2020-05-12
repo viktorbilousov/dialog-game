@@ -1,0 +1,10 @@
+$id=forest.sloth.out
+$isResetToStart=true
+$startPointId=sloth.end
+
+
+---- sloth.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (world #exit)

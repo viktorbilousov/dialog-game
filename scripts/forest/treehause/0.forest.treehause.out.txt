@@ -1,0 +1,9 @@
+$id=forest.treehause.out
+$isResetToStart=true
+$startPointId=th.end
+
+---- th.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (world #exit)

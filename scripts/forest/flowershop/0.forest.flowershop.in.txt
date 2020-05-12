@@ -1,4 +1,4 @@
-$id=world.forest.flowershop.in
+$id=forest.flowershop.in
 $isResetToStart=true
 $startPointId=fw.entrypoint
 

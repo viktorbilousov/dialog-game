@@ -1,0 +1,10 @@
+$id=suburb.computerstore.out
+$isResetToStart=true
+$startPointId=store.end
+
+---- store.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (world #exit)
+

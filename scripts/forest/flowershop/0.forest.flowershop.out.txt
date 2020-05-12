@@ -1,0 +1,11 @@
+$id=forest.flowershop.out
+$isResetToStart=true
+$startPointId=fw.end
+
+
+---- fw.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (world #exit)
+

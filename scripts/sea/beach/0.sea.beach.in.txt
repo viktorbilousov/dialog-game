@@ -1,4 +1,4 @@
-$id=world.sea.beach.in
+$id=sea.beach.in
 $isResetToStart=true
 $startPointId=beach.entrypoint
 

@@ -1,4 +1,4 @@
-$id=world.town.home.in
+$id=town.home.in
 $isResetToStart=true
 $startPointId=home.town.entrypoint
 
@@ -29,4 +29,5 @@ plug
 Конец=)
 
 
-> выйти (home.town.end #EXIT)
+> выйти (home.town.out #EXIT)
+

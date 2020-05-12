@@ -1,4 +1,4 @@
-$id=world.forest.treehause.in
+$id=forest.treehause.in
 $isResetToStart=true
 $startPointId=th.entrypoint
 
@@ -6,10 +6,6 @@ $startPointId=th.entrypoint
 text
 
 > [1] go to start (treehause.dialog.start_dialog #enter)
-> [*] exit (th.end)
+> [*] exit (forest.treehause.out #exit)
 
----- th.end
 
-exit
-
-> exit (world.forest.treehause #exit)

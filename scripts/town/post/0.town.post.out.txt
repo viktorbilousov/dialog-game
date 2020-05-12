@@ -1,0 +1,11 @@
+$id=town.post.out
+$isResetToStart=true
+$startPointId=post.out
+
+---- post.out [dialog.game.phrases.AutoPhrase]
+
+world.town.post.out
+
+> exit (world #exit)
+
+

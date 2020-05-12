@@ -1,0 +1,32 @@
+$id=post.lastDialog
+$isResetToStart=true
+$startPointId=post.lastDialog.entrypoint
+
+---- post.lastDialog.entrypoint [dialog.game.phrases.AutoPhrase]
+
+entrypoint
+
+> goto (post.lastDialog.start)
+
+---- post.lastDialog.start
+
+О привет, ты снова здесь! Как ты?
+
+> Спасибо, нормально, а ты как? (post.lastDialog.1)
+
+
+---- post.lastDialog.1
+
+Прикинь, работаем... Ты по делу или просто так?,
+
+> Та я просто поболтать пришла  (post.lastDialog.2)
+
+---- post.lastDialog.2  [dialog.game.phrases.RandomGamePhrase]
+@ Тогда не мешай пожалуйста и иди работать!
+@ Я щас занята, давай в другой раз!
+@ Мне сейчас некогда, зайди через часик
+@ Может ты тоже хочешь поработать?
+@ Давай тогда в следующий раз, я занята немного
+
+
+> Попрощаться и выйти на улицу (town.post.out #exit)

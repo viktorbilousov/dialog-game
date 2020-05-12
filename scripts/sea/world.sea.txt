@@ -5,6 +5,7 @@ $startPointId=world.startpoint
 
 ---- world.sea
 
+//todo description world.sea
 world.sea
 
 > пойти на пляж (world.sea.beach)
@@ -15,6 +16,7 @@ world.sea
 
 ---- world.sea.beach
 
+//todo description world.sea.beach
 world.sea.beach
 
 > вернуться обратно (world.sea)
@@ -23,6 +25,7 @@ world.sea.beach
 
 ---- world.sea.parenthause
 
+//todo description world.sea.parenthause
 world.sea.parenthause
 
 > ввойти внутрь (world.sea.parentgarden.in #enter)
@@ -33,6 +36,7 @@ world.sea.parenthause
 
 ---- world.sea.parentgarden
 
+//todo description world.sea.parentgarden
 world.sea.parentgarden
 
 > ввойти внутрь (world.sea.parentgarden.in #enter)

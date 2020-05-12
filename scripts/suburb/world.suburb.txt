@@ -4,6 +4,7 @@ $startPointId=world.startpoint
 
 ----  world.suburb
 
+//todo description world.suburb
 world.suburb
 
 > вернуться обратно в город (world.town.busstop)
@@ -14,6 +15,7 @@ world.suburb
 
 ---- world.suburb.computerstore
 
+//todo description world.suburb.computerstore
 world.suburb.computerstore
 
 > зайти внутрь (world.suburb.computerstore.in #enter)
@@ -23,6 +25,7 @@ world.suburb.computerstore
 
 ---- world.suburb.rabbit
 
+//todo description world.suburb.rabbit
 world.suburb.rabbit
 
 > зайти внутрь (world.suburb.rabbit.in #enter)

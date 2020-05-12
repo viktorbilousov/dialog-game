@@ -1,4 +1,4 @@
-$id=world.sea.parentgarden.in
+$id=sea.parentgarden.in
 $isResetToStart=true
 $startPointId=garden.entrypoint
 

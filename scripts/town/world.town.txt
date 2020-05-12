@@ -16,6 +16,7 @@ world.town
 
 ---- world.town.home
 
+//todo description world.town.home
 world.town.home
 
 > зайти внутрь (world.town.home.in #enter)
@@ -25,6 +26,7 @@ world.town.home
 
 ---- world.town.post
 
+//todo description world.town.post
 world.town.post
 
 > зайти внутрь (world.city.post.in #enter)
@@ -34,6 +36,7 @@ world.town.post
 
 ---- world.town.school
 
+//todo description world.town.school
 world.town.school
 
 > зайти внутрь (world.town.school.in #enter)
@@ -43,6 +46,7 @@ world.town.school
 
 ---- world.town.busstop
 
+//todo description world.town.busstop
 world.town.busstop
 
 > отправиться загород (world.suburb)

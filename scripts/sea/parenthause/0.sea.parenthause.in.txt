@@ -1,4 +1,4 @@
-$id=world.sea.parenthause.in
+$id=sea.parenthause.in
 $isResetToStart=true
 $startPointId=ph.entrypoint
 

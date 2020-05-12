@@ -1,0 +1,12 @@
+$id=town.school.out
+$isResetToStart=true
+$startPointId=sh.out
+
+---- sh.out [dialog.game.phrases.AutoPhrase]
+
+world.town.post.out
+
+> exit (world #exit)
+
+
+

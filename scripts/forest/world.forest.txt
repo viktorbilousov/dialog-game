@@ -4,6 +4,9 @@ $startPointId=world.startpoint
 
 ---- world.forest
 
+[IF][1] Открыв дверь
+[ELSE]
+//todo description world.forest
 world.forest
 
 > подойти к дому на дереве (world.forest.treehause)
@@ -14,6 +17,7 @@ world.forest
 
 ---- world.forest.treehause
 
+//todo description world.forest.treehause
 world.forest.treehause
 
 > ввойти внутрь (world.forest.treehause.in #enter)
@@ -23,6 +27,7 @@ world.forest.treehause
 
 ---- world.forest.flowershop
 
+//todo description world.forest.flowershop
 world.forest.flowershop
 
 > ввойти внутрь (world.forest.flowershop.in #enter)
@@ -32,6 +37,7 @@ world.forest.flowershop
 
 ---- world.forest.sloth
 
+//todo description world.forest.sloth
 world.forest.sloth
 
 > ввойти внутрь (world.forest.sloth.in #enter)

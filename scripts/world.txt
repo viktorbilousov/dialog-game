@@ -28,6 +28,7 @@ dialog.game.debug.world.startpoint
 
 ---- world.startpoint [dialog.game.phrases.AutoPhrase]
 
+//todo description world.startpoint
 world.startpoint
 
 > [1] to start (world.forest.treehause.in #enter)
@@ -35,6 +36,7 @@ world.startpoint
 
 ---- world.crossroad
 
+//todo description world.crossroad
 world.crossroad
 
 > пойти налево в лес (world.forest)

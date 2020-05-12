@@ -1,0 +1,10 @@
+$id=sea.beach.out
+$isResetToStart=true
+$startPointId=beach.end
+
+---- beach.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (world #exit)
+

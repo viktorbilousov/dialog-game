@@ -1,4 +1,4 @@
-$id=world.town.school.in
+$id=town.school.in
 $isResetToStart=true
 $startPointId=sh.entrypoint
 

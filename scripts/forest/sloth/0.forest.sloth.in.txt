@@ -1,4 +1,4 @@
-$id=world.forest.sloth.in
+$id=forest.sloth.in
 $isResetToStart=true
 $startPointId=sloth.entrypoint
 

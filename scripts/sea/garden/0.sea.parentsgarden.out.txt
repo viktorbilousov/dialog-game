@@ -1,0 +1,9 @@
+$id=sea.parentgarden.out
+$isResetToStart=true
+$startPointId=garden.end
+
+---- garden.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (exit #exit)

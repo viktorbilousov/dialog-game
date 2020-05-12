@@ -1,4 +1,4 @@
-$id=world.suburb.rabbit.in
+$id=suburb.rabbit.in
 $isResetToStart=true
 $startPointId=rabbit.entrypoint
 

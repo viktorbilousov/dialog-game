@@ -1,0 +1,10 @@
+$id=town.home.out
+$isResetToStart=true
+$startPointId=home.town.end
+
+---- home.town.end [dialog.game.phrases.AutoPhrase]
+
+exit
+
+> exit (world #exit)
+

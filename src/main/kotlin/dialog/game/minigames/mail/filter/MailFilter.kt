@@ -15,7 +15,7 @@ import tools.FiltersUtils
  * [MAIL=SHOW_NUMBERS]
  */
 
-class MailFilter : InlineChangeTextPhraseFilter {
+class MailFilter : InlineChangeTextPhraseFilter() {
 
     companion object {
         private val logger = LoggerFactory.getLogger(MailFilter::class.java) as Logger

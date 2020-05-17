@@ -28,7 +28,7 @@ world.sea.beach
 //todo description world.sea.parenthause
 world.sea.parenthause
 
-> ввойти внутрь (world.sea.parentgarden.in #enter)
+> ввойти внутрь (sea.parentgarden.in #enter)
 > пойти в сад (world.sea.parentgarden )
 > вернуться обратно (world.sea)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
@@ -39,6 +39,6 @@ world.sea.parenthause
 //todo description world.sea.parentgarden
 world.sea.parentgarden
 
-> ввойти внутрь (world.sea.parentgarden.in #enter)
+> ввойти внутрь (sea.parentgarden.in #enter)
 > вернуться к зданию (world.sea.parenthause)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)

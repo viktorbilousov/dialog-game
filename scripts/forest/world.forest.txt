@@ -20,7 +20,7 @@ world.forest
 //todo description world.forest.treehause
 world.forest.treehause
 
-> ввойти внутрь (world.forest.treehause.in #enter)
+> ввойти внутрь (forest.treehause.in #enter)
 > вернуться обратно на дорогу (world.forest)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
@@ -30,7 +30,7 @@ world.forest.treehause
 //todo description world.forest.flowershop
 world.forest.flowershop
 
-> ввойти внутрь (world.forest.flowershop.in #enter)
+> ввойти внутрь (forest.flowershop.in #enter)
 > вернуться к дому ленивца (world.forest.sloth)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
@@ -40,7 +40,7 @@ world.forest.flowershop
 //todo description world.forest.sloth
 world.forest.sloth
 
-> ввойти внутрь (world.forest.sloth.in #enter)
+> ввойти внутрь (forest.sloth.in #enter)
 > пойти к цветочному магазину (world.forest.flowershop)
 > вернуться обратно на дорогу (world.forest)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)

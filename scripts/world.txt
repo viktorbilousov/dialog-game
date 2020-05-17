@@ -10,6 +10,9 @@ dialog.game.debug.world.startpoint
 > crossroad (world.crossroad)
 > . |-- forest (world.forest)
 > .    |-- treehause  (world.forest.treehause)
+> .        |-- treehause  (forest.treehause.home #enter)
+> [SET=LEAVE_IN_HAUSE].        |-- treehause LEAVE_IN_HAUSE (forest.treehause.home #enter)
+> [SETV][COOKIES=0]            |-- treehause minigame coockies (forest.treehause.home.game.cookies #enter)
 > .    |-- sloth (world.forest.sloth)
 > .    |-- flowershop (world.forest.flowershop)
 > . |-- town (world.town)
@@ -31,7 +34,7 @@ dialog.game.debug.world.startpoint
 //todo description world.startpoint
 world.startpoint
 
-> [1] to start (world.forest.treehause.in #enter)
+> [1] to start (forest.treehause.in #enter)
 > [*] to treehause (world.forest.treehause)
 
 ---- world.crossroad

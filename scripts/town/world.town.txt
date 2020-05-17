@@ -19,7 +19,7 @@ world.town
 //todo description world.town.home
 world.town.home
 
-> зайти внутрь (world.town.home.in #enter)
+> зайти внутрь (town.home.in #enter)
 > вернуться в город (world.town)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
@@ -29,7 +29,7 @@ world.town.home
 //todo description world.town.post
 world.town.post
 
-> зайти внутрь (world.city.post.in #enter)
+> зайти внутрь (town.post.in #enter)
 > вернуться в город (world.town)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
@@ -39,7 +39,7 @@ world.town.post
 //todo description world.town.school
 world.town.school
 
-> зайти внутрь (world.town.school.in #enter)
+> зайти внутрь (town.school.in #enter)
 > вернуться в город (world.town)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 

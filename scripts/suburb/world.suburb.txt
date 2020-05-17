@@ -18,7 +18,7 @@ world.suburb
 //todo description world.suburb.computerstore
 world.suburb.computerstore
 
-> зайти внутрь (world.suburb.computerstore.in #enter)
+> зайти внутрь (suburb.computerstore.in #enter)
 > вернуться обратно (world.suburb)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)
 
@@ -28,6 +28,6 @@ world.suburb.computerstore
 //todo description world.suburb.rabbit
 world.suburb.rabbit
 
-> зайти внутрь (world.suburb.rabbit.in #enter)
+> зайти внутрь (suburb.rabbit.in #enter)
 > вернуться обратно (world.suburb)
 > [dialog.game.debug] teleport (dialog.game.debug.world.startpoint)

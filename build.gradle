@@ -33,29 +33,58 @@ def inputFolder = "./scripts"
 def outputGraphFolder = "src/main/resources/graphs"
 def outputPhraseTextFolder = "src/main/resources/phrases"
 def outputRouterFile = "src/main/resources/routers/routers.json"
-def jarPath = "libs/dialog-creator-1.2.jar"
+def jarPath = "libs/dialog-creator-1.3.jar"
 def defaultClass = "dialog.game.phrases.GamePhrase"
+def worldRouterId = "router.world"
+def startPoint = "world"
 
-/*task buildDialog {
+task hello {
+    doLast {
+        println 'Hello world!'
+    }
+}
+
+task buildDialogAndWorldRouter {
 
     group = 'dialog'
     description = 'Parse dialogs from scrips files'
+    doLast {
+        javaexec {
+            main = "-jar";
+            args = [
+                    "$jarPath",
+                    '-i', "$inputFolder",
+                    "-og", "$outputGraphFolder",
+                    "-orf", "$outputRouterFile",
+                    "-op", "$outputPhraseTextFolder",
+                    "-dc", "$defaultClass",
+                    "--create-world-router",
+                    "-rn" , "$worldRouterId",
+                    "-rs", "$startPoint"
+            ]
+            jvmArgs = ['-Dfile.encoding=UTF-8']
+        }
+    }
+}
 
+task buildDialogs {
+
+    group = 'dialog'
+    description = 'Parse dialogs from scrips files'
     javaexec {
-        main="-jar";
+        main = "-jar";
         args = [
                 "$jarPath",
                 '-i', "$inputFolder",
                 "-og", "$outputGraphFolder",
                 "-orf", "$outputRouterFile",
                 "-op", "$outputPhraseTextFolder",
-                "-dc", "$defaultClass"
+                "-dc", "$defaultClass",
         ]
-        jvmArgs=['-Dfile.encoding=UTF-8']
+        jvmArgs = ['-Dfile.encoding=UTF-8']
     }
-   // commandLine 'cmd', '/c', 'java', '-Dfile.encoding="UTF-8"', '-jar', "$jarPath", '-i', "$inputFolder", "-og", "$outputGraphFolder", "-orf", "$outputRouterFile", "-op", "$outputPhraseTextFolder"
-    // standardOutput = stdout
-}*/
+
+}
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"

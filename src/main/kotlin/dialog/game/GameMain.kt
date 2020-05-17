@@ -6,6 +6,8 @@ import dialog.game.debug.record.service.GameRecorder
 import dialog.game.game.Loader
 import dialog.game.game.Runner
 import dialog.game.game.Tester
+import dialog.game.minigames.cookies.CookiesMinigame
+import dialog.game.minigames.tea.TeaGame
 import dialog.game.models.World
 import game.*
 import game.Game.Companion.settings
@@ -26,10 +28,12 @@ class GameMain {
             logger.info("--- GAME STARTING ---")
             logger.info("")
             val game = Game()
+            game.addMinigames(TeaGame(), CookiesMinigame())
+
             logger.info("")
             logger.info("--- GAME LOADING ---")
             logger.info("")
-            Loader(game).load(
+           Loader(game).load(
                 settings["phrases-folder"] as String,
                 settings["routers-folder"] as String,
                 settings["graphs-folder"] as String

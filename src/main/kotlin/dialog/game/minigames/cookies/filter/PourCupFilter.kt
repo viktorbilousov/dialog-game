@@ -17,6 +17,8 @@ class PourCupFilter(val gameVariables: HashMap<String, Any?> = GameData.gameVari
         private val logger = Logger.getLogger(PourCupFilter::class.java) as Logger
     }
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.POUR_CUP)
+
     override fun filterText(itemText: String, count: Int): Boolean {
         val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true
         labels.forEachIndexed{ i, label ->

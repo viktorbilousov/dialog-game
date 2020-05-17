@@ -10,7 +10,7 @@ import tools.FiltersUtils
  */
 class DebugFilter : InlineTextPhraseFilter() {
 
-
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.DEBUG)
 
     override fun filterText(itemText: String, count: Int): Boolean {
         val debug = Game.settings[""] as Boolean

@@ -18,6 +18,7 @@ class PutFilter(
 ) :
     InlineChangeTextPhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.PUT)
 
     override fun changeText(itemText: String, count: Int): String {
         val labels = FiltersUtils.getFilterLabelsInsideText(itemText) ?: return itemText

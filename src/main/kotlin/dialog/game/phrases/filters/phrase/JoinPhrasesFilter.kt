@@ -11,6 +11,9 @@ import tools.FiltersUtils
 // todo: not only first label
 class JoinPhrasesFilter : PhraseFilter() {
 
+
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.JOIN)
+
     init {
         this.filterOnlyPhrases = true;
     }

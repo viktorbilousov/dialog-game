@@ -15,6 +15,8 @@ import tools.FiltersUtils
 class SetValueFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.SETV, FilterLabel.UNSETV)
+
     companion object {
         private val logger = LoggerFactory.getLogger(SetValueFilter::class.java) as Logger
     }

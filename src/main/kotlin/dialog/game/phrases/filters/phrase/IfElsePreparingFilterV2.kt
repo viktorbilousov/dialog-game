@@ -39,7 +39,7 @@ import java.lang.IllegalArgumentException
  */
 class IfElsePreparingFilterV2() : PhraseFilter() {
 
-
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.IF, FilterLabel.ELSE, FilterLabel.ELSEIF, FilterLabel.FI)
 
     override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         var result = mutableListOf<String>()

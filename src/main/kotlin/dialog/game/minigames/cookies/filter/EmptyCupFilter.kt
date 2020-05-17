@@ -19,6 +19,8 @@ class EmptyCupFilter(val gameVariables: HashMap<String, Any?> = GameData.gameVar
         private val logger = Logger.getLogger(EmptyCupFilter::class.java) as Logger
     }
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.EMPTY_CUP)
+
     override fun filterText(itemText: String, count: Int): Boolean {
         val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true
         labels.forEach {

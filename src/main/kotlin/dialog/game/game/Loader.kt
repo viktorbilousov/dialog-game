@@ -1,6 +1,7 @@
 package dialog.game.game
 
 
+import dialog.game.models.Minigame
 import dialog.game.models.World
 import dialog.system.models.items.ADialogItem
 import dialog.system.models.items.dialog.Dialog
@@ -179,5 +180,6 @@ class Loader(private val game: Game) {
         logger.info("<< loadRouters")
         return routersList;
     }
+
     
 }

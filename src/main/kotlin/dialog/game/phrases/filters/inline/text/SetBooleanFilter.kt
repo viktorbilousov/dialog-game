@@ -15,6 +15,8 @@ import tools.FiltersUtils
 class SetBooleanFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.SET, FilterLabel.UNSET)
+
     companion object {
         private val logger = LoggerFactory.getLogger(SetBooleanFilter::class.java) as Logger
     }

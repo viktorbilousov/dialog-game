@@ -32,7 +32,13 @@ open class FilteredPhraseConfigurator(
     private var variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers
 
     private var removeLabelFilter = RemoveLabelFilter();
-    private var autoFilter = AutoFilter( variableTexts, variablePhrases, variableAnswers, gameVariables);
+    private var  autoFilter : AutoFilter? = null
+    get() {
+        if(field == null) {
+            field = AutoFilter(variableTexts, variablePhrases, variableAnswers, gameVariables)
+        }
+        return field
+    }
 
     constructor(phrase: FilteredPhrase, settings: HashMap<String, Any?>) : this(phrase) {
         this.gameVariables = settings;
@@ -77,10 +83,6 @@ open class FilteredPhraseConfigurator(
         addResultAnswerFilter("result.set", SetBooleanFilter(gameVariables))
         addResultAnswerFilter("result.setV", SetValueFilter(gameVariables))
         addResultAnswerFilter("result.setI", IntSimpleArithmeticsFilter(gameVariables))
-
-        removeLabelFilter.addException(FilterLabel.UNSETV, FilterLabel.SET, FilterLabel.UNSET)
-        removeLabelFilter.addException(FilterLabel.SETI, 1)
-        removeLabelFilter.addException(FilterLabel.SETV, 1)
         phrase.phrasePrinter = PrinterCollection.hideLabels();
 
         return this
@@ -116,38 +118,28 @@ open class FilteredPhraseConfigurator(
         return this;
     }
 
-    public fun addAutoFilter(phraseFilter: PhraseFilter, vararg labels: FilterLabel){
-        autoFilter.addFilter(phraseFilter, *labels)
-    }
-
     public fun autoFilter() : FilteredPhraseConfigurator {
-        addFilter("autofilter", autoFilter )
+        addFilter("autofilter", autoFilter!! )
         parametricSet()
         return this;
     }
 
-    private fun addResultAnswerFilter(id: String, filter: InlineTextPhraseFilter){
-        phrase.addResultAnswerFilter(id){
-            filter.filterText(it.text, 0)
-            return@addResultAnswerFilter it
-        }
+    public fun addAutoFilter(filter: PhraseFilter, isNeedRebuild: Boolean = false) : FilteredPhraseConfigurator {
+        autoFilter!!.addFilter(filter, isNeedRebuild)
+        return this;
     }
-    public fun addResultAnswerFilter(id: String, filter: InlineTextPhraseFilter, vararg pair: Pair<FilterLabel, Int>) : FilteredPhraseConfigurator {
-        phrase.addResultAnswerFilter(id){
-            filter.filterText(it.text, 0)
-            return@addResultAnswerFilter it
-        }
-        removeLabelFilter.addException(*pair)
+    public fun addAutoFilter(filter: PhraseFilter, isNeedRebuild: Boolean = false, isContain: (label: String) -> Boolean) : FilteredPhraseConfigurator {
+        autoFilter!!.addFilter(filter, isNeedRebuild, isContain)
         return this;
     }
 
-    public fun addResultAnswerFilter(id: String, filter: InlineTextPhraseFilter, vararg labels: FilterLabel) : FilteredPhraseConfigurator {
+    public fun addResultAnswerFilter(id: String, filter: InlineTextPhraseFilter) : FilteredPhraseConfigurator  {
         phrase.addResultAnswerFilter(id){
             filter.filterText(it.text, 0)
             return@addResultAnswerFilter it
         }
-        removeLabelFilter.addException(*labels)
-        return this;
+        removeLabelFilter.addException(*filter.filterLabelsList)
+        return this
     }
 
     public fun randomPhrase() : FilteredPhraseConfigurator {

@@ -7,14 +7,15 @@ import tools.FiltersUtils
 
 /**
  * Answer / Phrases:
- * [PUT=key] this text will be ignored
+ * [INST=key] this text will be ignored
  * Text :
- * this tag add text [PUT=key] this text will be continued
+ * this tag add text [INST=key] this text will be continued
  */
 class InsertFilter(private val variablePhrases: HashMap<String, () -> Array<String>>,
                    private val variableAnswers : HashMap<String, () -> Array<Answer>>)
                    : PhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.INST)
 
     override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         return insertPhrase(phrases)

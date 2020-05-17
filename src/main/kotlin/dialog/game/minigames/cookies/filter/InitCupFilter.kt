@@ -20,6 +20,8 @@ class InitCupFilter(val gameVariables: HashMap<String, Any?> = GameData.gameVari
         private val logger = Logger.getLogger(InitCupFilter::class.java) as Logger
     }
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.INIT_CUP)
+
     override fun filterText(itemText: String, count: Int): Boolean {
         val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true
         labels.forEach {

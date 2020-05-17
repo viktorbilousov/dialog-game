@@ -17,6 +17,8 @@ open class AutoFilter(
     gameVariables: HashMap<String, Any?> = GameData.gameVariables
 ) : PhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf()
+
     companion object {
         private val logger = LoggerFactory.getLogger(AutoFilter::class.java) as Logger
     }
@@ -25,33 +27,27 @@ open class AutoFilter(
 
     init {
 
-        addFilter(PutFilter(variableText), FilterLabel.PUT)
-        addFilter(InsertFilter(variablePhrases, variableAnswers), true, FilterLabel.INST)
-        addFilter(IfElsePreparingFilterV2(), true, FilterLabel.IF, FilterLabel.ELSE, FilterLabel.ELSEIF, FilterLabel.FI)
-        addFilter(RandomFilter(), FilterLabel.RAND)
-        addFilter(IntComparingFilter(gameVariables), FilterLabel.INT)
-        addFilter(GetBooleanFilter(gameVariables), FilterLabel.GET, FilterLabel.NOT)
-        addFilter(GetVariableFilter(gameVariables), FilterLabel.GETV, FilterLabel.NOTV)
-        addFilter(filterOnlyPhrases(SetBooleanFilter(gameVariables)), FilterLabel.SET, FilterLabel.UNSET)
-        addFilter(filterOnlyPhrases(SetValueFilter(gameVariables)), FilterLabel.SETV, FilterLabel.UNSETV)
-        addFilter(filterOnlyPhrases(IntSimpleArithmeticsFilter(gameVariables)), FilterLabel.SETI)
+        addFilter(PutFilter(variableText))
+        addFilter(InsertFilter(variablePhrases, variableAnswers), true)
+        addFilter(IfElsePreparingFilterV2(), true)
+        addFilter(RandomFilter())
+        addFilter(IntComparingFilter(gameVariables))
+        addFilter(GetBooleanFilter(gameVariables))
+        addFilter(GetVariableFilter(gameVariables))
+        addFilter(filterOnlyPhrases(SetBooleanFilter(gameVariables)))
+        addFilter(filterOnlyPhrases(SetValueFilter(gameVariables)))
+        addFilter(filterOnlyPhrases(IntSimpleArithmeticsFilter(gameVariables)))
         addFilter(CountFilter()) { CountFilter.isCountLabel(it) }
-        addFilter(
-            IfElseFilterV2(),
-            FilterLabel.IF_SYS,
-            FilterLabel.ELSE_SYS,
-            FilterLabel.ELSEIF_SYS,
-            FilterLabel.FI_SYS
-        )
+        addFilter( IfElseFilterV2())
     }
 
-    public fun addFilter(filter: PhraseFilter, vararg labels: FilterLabel) {
-       addFilter(filter, false, *labels)
+    public fun addFilter(filter: PhraseFilter) {
+       addFilter(filter, false)
     }
 
-    public fun addFilter(filter: PhraseFilter, isNeedRebuild: Boolean, vararg labels: FilterLabel) {
+    public fun addFilter(filter: PhraseFilter, isNeedRebuild: Boolean = false) {
         val function = isContains@{ labelText: String ->
-            labels.forEach {inputLabel ->
+            filter.filterLabelsList.forEach { inputLabel ->
                 val label = FiltersUtils.parseLabel(labelText) ?: return@forEach
                 if (label == inputLabel) return@isContains true;
             }

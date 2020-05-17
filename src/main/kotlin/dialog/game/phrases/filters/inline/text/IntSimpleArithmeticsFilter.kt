@@ -20,6 +20,7 @@ import java.lang.IllegalArgumentException
 class IntSimpleArithmeticsFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.SETI)
 
     companion object {
         private val operators: HashMap<String, (a: Int, b: Int) -> Int> = hashMapOf(

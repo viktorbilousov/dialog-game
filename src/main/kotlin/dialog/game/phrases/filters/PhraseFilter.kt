@@ -20,6 +20,9 @@ abstract class PhraseFilter {
    protected var filterOnlyAnswer : Boolean = false
 
 
+    abstract public val filterLabelsList : Array<FilterLabel>
+
+
     companion object{
        public fun filterOnlyPhrases (phraseFilter: PhraseFilter) : PhraseFilter{
             phraseFilter.filterOnlyPhrases = true;

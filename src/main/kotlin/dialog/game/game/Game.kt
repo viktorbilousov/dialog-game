@@ -1,10 +1,14 @@
 package game
 
+import dialog.game.game.Loader
 import dialog.game.minigames.tea.TeaGame
+import dialog.game.models.Minigame
 import dialog.game.models.World
 import dialog.game.phrases.collections.PhraseCollection
 import dialog.system.models.items.dialog.ADialog
 import dialog.system.models.items.phrase.APhrase
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.File
 
 class Game {
@@ -12,9 +16,9 @@ class Game {
     companion object {
         public val settings = HashMap<String, Any?>()
 
-        init {
+        private val logger = LoggerFactory.getLogger(Game::class.java) as Logger
 
-            TeaGame.javaClass
+        init {
 
             settings[""] = false
             settings["world-router-id"] = "router.world"
@@ -24,6 +28,13 @@ class Game {
         }
         public val isDebug: Boolean
             get() = settings[""] == true
+    }
+
+    public fun addMinigames(vararg minigame: Minigame){
+        minigame.forEach {
+            logger.info("Load minigame: ${it.javaClass.simpleName}")
+            it.init()
+        }
     }
 
 
@@ -37,16 +48,7 @@ class Game {
         }
 
     init {
-
         phrases["plug"] = PhraseCollection.plugExitPhrase("plug");
-
-        /* Loader(this).load(
-             settings["phrases-folder"] as String,
-             settings["routers-folder"] as String,
-             settings["graphs-folder"] as String
-         )
-         init()
-         Tester.testGame(this);*/
     }
 
     public fun debug(isEnable: Boolean) {

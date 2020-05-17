@@ -1,6 +1,6 @@
 package dialog.game.phrases.filters
 
-enum class FilterLabel (val label: String) {
+enum class FilterLabel (val label: String, val intRange : Int = 0) {
 
     // <- GetBooleanFilter ->
     GET("GET"),
@@ -38,16 +38,16 @@ enum class FilterLabel (val label: String) {
 
 
     //<- ParamSetBooleanFilter ->
-    SETV("SETV"),
+    SETV("SETV", 1),
     UNSETV("UNSETV"),
 
 
     //<- IntComparingFilter ->
-    INT("INT"),
+    INT("INT", 1),
 
 
     //<- GetVariableFilter ->
-    GETV("GETV"),
+    GETV("GETV", 1),
     NOTV("NOTV"),
 
     //<- JoinVariableFilter ->
@@ -59,13 +59,13 @@ enum class FilterLabel (val label: String) {
     RAND("RAND"),
 
     //<- IntSimpleArithmeticsFilter ->
-    SETI("SETI"),
+    SETI("SETI",1),
 
     //<- CookiesPhrase ->
     INIT_CUP("INIT_CUP"),
     RESET_CUP("RESET_CUP"),
     EMPTY_CUP("EMPTY_CUP"),
-    POUR_CUP("POUR_CUP");
+    POUR_CUP("POUR_CUP",1);
 
 
     companion object {

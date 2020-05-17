@@ -15,6 +15,7 @@ import java.lang.IllegalArgumentException
 class IntComparingFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.INT)
 
     companion object {
         private val operators: HashMap<String, (a: Int, b: Int) -> Boolean> = hashMapOf(

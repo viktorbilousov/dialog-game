@@ -7,14 +7,13 @@ import dialog.game.phrases.filters.FilterLabel
 import tools.FiltersUtils
 
 /**
- * [SET=key]
- * [UNSET=key]
  * [NOT=key]
  * [GET=key]
  */
 class GetBooleanFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.GET, FilterLabel.NOT)
 
     override fun filterText(itemText: String, count: Int): Boolean {
         return if(filterParameter(

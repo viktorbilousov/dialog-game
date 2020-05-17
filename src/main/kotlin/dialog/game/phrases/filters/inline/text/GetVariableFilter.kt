@@ -15,6 +15,7 @@ import java.lang.IllegalArgumentException
 class GetVariableFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.GETV, FilterLabel.NOTV)
 
     companion object{
         private val logger = LoggerFactory.getLogger(GetVariableFilter::class.java) as Logger

@@ -18,6 +18,7 @@ import kotlin.collections.HashMap
  */
 class RandomFilter : InlineTextPhraseFilter(){
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.RAND)
 
     private val randNumOfGroup = HashMap<String, Int>()
     private val cntOfGroup = HashMap<String, Int>()

@@ -21,6 +21,8 @@ class MailFilter : InlineChangeTextPhraseFilter() {
         private val logger = LoggerFactory.getLogger(MailFilter::class.java) as Logger
     }
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.MAIL)
+
     override fun changeText(itemText: String, count: Int): String {
         val labelRaw = FiltersUtils.getFirstFilterLabelText(itemText) ?: return itemText
         val label = FiltersUtils.parseLabel(labelRaw) ?: return itemText

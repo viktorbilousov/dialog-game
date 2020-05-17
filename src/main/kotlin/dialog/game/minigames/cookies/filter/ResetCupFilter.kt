@@ -14,6 +14,8 @@ class ResetCupFilter(val gameVariables: HashMap<String, Any?> = GameData.gameVar
         private val logger = Logger.getLogger(PourCupFilter::class.java) as Logger
     }
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.RESET_CUP)
+
     override fun filterText(itemText: String, count: Int): Boolean {
         if(FiltersUtils.isContainLabel(itemText, FilterLabel.RESET_CUP)){
             Cups.values().forEach {

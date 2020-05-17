@@ -18,6 +18,7 @@ import tools.FiltersUtils
  */
 class IfElseFilterV2() : InlineTextPhraseFilter() {
 
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.IF_SYS, FilterLabel.ELSEIF_SYS, FilterLabel.ELSE_SYS, FilterLabel.FI_SYS)
 
     companion object {
         private val logger = LoggerFactory.getLogger(IfElseFilterV2::class.java) as Logger

@@ -15,10 +15,10 @@ import dialog.system.models.items.phrase.FilteredPhrase
 class CookiesPhrase(id: String, phrases: Array<String>, answers : Array<Answer>) : FilteredPhrase(id, phrases, answers){
     init {
         FilteredPhraseConfigurator(this).autoFilter()
-            .addResultAnswerFilter("minigame.cup.emptycup", EmptyCupFilter(), FilterLabel.EMPTY_CUP)
-            .addResultAnswerFilter("minigame.cup.initCup", InitCupFilter(), FilterLabel.INIT_CUP)
-            .addResultAnswerFilter("minigame.cup.pourCup", PourCupFilter(), Pair(FilterLabel.POUR_CUP, 1))
-            .addResultAnswerFilter("minigame.cup.resetCup", ResetCupFilter(), FilterLabel.RESET_CUP)
+            .addResultAnswerFilter("minigame.cup.emptycup", EmptyCupFilter())
+            .addResultAnswerFilter("minigame.cup.initCup", InitCupFilter())
+            .addResultAnswerFilter("minigame.cup.pourCup", PourCupFilter())
+            .addResultAnswerFilter("minigame.cup.resetCup", ResetCupFilter())
 
     }
 }

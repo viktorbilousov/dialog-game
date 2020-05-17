@@ -113,5 +113,13 @@ class FiltersUtils {
            return getFilterLabels(str)?.contains(label) ?: return false;
        }
 
+       public fun isContainLabelInsideText(str: String, label: FilterLabel): Boolean{
+           val labels = getFilterLabelsInsideText(str) ?: return false
+           labels.forEach {
+               if(FilterLabel.parse(it) == label) return true
+           }
+           return false
+       }
+
    }
 }

@@ -10,15 +10,13 @@ import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.InlineTextPhraseFilter
 import dialog.game.phrases.filters.inline.change.RemoveLabelFilter
 import dialog.game.phrases.filters.PhraseFilter
-import dialog.game.phrases.filters.inline.SetBooleanPhraseFilter
-import dialog.game.phrases.filters.inline.SetVariablesPhraseFilter
 import dialog.game.phrases.filters.inline.text.*
 import dialog.game.phrases.filters.phrase.JoinPhrasesFilter
 import dialog.game.phrases.filters.phrase.AutoFilter
+import dialog.game.phrases.filters.phrase.IfElsePreparingFilterV2
 import dialog.system.models.Answer
 import dialog.system.models.items.phrase.AFilteredPhrase
 import dialog.system.models.items.phrase.FilteredPhrase
-import dialog.game.phrases.filters.phrase.IfElsePreparingFilter
 
 open class FilteredPhraseConfigurator(
     private val phrase: AFilteredPhrase
@@ -34,6 +32,7 @@ open class FilteredPhraseConfigurator(
     private var variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers
 
     private var removeLabelFilter = RemoveLabelFilter();
+    private var autoFilter = AutoFilter( variableTexts, variablePhrases, variableAnswers, gameVariables);
 
     constructor(phrase: FilteredPhrase, settings: HashMap<String, Any?>) : this(phrase) {
         this.gameVariables = settings;
@@ -69,23 +68,19 @@ open class FilteredPhraseConfigurator(
     }
 
     public fun parametric(): FilteredPhraseConfigurator {
-//        parameterSet(gameVariables)
-//        parameterGet(gameVariables)
-//        parameterSetVariable(gameVariables)
-//        parameterGetVariable(gameVariables);
         parametricGet()
         parametricSet()
         return this
     }
 
     public fun parametricSet() : FilteredPhraseConfigurator {
-       // parameterSet(gameVariables)
-       // parameterSetVariable(gameVariables)
         addResultAnswerFilter("result.set", SetBooleanFilter(gameVariables))
         addResultAnswerFilter("result.setV", SetValueFilter(gameVariables))
         addResultAnswerFilter("result.setI", IntSimpleArithmeticsFilter(gameVariables))
 
-        removeLabelFilter.addException(FilterLabel.SETV, FilterLabel.UNSETV, FilterLabel.SET, FilterLabel.UNSET, FilterLabel.SETI)
+        removeLabelFilter.addException(FilterLabel.UNSETV, FilterLabel.SET, FilterLabel.UNSET)
+        removeLabelFilter.addException(FilterLabel.SETI, 1)
+        removeLabelFilter.addException(FilterLabel.SETV, 1)
         phrase.phrasePrinter = PrinterCollection.hideLabels();
 
         return this
@@ -109,35 +104,6 @@ open class FilteredPhraseConfigurator(
         return this
     }
 
-    private fun parameterSet(settings: HashMap<String, Any?>): FilteredPhraseConfigurator {
-       removeLabelFilter.addException(FilterLabel.SET, FilterLabel.UNSET)
-
-        phrase.phrasePrinter = PrinterCollection.hideLabels();
-        val oldAfter = phrase.after;
-        phrase.after = {
-            logger.debug(">> process SET ${it.text}")
-            oldAfter.invoke(it)
-            SetBooleanFilter(settings).processSetParameter(it.text)
-            logger.debug("<< process SET")
-        }
-
-        return this
-    }
-
-    private fun parameterSetVariable(settings: HashMap<String, Any?>): FilteredPhraseConfigurator {
-        removeLabelFilter.addException(FilterLabel.SETV, FilterLabel.UNSETV)
-
-        phrase.phrasePrinter = PrinterCollection.hideLabels();
-        val oldAfter = phrase.after;
-        phrase.after = {
-            logger.debug(">> process SETV : ${it.text}")
-            oldAfter.invoke(it)
-            SetValueFilter(settings).process(it.text)
-            logger.debug("<< process SETV")
-        }
-
-        return this
-    }
 
 
     public fun build(): AFilteredPhrase {
@@ -145,16 +111,17 @@ open class FilteredPhraseConfigurator(
     }
 
     public fun ifElseV2() : FilteredPhraseConfigurator {
-        addFilter( "ifElseV2Preparing", IfElsePreparingFilter() )
+        addFilter( "ifElseV2Preparing", IfElsePreparingFilterV2() )
         addFilter("ifElseV2", IfElseFilterV2())
         return this;
     }
 
+    public fun addAutoFilter(phraseFilter: PhraseFilter, vararg labels: FilterLabel){
+        autoFilter.addFilter(phraseFilter, *labels)
+    }
+
     public fun autoFilter() : FilteredPhraseConfigurator {
-        addFilter("autofilter", AutoFilter(
-            variableTexts, variablePhrases, variableAnswers, gameVariables
-        )
-        )
+        addFilter("autofilter", autoFilter )
         parametricSet()
         return this;
     }
@@ -164,6 +131,23 @@ open class FilteredPhraseConfigurator(
             filter.filterText(it.text, 0)
             return@addResultAnswerFilter it
         }
+    }
+    public fun addResultAnswerFilter(id: String, filter: InlineTextPhraseFilter, vararg pair: Pair<FilterLabel, Int>) : FilteredPhraseConfigurator {
+        phrase.addResultAnswerFilter(id){
+            filter.filterText(it.text, 0)
+            return@addResultAnswerFilter it
+        }
+        removeLabelFilter.addException(*pair)
+        return this;
+    }
+
+    public fun addResultAnswerFilter(id: String, filter: InlineTextPhraseFilter, vararg labels: FilterLabel) : FilteredPhraseConfigurator {
+        phrase.addResultAnswerFilter(id){
+            filter.filterText(it.text, 0)
+            return@addResultAnswerFilter it
+        }
+        removeLabelFilter.addException(*labels)
+        return this;
     }
 
     public fun randomPhrase() : FilteredPhraseConfigurator {
@@ -181,6 +165,7 @@ open class FilteredPhraseConfigurator(
         phrase.answerChooser = AnswerChooserCollection.auto(answerId);
         return this
     }
+
     public fun addFilter(
         filterName: String,
         filter: PhraseFilter,
@@ -191,7 +176,7 @@ open class FilteredPhraseConfigurator(
         phrase.addPhrasesFilter("$filterName.phrases", order, filter::filterPhrases)
         return this
     }
-//
+
     public fun addAnswerFilter(
         filterName: String,
         filter: PhraseFilter,
@@ -209,8 +194,6 @@ open class FilteredPhraseConfigurator(
         phrase.addPhrasesFilter("$filterName.phrases", order, filter::filterPhrases)
         return this
     }
-
-
 
 
 }

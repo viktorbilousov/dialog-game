@@ -37,8 +37,11 @@ import java.lang.IllegalArgumentException
  * [ElSE][else condition] text
  *
  */
-class IfElsePreparingFilterV2() : PhraseFilter {
-    override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
+class IfElsePreparingFilterV2() : PhraseFilter() {
+
+
+
+    override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         var result = mutableListOf<String>()
         phrases.forEach {
             val brokeLine = makeLineBreak(it);
@@ -61,7 +64,7 @@ class IfElsePreparingFilterV2() : PhraseFilter {
 
         return result.map { transformLabel(it) }.toTypedArray()
     }
-    override fun filterAnswers(answer: Array<Answer>, count: Int): Array<Answer> {
+    override fun filterAnswersLogic(answer: Array<Answer>, count: Int): Array<Answer> {
        val result = mutableListOf<Answer>()
         answer.forEach { 
             val brokeLine = makeLineBreak(it.text);

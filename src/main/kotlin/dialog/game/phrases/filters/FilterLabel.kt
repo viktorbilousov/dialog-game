@@ -59,7 +59,13 @@ enum class FilterLabel (val label: String) {
     RAND("RAND"),
 
     //<- IntSimpleArithmeticsFilter ->
-    SETI("SETI");
+    SETI("SETI"),
+
+    //<- CookiesPhrase ->
+    INIT_CUP("INIT_CUP"),
+    RESET_CUP("RESET_CUP"),
+    EMPTY_CUP("EMPTY_CUP"),
+    POUR_CUP("POUR_CUP");
 
 
     companion object {

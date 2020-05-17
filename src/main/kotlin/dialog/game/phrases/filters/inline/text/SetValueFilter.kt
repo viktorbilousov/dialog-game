@@ -13,7 +13,7 @@ import tools.FiltersUtils
  * [UNSETV=key]
  */
 class SetValueFilter(private val parameters: HashMap<String, Any?> ) :
-    InlineTextPhraseFilter {
+    InlineTextPhraseFilter() {
 
     companion object {
         private val logger = LoggerFactory.getLogger(SetValueFilter::class.java) as Logger

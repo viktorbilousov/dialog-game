@@ -13,13 +13,14 @@ import tools.FiltersUtils
  */
 class InsertFilter(private val variablePhrases: HashMap<String, () -> Array<String>>,
                    private val variableAnswers : HashMap<String, () -> Array<Answer>>)
-                   : PhraseFilter {
+                   : PhraseFilter() {
 
-    override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
+
+    override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         return insertPhrase(phrases)
     }
 
-    override fun filterAnswers(answer: Array<Answer>, count: Int): Array<Answer> {
+    override fun filterAnswersLogic(answer: Array<Answer>, count: Int): Array<Answer> {
         return insertAnswer(answer)
     }
 

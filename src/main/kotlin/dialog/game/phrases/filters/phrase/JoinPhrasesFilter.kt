@@ -9,15 +9,23 @@ import tools.FiltersUtils
  * [JOIN] as first label
  */
 // todo: not only first label
-class JoinPhrasesFilter : PhraseFilter {
-    override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
-        if(isContainJoinLabel(phrases)) return arrayOf(phrases
-            .filter {  FiltersUtils.isContainLabel(it, FilterLabel.JOIN) }
-            .joinToString(separator = "\n") { it })
-        return phrases;
+class JoinPhrasesFilter : PhraseFilter() {
+
+    init {
+        this.filterOnlyPhrases = true;
     }
 
-    override fun filterAnswers(answer: Array<Answer>, count: Int): Array<Answer> {
+    override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
+        var res = phrases;
+        if(isContainJoinLabel(phrases)) {
+            res = arrayOf(phrases
+                .filter { !FiltersUtils.isContainLabel(it, FilterLabel.JOIN) }
+                .joinToString(separator = "\n") { it })
+        }
+        return res;
+    }
+
+    override fun filterAnswersLogic(answer: Array<Answer>, count: Int): Array<Answer> {
         return answer
     }
 

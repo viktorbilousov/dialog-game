@@ -13,7 +13,8 @@ import tools.FiltersUtils
  * [GET=key]
  */
 class GetBooleanFilter(private val parameters: HashMap<String, Any?> ) :
-    InlineTextPhraseFilter {
+    InlineTextPhraseFilter() {
+
 
     override fun filterText(itemText: String, count: Int): Boolean {
         return if(filterParameter(

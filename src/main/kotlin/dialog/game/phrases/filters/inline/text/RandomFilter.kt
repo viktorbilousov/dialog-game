@@ -16,7 +16,8 @@ import kotlin.collections.HashMap
  * [RAND=group1]
  * [RAND=group2]
  */
-class RandomFilter : InlineTextPhraseFilter{
+class RandomFilter : InlineTextPhraseFilter(){
+
 
     private val randNumOfGroup = HashMap<String, Int>()
     private val cntOfGroup = HashMap<String, Int>()
@@ -34,17 +35,19 @@ class RandomFilter : InlineTextPhraseFilter{
     }
 
 
-    override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
+    override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         init(phrases)
-        return super.filterPhrases(phrases, count)
+        return super.filterPhrasesLogic(phrases, count)
     }
 
-    override fun filterAnswers(answer: Array<Answer>, count: Int): Array<Answer> {
+    override fun filterAnswersLogic(answer: Array<Answer>, count: Int): Array<Answer> {
         init(answer.map { it.text }.toTypedArray())
-        return super.filterAnswers(answer, count)
+        return super.filterAnswersLogic(answer, count)
     }
 
     private fun init(texts: Array<String>){
+        cntOfGroup.clear()
+        randNumOfGroup.clear()
         texts.forEach {
             val randLabel = findRandLabel(it) ?: return@forEach
             incrementRandCnt(randLabel);
@@ -68,7 +71,7 @@ class RandomFilter : InlineTextPhraseFilter{
 
     private fun incrementRandCnt(label: String){
         val key = FiltersUtils.getParameterValue(label) ?: DEF_GROUP_KEY;
-        if (randNumOfGroup .containsKey(key)) randNumOfGroup [key] = 0;
+        if (!randNumOfGroup.containsKey(key)) randNumOfGroup [key] = 0;
         randNumOfGroup[key] = randNumOfGroup [key]!! + 1;
     }
 }

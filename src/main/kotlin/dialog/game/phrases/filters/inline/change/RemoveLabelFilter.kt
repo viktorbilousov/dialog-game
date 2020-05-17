@@ -7,42 +7,47 @@ import tools.FiltersUtils
 /**
  * remove all labels
  */
-class RemoveLabelFilter() : InlineChangeTextPhraseFilter {
+class RemoveLabelFilter() : InlineChangeTextPhraseFilter() {
 
-    private var exceptions = mutableSetOf<FilterLabel>()
+
+    private var exceptions = mutableMapOf<FilterLabel, Int>()
 
     constructor(exceptions: Array<FilterLabel>) : this(){
-        this.exceptions = exceptions.toMutableSet()
+        this.exceptions = exceptions.associate { Pair(it, 0) }.toMutableMap()
     }
 
     public fun addException(vararg filter : FilterLabel){
-        exceptions.addAll(filter)
+        filter.forEach { exceptions[it] = 0 }
+    }
+
+    public fun addException(vararg filterPairs : Pair<FilterLabel, Int>){
+        filterPairs.forEach { exceptions[it.first] = it.second }
+    }
+
+    public fun addException(filter : FilterLabel, cntSafeAfterlabels: Int){
+         exceptions[filter] = cntSafeAfterlabels
     }
 
     public fun removeLabelFromExceptions(vararg filter : FilterLabel){
-        exceptions.removeAll(filter)
+        filter.forEach { exceptions.remove(it) }
     }
 
     override fun changeText(itemText: String, count: Int): String {
-        FiltersUtils.getFirstFilterLabelText(itemText) ?: return itemText
+       val labels =  FiltersUtils.getFilterLabelsTexts(itemText) ?: return itemText
 
         var res = FiltersUtils.removeLabels(itemText)
-        var addNext = false; // todo: rewrite this
-        FiltersUtils.getFilterLabelsTexts(itemText)!!.filter {
-                labelText ->  FiltersUtils.parseLabel(labelText).let {
-            if(addNext) {
-                addNext = false;
-                return@filter true
+
+        var ignoredLabels="";
+        labels.forEachIndexed { index, _label ->
+            val label = FiltersUtils.parseLabel(_label) ?: return@forEachIndexed
+            if (exceptions[label] != null) {
+                for (i in 0 .. exceptions[label]!!){
+                    ignoredLabels+="[${labels[index+i]}]";
+                }
             }
-            if(it == FilterLabel.SETV && exceptions.contains(it)) addNext = true;
-            exceptions.contains(it)
-        }
-        }
-            .reversed().forEach(){
-            res = "[$it]$res";
         }
 
-        return res
+        return ignoredLabels + res
     }
 
 }

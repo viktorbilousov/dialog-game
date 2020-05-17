@@ -2,9 +2,9 @@ package dialog.game.phrases.filters
 
 import dialog.system.models.Answer
 
-interface InlineChangeTextPhraseFilter : InlineChangePhraseFilter {
+abstract class InlineChangeTextPhraseFilter : InlineChangePhraseFilter() {
 
-    fun changeText(itemText: String, count: Int) : String
+    abstract fun changeText(itemText: String, count: Int) : String
 
     override fun changePhrase(phrase: String, count: Int): String {
         return changeText(phrase, count)

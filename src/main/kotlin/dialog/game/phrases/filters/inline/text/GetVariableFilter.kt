@@ -13,7 +13,8 @@ import java.lang.IllegalArgumentException
  * [NOTV][key=value][NOTV][key2=value2]
  */
 class GetVariableFilter(private val parameters: HashMap<String, Any?> ) :
-    InlineTextPhraseFilter {
+    InlineTextPhraseFilter() {
+
 
     companion object{
         private val logger = LoggerFactory.getLogger(GetVariableFilter::class.java) as Logger

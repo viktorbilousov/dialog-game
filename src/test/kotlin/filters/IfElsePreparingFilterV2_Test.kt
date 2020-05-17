@@ -2,7 +2,6 @@ package filters
 
 import org.junit.jupiter.api.Test
 import dialog.system.models.Answer
-import dialog.game.phrases.filters.phrase.IfElsePreparingFilter
 import dialog.game.phrases.filters.phrase.IfElsePreparingFilterV2
 import org.junit.jupiter.api.Assertions
 

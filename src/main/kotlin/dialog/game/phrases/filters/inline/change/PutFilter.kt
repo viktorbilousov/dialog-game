@@ -1,5 +1,6 @@
 package dialog.game.phrases.filters.inline.change
 
+import dialog.game.game.GameData
 import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.InlineChangeTextPhraseFilter
 import tools.FiltersUtils
@@ -10,18 +11,29 @@ import tools.FiltersUtils
  * Text :
  * this tag add text [PUT=key] this text will be continued
  */
-class PutFilter(private val variableTexts: HashMap<String, () -> String>) :
-    InlineChangeTextPhraseFilter {
+class PutFilter(
+    private val variableTexts: HashMap<String, () -> String> = GameData.variableTexts,
+    private val gameVariables: HashMap<String, Any?> = GameData.gameVariables
+
+) :
+    InlineChangeTextPhraseFilter() {
+
 
     override fun changeText(itemText: String, count: Int): String {
         val labels = FiltersUtils.getFilterLabelsInsideText(itemText) ?: return itemText
         var res = itemText;
         for (label in labels) {
             if (FiltersUtils.isLabelParametric(label)
-                && FiltersUtils.parseLabel(label) == FilterLabel.PUT
-                && variableTexts.containsKey(FiltersUtils.getParameterValue(label))
-            ) {
-                res = res.replace("[$label]", variableTexts[FiltersUtils.getParameterValue(label)]!!.invoke())
+                && FiltersUtils.parseLabel(label) == FilterLabel.PUT) {
+
+                val key = FiltersUtils.getParameterValue(label)
+                
+                if(gameVariables.containsKey(key)){
+                    res = res.replace("[$label]", gameVariables[key]!!.toString())
+                }
+                else if (variableTexts.containsKey(key)) {
+                    res = res.replace("[$label]", variableTexts[key]!!.invoke())
+                }
             }
         }
         return res;

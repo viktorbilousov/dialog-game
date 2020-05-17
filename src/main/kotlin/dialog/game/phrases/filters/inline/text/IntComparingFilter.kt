@@ -13,7 +13,8 @@ import java.lang.IllegalArgumentException
  * supported operators: >, <, >=, <=, ==, !=
  */
 class IntComparingFilter(private val parameters: HashMap<String, Any?> ) :
-    InlineTextPhraseFilter {
+    InlineTextPhraseFilter() {
+
 
     companion object {
         private val operators: HashMap<String, (a: Int, b: Int) -> Boolean> = hashMapOf(

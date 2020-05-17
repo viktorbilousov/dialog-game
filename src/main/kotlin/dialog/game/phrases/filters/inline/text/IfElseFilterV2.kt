@@ -16,7 +16,7 @@ import tools.FiltersUtils
  * [SETV=SET]
  * [FI_SYS]
  */
-class IfElseFilterV2() : InlineTextPhraseFilter {
+class IfElseFilterV2() : InlineTextPhraseFilter() {
 
 
     companion object {

@@ -2,9 +2,9 @@ package dialog.game.phrases.filters
 
 import dialog.system.models.Answer
 
-interface InlineTextPhraseFilter : InlinePhraseFilter {
+abstract class InlineTextPhraseFilter : InlinePhraseFilter() {
 
-    fun filterText(itemText: String, count: Int) : Boolean
+    abstract fun filterText(itemText: String, count: Int) : Boolean
 
 
     override fun filterPhrase(phrase: String, count: Int): Boolean {
@@ -15,11 +15,13 @@ interface InlineTextPhraseFilter : InlinePhraseFilter {
         return filterText(answer.text, count)
     }
 
-    override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
+    override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
+        if(filterOnlyAnswer) return phrases;
         return phrases.filter { filterText(it, count) }.toTypedArray()
     }
 
-    override fun filterAnswers(answer: Array<Answer>, count: Int): Array<Answer> {
+    override fun filterAnswersLogic(answer: Array<Answer>, count: Int): Array<Answer> {
+        if(filterOnlyPhrases) return answer;
         return answer.filter { filterText(it.text, count) }.toTypedArray()
     }
 }

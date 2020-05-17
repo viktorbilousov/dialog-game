@@ -18,10 +18,12 @@ import java.lang.IllegalArgumentException
  * supported operators:++, --, -=, +=, /=, *=. %=
  */
 class IntSimpleArithmeticsFilter(private val parameters: HashMap<String, Any?> ) :
-    InlineTextPhraseFilter {
+    InlineTextPhraseFilter() {
+
 
     companion object {
         private val operators: HashMap<String, (a: Int, b: Int) -> Int> = hashMapOf(
+            Pair("=", { left, right -> right }),
             Pair("+=", { left, right -> left + right }),
             Pair("*=", { left, right -> left * right }),
             Pair("-=", { left, right -> left - right }),

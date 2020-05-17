@@ -5,12 +5,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.PhraseFilter
-import dialog.game.phrases.filters.inline.SetBooleanPhraseFilter
-import dialog.game.phrases.filters.inline.SetVariablesPhraseFilter
 import dialog.game.phrases.filters.inline.change.PutFilter
 import dialog.game.phrases.filters.inline.text.*
 import dialog.system.models.Answer
-import dialog.game.phrases.filters.phrase.IfElsePreparingFilter
 import tools.FiltersUtils
 
 open class AutoFilter(
@@ -18,7 +15,7 @@ open class AutoFilter(
     variablePhrases: HashMap<String, () -> Array<String>> = GameData.variablePhrases,
     variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers,
     gameVariables: HashMap<String, Any?> = GameData.gameVariables
-) : PhraseFilter {
+) : PhraseFilter() {
 
     companion object {
         private val logger = LoggerFactory.getLogger(AutoFilter::class.java) as Logger
@@ -27,6 +24,7 @@ open class AutoFilter(
     private val phraseFiltersList = arrayListOf<FilterData>()
 
     init {
+
         addFilter(PutFilter(variableText), FilterLabel.PUT)
         addFilter(InsertFilter(variablePhrases, variableAnswers), true, FilterLabel.INST)
         addFilter(IfElsePreparingFilterV2(), true, FilterLabel.IF, FilterLabel.ELSE, FilterLabel.ELSEIF, FilterLabel.FI)
@@ -34,8 +32,9 @@ open class AutoFilter(
         addFilter(IntComparingFilter(gameVariables), FilterLabel.INT)
         addFilter(GetBooleanFilter(gameVariables), FilterLabel.GET, FilterLabel.NOT)
         addFilter(GetVariableFilter(gameVariables), FilterLabel.GETV, FilterLabel.NOTV)
-        addFilter(SetBooleanPhraseFilter(gameVariables), FilterLabel.SET, FilterLabel.UNSET)
-        addFilter(SetVariablesPhraseFilter(gameVariables), FilterLabel.SETV, FilterLabel.UNSETV)
+        addFilter(filterOnlyPhrases(SetBooleanFilter(gameVariables)), FilterLabel.SET, FilterLabel.UNSET)
+        addFilter(filterOnlyPhrases(SetValueFilter(gameVariables)), FilterLabel.SETV, FilterLabel.UNSETV)
+        addFilter(filterOnlyPhrases(IntSimpleArithmeticsFilter(gameVariables)), FilterLabel.SETI)
         addFilter(CountFilter()) { CountFilter.isCountLabel(it) }
         addFilter(
             IfElseFilterV2(),
@@ -82,7 +81,7 @@ open class AutoFilter(
         return null
     }
 
-    override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
+    override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         var filteredPhrases = phrases;
         val completedFilters = HashSet<FilterData>()
         var isExit = false;
@@ -94,6 +93,7 @@ open class AutoFilter(
             list.forEach {
                 logger.info("-----> call: '${it}'")
                 filteredPhrases = it.filter.filterPhrases(filteredPhrases, count);
+                logger.info("result : ${filteredPhrases.map { if(it.length > 10)it.substring(IntRange(0,10)) else it }}")
                 completedFilters.add(it);
                 if (it.isNeedRebuild) {
                     isExit = false;
@@ -109,7 +109,7 @@ open class AutoFilter(
     private fun getFilterOrderList(phrases: Array<String>): MutableList<FilterData> {
         val filterList = linkedSetOf<FilterData>()
         phrases.forEach phrasesForEach@{ phrase ->
-            val labels = FiltersUtils.getFilterLabelsTexts(phrase) ?: return@phrasesForEach;
+            val labels = FiltersUtils.getFilterLabelsInsideText(phrase) ?: return@phrasesForEach;
             labels.forEach labelsForEach@{ label ->
                 val filter = findFilter(label) ?: return@labelsForEach
                 filterList.add(filter)
@@ -119,7 +119,7 @@ open class AutoFilter(
         return filterList.toMutableList();
     }
 
-    override fun filterAnswers(answer: Array<Answer>, count: Int): Array<Answer> {
+    override fun filterAnswersLogic(answer: Array<Answer>, count: Int): Array<Answer> {
         var filteredAnswers = answer;
         val completedFilters = HashSet<FilterData>()
         var isExit = false;
@@ -131,6 +131,7 @@ open class AutoFilter(
             list.forEach {
                 logger.info("----->  call: '${it}'")
                 filteredAnswers = it.filter.filterAnswers(filteredAnswers, count);
+                logger.info("result : ${filteredAnswers.contentToString()}")
                 completedFilters.add(it);
                 if (it.isNeedRebuild) {
                     isExit = false;

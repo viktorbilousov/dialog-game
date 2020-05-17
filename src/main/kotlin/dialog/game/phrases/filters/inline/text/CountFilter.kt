@@ -17,7 +17,8 @@ import tools.FiltersUtils
 [<=6]
 [*]
  */
-class CountFilter : InlineTextPhraseFilter {
+class CountFilter : InlineTextPhraseFilter() {
+
 
 
     companion object{
@@ -59,14 +60,14 @@ class CountFilter : InlineTextPhraseFilter {
         return true
     }
 
-    override fun filterPhrases(phrases: Array<String>, count: Int): Array<String> {
+    override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         currentMaxCnt = getMaxCount(phrases)
-        return super.filterPhrases(phrases, count)
+        return super.filterPhrasesLogic(phrases, count)
     }
 
-    override fun filterAnswers(answer: Array<Answer>, count: Int): Array<Answer> {
+    override fun filterAnswersLogic(answer: Array<Answer>, count: Int): Array<Answer> {
         currentMaxCnt = getMaxCount(answer.map { it.text }.toTypedArray())
-        return super.filterAnswers(answer, count)
+        return super.filterAnswersLogic(answer, count)
     }
 
 

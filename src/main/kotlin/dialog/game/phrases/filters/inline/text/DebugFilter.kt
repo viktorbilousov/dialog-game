@@ -8,7 +8,9 @@ import tools.FiltersUtils
 /*
 [dialog.game.debug]
  */
-class DebugFilter : InlineTextPhraseFilter {
+class DebugFilter : InlineTextPhraseFilter() {
+
+
 
     override fun filterText(itemText: String, count: Int): Boolean {
         val debug = Game.settings[""] as Boolean

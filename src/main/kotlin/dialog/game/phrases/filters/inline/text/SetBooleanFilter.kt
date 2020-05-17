@@ -13,7 +13,7 @@ import tools.FiltersUtils
  * [GET=key]
  */
 class SetBooleanFilter(private val parameters: HashMap<String, Any?> ) :
-    InlineTextPhraseFilter {
+    InlineTextPhraseFilter() {
 
     companion object {
         private val logger = LoggerFactory.getLogger(SetBooleanFilter::class.java) as Logger

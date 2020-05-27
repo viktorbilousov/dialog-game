@@ -44,18 +44,6 @@ class PrinterCollection {
                 println("\n-------------------------------------------------------")
             }
         }
-       /* public fun dialog.game.debug(debuggedPrinter: PhrasePrinter, isRecorded: Boolean, lastAnswer: Answer) = object : PhrasePrinter {
-
-            private val startRecordAnswer = Answer("dialog.game.debug.start_record", "dialog.game.debug.start_record")
-            private val stopRecordAnswer = Answer("dialog.game.debug.stop_record", "dialog.game.debug.stop_record")
-
-            override fun printTextDialog(text: String, answer: Array<Answer>) {
-              //  val newAnswers = answer.toMutableList().add()
-                val copy = AnswersTool.copyArrayOrAnswers(answer);
-                val answersFiltered = FiltersCollection.removeLabelAnswersFilter.invoke(copy, 0);
-                defPrinter.printTextDialog(text, answersFiltered);
-            }
-        }*/
 
     }
 }

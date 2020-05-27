@@ -11,10 +11,7 @@ import dialog.system.models.Answer
 import tools.FiltersUtils
 
 open class AutoFilter(
-    variableText: HashMap<String, () -> String> = GameData.variableTexts,
-    variablePhrases: HashMap<String, () -> Array<String>> = GameData.variablePhrases,
-    variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers,
-    gameVariables: HashMap<String, Any?> = GameData.gameVariables
+
 ) : PhraseFilter() {
 
     override val filterLabelsList: Array<FilterLabel> = arrayOf()
@@ -25,21 +22,21 @@ open class AutoFilter(
 
     private val phraseFiltersList = arrayListOf<FilterData>()
 
-    init {
-
-        addFilter(PutFilter(variableText))
-        addFilter(InsertFilter(variablePhrases, variableAnswers), true)
-        addFilter(IfElsePreparingFilterV2(), true)
-        addFilter(RandomFilter())
-        addFilter(IntComparingFilter(gameVariables))
-        addFilter(GetBooleanFilter(gameVariables))
-        addFilter(GetVariableFilter(gameVariables))
-        addFilter(filterOnlyPhrases(SetBooleanFilter(gameVariables)))
-        addFilter(filterOnlyPhrases(SetValueFilter(gameVariables)))
-        addFilter(filterOnlyPhrases(IntSimpleArithmeticsFilter(gameVariables)))
-        addFilter(CountFilter()) { CountFilter.isCountLabel(it) }
-        addFilter( IfElseFilterV2())
-    }
+//    init {
+//
+//        addFilter(PutFilter(variableText))
+//        addFilter(InsertFilter(variablePhrases, variableAnswers), true)
+//        addFilter(IfElsePreparingFilterV2(), true)
+//        addFilter(RandomFilter())
+//        addFilter(IntComparingFilter(gameVariables))
+//        addFilter(GetBooleanFilter(gameVariables))
+//        addFilter(GetVariableFilter(gameVariables))
+//        addFilter(filterOnlyPhrases(SetBooleanFilter(gameVariables)))
+//        addFilter(filterOnlyPhrases(SetValueFilter(gameVariables)))
+//        addFilter(filterOnlyPhrases(IntSimpleArithmeticsFilter(gameVariables)))
+//        addFilter(CountFilter()) { CountFilter.isCountLabel(it) }
+//        addFilter( IfElseFilterV2())
+//    }
 
     public fun addFilter(filter: PhraseFilter) {
        addFilter(filter, false)

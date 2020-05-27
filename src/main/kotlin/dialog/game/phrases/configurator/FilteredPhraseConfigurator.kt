@@ -32,13 +32,8 @@ open class FilteredPhraseConfigurator(
     private var variableAnswers: HashMap<String, () -> Array<Answer>> = GameData.variableAnswers
 
     private var removeLabelFilter = RemoveLabelFilter();
-    private var  autoFilter : AutoFilter? = null
-    get() {
-        if(field == null) {
-            field = AutoFilter(variableTexts, variablePhrases, variableAnswers, gameVariables)
-        }
-        return field
-    }
+    private val  firstAutoFilter : AutoFilter = AutoFilterFabric(variableTexts, variablePhrases, variableAnswers, gameVariables).firstOrderFilter()
+    private val  lastAutoFilter : AutoFilter = AutoFilterFabric(variableTexts, variablePhrases, variableAnswers, gameVariables).lastOrderFilter()
 
     constructor(phrase: FilteredPhrase, settings: HashMap<String, Any?>) : this(phrase) {
         this.gameVariables = settings;
@@ -56,6 +51,7 @@ open class FilteredPhraseConfigurator(
     }
 
     init {
+        phrase.phrasePrinter = PrinterCollection.defPrinter;
         removeLabelFilter.addException(FilterLabel.DEBUG, FilterLabel.JOIN)
         addFilter( "debug",   DebugFilter(), AFilteredPhrase.Order.Last);
         addFilter( "rm", removeLabelFilter, AFilteredPhrase.Order.Last);
@@ -119,17 +115,26 @@ open class FilteredPhraseConfigurator(
     }
 
     public fun autoFilter() : FilteredPhraseConfigurator {
-        addFilter("autofilter", autoFilter!! )
+        addFilter("Autofilter.first", firstAutoFilter!!, AFilteredPhrase.Order.First )
+        addFilter("Autofilter.last", firstAutoFilter!!, AFilteredPhrase.Order.Last )
         parametricSet()
         return this;
     }
 
-    public fun addAutoFilter(filter: PhraseFilter, isNeedRebuild: Boolean = false) : FilteredPhraseConfigurator {
-        autoFilter!!.addFilter(filter, isNeedRebuild)
+    public fun addAutoFilter(filter: PhraseFilter, isNeedRebuild: Boolean = false, order: AFilteredPhrase.Order = AFilteredPhrase.Order.First) : FilteredPhraseConfigurator {
+        if(order==AFilteredPhrase.Order.First){
+            firstAutoFilter.addFilter(filter, isNeedRebuild)
+        }else{
+            lastAutoFilter.addFilter(filter, isNeedRebuild)
+        }
         return this;
     }
-    public fun addAutoFilter(filter: PhraseFilter, isNeedRebuild: Boolean = false, isContain: (label: String) -> Boolean) : FilteredPhraseConfigurator {
-        autoFilter!!.addFilter(filter, isNeedRebuild, isContain)
+    public fun addAutoFilter(filter: PhraseFilter, isNeedRebuild: Boolean = false, order: AFilteredPhrase.Order = AFilteredPhrase.Order.First, isContain: (label: String) -> Boolean) : FilteredPhraseConfigurator {
+        if(order==AFilteredPhrase.Order.First){
+            firstAutoFilter.addFilter(filter, isNeedRebuild, isContain)
+        }else{
+            lastAutoFilter.addFilter(filter, isNeedRebuild, isContain)
+        }
         return this;
     }
 

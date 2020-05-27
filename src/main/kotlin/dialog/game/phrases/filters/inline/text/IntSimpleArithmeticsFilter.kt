@@ -24,7 +24,7 @@ class IntSimpleArithmeticsFilter(private val parameters: HashMap<String, Any?> )
 
     companion object {
         private val operators: HashMap<String, (a: Int, b: Int) -> Int> = hashMapOf(
-            Pair("=", { left, right -> right }),
+            Pair("=",  { _, right -> right }),
             Pair("+=", { left, right -> left + right }),
             Pair("*=", { left, right -> left * right }),
             Pair("-=", { left, right -> left - right }),

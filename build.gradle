@@ -20,7 +20,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
 
-    compile files('libs/dialog-system-0.12.jar')
+    compile files('libs/dialog-system-1.0.jar')
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile group: 'org.slf4j', name:'slf4j-log4j12', version: '1.7.25'
@@ -33,7 +33,7 @@ def inputFolder = "./scripts"
 def outputGraphFolder = "src/main/resources/graphs"
 def outputPhraseTextFolder = "src/main/resources/phrases"
 def outputRouterFile = "src/main/resources/routers/routers.json"
-def jarPath = "libs/dialog-creator-1.3.jar"
+def jarPath = "libs/dialog-creator-1.3.1.jar"
 def defaultClass = "dialog.game.phrases.GamePhrase"
 def worldRouterId = "router.world"
 def startPoint = "world"

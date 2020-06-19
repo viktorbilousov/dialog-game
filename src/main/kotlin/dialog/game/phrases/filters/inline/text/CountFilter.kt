@@ -4,7 +4,7 @@ import dialog.game.phrases.filters.FilterLabel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.InlineTextPhraseFilter
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import tools.FiltersUtils
 
 /**

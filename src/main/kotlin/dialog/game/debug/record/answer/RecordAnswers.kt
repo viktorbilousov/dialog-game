@@ -1,6 +1,6 @@
 package dialog.game.debug.record.answer
 
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 
 class RecordAnswers {
     companion object{

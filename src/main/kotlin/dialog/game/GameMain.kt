@@ -14,17 +14,18 @@ import game.Game.Companion.settings
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.collections.AnswerChooserCollection
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import java.lang.IllegalArgumentException
 
 
 class GameMain {
     companion object{
 
+        private const val isDebugMode = true;
+
         private val logger = LoggerFactory.getLogger(GameMain::class.java) as Logger
         @JvmStatic
         fun main(args: Array<String>) {
-            GameRecorder();
             logger.info("--- GAME STARTING ---")
             logger.info("")
             val game = Game()
@@ -38,7 +39,7 @@ class GameMain {
                 settings["routers-folder"] as String,
                 settings["graphs-folder"] as String
             )
-            game.debug(true)
+            game.debug(isDebugMode)
             logger.info("")
             logger.info("--- GAME TESTING ---")
             logger.info("")
@@ -54,11 +55,12 @@ class GameMain {
                 }
                 else RecordRunner::class.java
 
+
             val gameRunner = gameRunnerClass.getConstructor(Game::class.java, World::class.java).newInstance(game, game.world!!)
             gameRunner.run()
         }
 
-        public fun selectRunner() : Class<out Runner>{
+        private fun selectRunner() : Class<out Runner>{
             println("Select runner:\n\n[1] Default\n[2] Record\n[3] AutoRunner")
             val answers = arrayOf(
                 Answer("1", "Default"),
@@ -73,5 +75,6 @@ class GameMain {
             }
             throw IllegalArgumentException("unrecognised answers")
         }
+
     }
 }

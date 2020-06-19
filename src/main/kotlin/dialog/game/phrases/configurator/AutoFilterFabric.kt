@@ -7,7 +7,7 @@ import dialog.game.phrases.filters.inline.text.*
 import dialog.game.phrases.filters.phrase.AutoFilter
 import dialog.game.phrases.filters.phrase.IfElsePreparingFilterV2
 import dialog.game.phrases.filters.phrase.InsertFilter
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 
 class AutoFilterFabric(
     private val variableText: HashMap<String, () -> String> = GameData.variableTexts,

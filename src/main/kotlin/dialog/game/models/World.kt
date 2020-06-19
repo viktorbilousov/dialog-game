@@ -1,6 +1,6 @@
 package dialog.game.models
 
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.dialog.ADialog
 import dialog.system.models.router.Router
 import org.slf4j.Logger
@@ -17,8 +17,8 @@ class World(public val worldRouter: Router) {
 
     fun start() : ADialog {
         logger.info(">> start ")
-        way.add(worldRouter.startPoint.id);
-        logger.info("added ${worldRouter.startPoint.id}, way: ${way.toTypedArray().contentToString()}")
+        way.add(worldRouter.startPoint!!.id);
+        logger.info("added ${worldRouter.startPoint!!.id}, way: ${way.toTypedArray().contentToString()}")
         logger.info("<< start return : ${worldRouter.startPoint}")
         return worldRouter.startPoint as ADialog
     }

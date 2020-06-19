@@ -2,7 +2,7 @@ package dialog.game.phrases.filters.phrase
 
 import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.PhraseFilter
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 
 import tools.FiltersUtils
 import java.lang.IllegalArgumentException

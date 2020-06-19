@@ -14,7 +14,7 @@ import dialog.game.phrases.filters.inline.text.*
 import dialog.game.phrases.filters.phrase.JoinPhrasesFilter
 import dialog.game.phrases.filters.phrase.AutoFilter
 import dialog.game.phrases.filters.phrase.IfElsePreparingFilterV2
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.AFilteredPhrase
 import dialog.system.models.items.phrase.FilteredPhrase
 

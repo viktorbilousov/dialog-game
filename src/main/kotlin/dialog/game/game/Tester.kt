@@ -1,7 +1,7 @@
 package dialog.game.game
 
 import dialog.system.models.router.Router
-import dialog.system.tools.RouterTester
+import dialog.system.models.router.RouterTester
 import game.Game
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

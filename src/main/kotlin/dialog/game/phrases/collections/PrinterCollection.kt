@@ -2,7 +2,7 @@ package dialog.game.phrases.collections
 
 
 import dialog.game.phrases.filters.inline.change.RemoveLabelFilter
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.PhrasePrinter
 import dialog.system.tools.AnswersTool
 import dialog.system.tools.SimplePhrasePrinter

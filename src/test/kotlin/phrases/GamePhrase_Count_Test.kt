@@ -2,7 +2,7 @@ package phrases
 
 import dialog.game.phrases.AutoPhrase
 import dialog.game.phrases.GamePhrase
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import org.junit.jupiter.api.Test
 import dialog.game.phrases.collections.AnswerChooserCollection
 import tools.TestPhraseTools.Companion.createTestPhrase

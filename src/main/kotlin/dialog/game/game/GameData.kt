@@ -1,7 +1,7 @@
 package dialog.game.game
 
 import dialog.game.minigames.tea.TeaGame
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

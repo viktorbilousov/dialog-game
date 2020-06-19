@@ -1,0 +1,1 @@
+[{"answers" : [{"answ_id" : "treehause.dialog.start_dialog", "text" : "[1] go to start", "type" : "ENTER"}, {"answ_id" : "forest.treehause.out", "text" : "[*] exit", "type" : "EXIT"}], "class" : "dialog.game.phrases.AutoPhrase", "id" : "th.entrypoint", "texts" : ["text"]}]

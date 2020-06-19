@@ -2,7 +2,7 @@ package dialog.game.debug.record.service
 
 import dialog.game.debug.record.models.Record
 import dialog.game.debug.record.tools.RecordIdGen
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.lang.IllegalStateException

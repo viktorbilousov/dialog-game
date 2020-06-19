@@ -1,6 +1,6 @@
 package tools
 
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.PhrasePrinter
 
 

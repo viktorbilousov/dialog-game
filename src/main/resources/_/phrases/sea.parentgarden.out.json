@@ -1,0 +1,1 @@
+[{"answers" : [{"answ_id" : "exit", "text" : "exit", "type" : "EXIT"}], "class" : "dialog.game.phrases.AutoPhrase", "id" : "garden.end", "texts" : ["exit"]}]

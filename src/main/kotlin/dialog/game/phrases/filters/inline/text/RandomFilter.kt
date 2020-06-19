@@ -2,7 +2,7 @@ package dialog.game.phrases.filters.inline.text
 
 import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.InlineTextPhraseFilter
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import tools.FiltersUtils

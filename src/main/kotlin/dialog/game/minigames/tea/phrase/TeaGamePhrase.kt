@@ -7,7 +7,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.configurator.FilteredPhraseConfigurator
 import dialog.game.phrases.collections.PrinterCollection
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.FilteredPhrase
 import dialog.system.models.items.phrase.PhrasePrinter
 

@@ -1,15 +1,14 @@
 package dialog.game.game
 
 
-import dialog.game.models.Minigame
 import dialog.game.models.World
 import dialog.system.models.items.ADialogItem
 import dialog.system.models.items.dialog.Dialog
 import dialog.system.models.items.text.PhraseText
 import dialog.system.models.items.text.PhraseTextFabric
-import dialog.system.models.items.text.PhraseTextStream
+import dialog.system.io.PhraseTextStream
 import dialog.system.models.router.Router
-import dialog.system.models.router.RouterStream
+import dialog.system.io.RouterStream
 import game.Game
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -60,7 +59,7 @@ class Loader(private val game: Game) {
         }
 
         routers.forEach {
-            it.items = game.phrases as HashMap<String, ADialogItem>;
+            it.connectToItems( game.phrases as HashMap<String, ADialogItem>)
         }
 
 
@@ -82,7 +81,7 @@ class Loader(private val game: Game) {
             logger.warn("A World router not found! Creating new router!")
              error = true;
         } else {
-            globalRouter.items = game.dialogs as HashMap<String, ADialogItem>
+            globalRouter.connectToItems(game.dialogs as HashMap<String, ADialogItem>)
             game.world = World(globalRouter)
             logger.info("global router = ${game.world!!.worldRouter.id}")
 
@@ -116,17 +115,12 @@ class Loader(private val game: Game) {
 
         for (s in filesInPhrasesFolder) {
             logger.info("read file ${s.substringAfterLast("/")}")
-            val texts: Array<PhraseText> = try {
-                PhraseTextStream.readMany(s)!!
+            val texts: List<PhraseText> = try {
+                PhraseTextStream.read(s)!!
             } catch (e: IllegalArgumentException) {
-                logger.info("error: try to read as single phrase")
-                try {
-                    arrayOf(PhraseTextStream.readOne(s)!!)
-                } catch (e: IllegalArgumentException) {
-                    logger.error("error read file $s: skip")
-                    errorList.add(s);
-                    continue;
-                }
+                logger.error("error read file $s: skip")
+                errorList.add(s);
+                continue;
             }
             phrasesTextList.addAll(texts);
         }
@@ -158,19 +152,15 @@ class Loader(private val game: Game) {
 
         for (s in filesInRoutersFolder) {
             val routers = try {
-                RouterStream.readMany(s, graphFolder)
+                RouterStream.read(s, graphFolder)
             } catch (e: IllegalArgumentException) {
-                logger.info("error: try to read as single router")
-                try {
-                    arrayOf(RouterStream.readOne(s, graphFolder))
-                } catch (e: IllegalArgumentException) {
-                    logger.error("error read file $s: skip")
-                    errorList.add(s);
-                    continue;
-                }
+                logger.error("error read file $s: skip")
+                errorList.add(s);
+                continue;
             }
-            if(logger.isDebugEnabled)logger.debug("routers readed : ${routers.contentToString()}")
-            else logger.info("routers readed : ${routers.map { it.id }.toTypedArray().joinToString()}" )
+
+            if (logger.isDebugEnabled) logger.debug("routers readed : ${routers.contentToString()}")
+            else logger.info("routers readed : ${routers.map { it.id }.toTypedArray().joinToString()}")
 
             routersList.addAll(routers);
         }

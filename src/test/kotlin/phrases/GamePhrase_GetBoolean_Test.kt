@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import dialog.game.phrases.collections.AnswerChooserCollection
 import dialog.game.phrases.configurator.FilteredPhraseConfigurator
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import tools.TestPhraseTools
 import tools.TestPhraseWrapper
 

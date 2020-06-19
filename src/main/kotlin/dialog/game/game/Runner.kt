@@ -2,8 +2,8 @@ package dialog.game.game
 
 
 import dialog.game.models.World
-import dialog.system.models.Answer
-import dialog.system.models.AnswerType
+import dialog.system.models.answer.Answer
+import dialog.system.models.answer.AnswerType
 import dialog.system.models.items.ADialogItem
 import game.Game
 import org.slf4j.Logger

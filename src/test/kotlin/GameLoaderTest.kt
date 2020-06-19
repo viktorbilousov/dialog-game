@@ -1,12 +1,12 @@
 import com.tinkerpop.blueprints.Vertex
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph
-import dialog.system.models.Answer
-import dialog.system.models.AnswerType
+import dialog.system.models.answer.Answer
+import dialog.system.models.answer.AnswerType
 import dialog.system.models.Indexable
 import dialog.system.models.items.text.PhraseText
-import dialog.system.models.items.text.PhraseTextStream
+import dialog.system.io.PhraseTextStream
 import dialog.system.models.router.Router
-import dialog.system.models.router.RouterStream
+import dialog.system.io.RouterStream
 import game.Game
 import dialog.game.game.Loader
 import dialog.game.game.Tester

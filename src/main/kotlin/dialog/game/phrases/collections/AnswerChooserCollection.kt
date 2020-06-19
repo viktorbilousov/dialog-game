@@ -4,7 +4,7 @@ package dialog.game.phrases.collections
 import dialog.game.debug.record.models.Record
 import dialog.game.debug.record.service.RecordPlayer
 import dialog.game.phrases.filters.inline.text.CountFilter
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.AnswerChooser
 import dialog.system.tools.ConsoleAnswerChooser
 import org.slf4j.Logger

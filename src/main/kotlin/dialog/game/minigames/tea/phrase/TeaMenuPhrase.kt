@@ -6,7 +6,7 @@ import dialog.game.minigames.tea.tools.TeaGameUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.configurator.FilteredPhraseConfigurator
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.FilteredPhrase
 
 class TeaMenuPhrase(id: String, phrases: Array<String>, answers : Array<Answer>) : FilteredPhrase(id, phrases, answers){

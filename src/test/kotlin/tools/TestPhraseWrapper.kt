@@ -1,7 +1,7 @@
 package tools
 
 import dialog.game.phrases.collections.AnswerChooserCollection
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.AFilteredPhrase
 import dialog.system.models.items.phrase.APhrase
 import dialog.system.models.items.phrase.DebugFilteredPhrase

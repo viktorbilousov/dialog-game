@@ -1,18 +1,13 @@
 package dialog.game.phrases.filters.phrase
 
-import dialog.game.game.GameData
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.PhraseFilter
-import dialog.game.phrases.filters.inline.change.PutFilter
-import dialog.game.phrases.filters.inline.text.*
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import tools.FiltersUtils
 
-open class AutoFilter(
-
-) : PhraseFilter() {
+open class AutoFilter() : PhraseFilter() {
 
     override val filterLabelsList: Array<FilterLabel> = arrayOf()
 

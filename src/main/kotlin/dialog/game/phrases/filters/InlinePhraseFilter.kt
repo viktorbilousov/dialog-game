@@ -1,6 +1,6 @@
 package dialog.game.phrases.filters
 
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 
 abstract class InlinePhraseFilter : PhraseFilter() {
 

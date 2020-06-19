@@ -3,7 +3,7 @@ package dialog.game.debug.record.phrase
 import dialog.game.debug.record.service.GameRecorder
 import dialog.game.debug.record.answer.RecordAnswers
 import dialog.game.debug.record.service.RecordFileIO
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.ADialogItem
 import dialog.system.models.items.phrase.DebugFilteredPhrase
 import dialog.system.models.items.runner.RunnerConfigurator

@@ -1,7 +1,7 @@
 package phrases
 
 import dialog.game.phrases.GamePhrase
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.FilteredPhrase
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

@@ -1,0 +1,1 @@
+[{"answers" : [{"answ_id" : "post.firstTime", "text" : "[1] go to first time", "type" : "ENTER"}, {"answ_id" : "post.afterSchool", "text" : "[2] go to after school", "type" : "ENTER"}, {"answ_id" : "post.lastDialog", "text" : "[*] go to last dialog", "type" : "EXIT"}], "class" : "dialog.game.phrases.AutoPhrase", "id" : "post.entrypoint", "texts" : ["world. town. post.in"]}]

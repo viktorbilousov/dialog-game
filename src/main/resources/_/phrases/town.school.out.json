@@ -1,0 +1,1 @@
+[{"answers" : [{"answ_id" : "world", "text" : "exit", "type" : "EXIT"}], "class" : "dialog.game.phrases.AutoPhrase", "id" : "sh.out", "texts" : ["world. town. post. out"]}]

@@ -8,7 +8,7 @@ import dialog.game.minigames.tea.models.Tea
 import dialog.game.minigames.tea.tables.MixedTeaTable
 import dialog.game.minigames.tea.tables.NamedTasteTable
 import dialog.game.minigames.tea.tables.TeaTable
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import org.apache.commons.lang.StringUtils
 import tools.CommonUtils
 import tools.table.TablePrinter

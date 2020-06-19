@@ -1,6 +1,6 @@
 package tools
 
-import dialog.system.models.Answer
+import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.APhrase
 import dialog.system.models.items.phrase.FilteredPhrase
 

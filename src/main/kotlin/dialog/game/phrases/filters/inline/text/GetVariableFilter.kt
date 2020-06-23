@@ -1,7 +1,8 @@
 package dialog.game.phrases.filters.inline.text
 
 import dialog.game.phrases.filters.InlineTextPhraseFilter
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import tools.FiltersUtils
@@ -15,7 +16,8 @@ import java.lang.IllegalArgumentException
 class GetVariableFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.GETV, FilterLabel.NOTV)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.GETV, FilterLabelCollection.NOTV)
 
     companion object{
         private val logger = LoggerFactory.getLogger(GetVariableFilter::class.java) as Logger
@@ -26,8 +28,8 @@ class GetVariableFilter(private val parameters: HashMap<String, Any?> ) :
     private fun filterText(itemText: String) : Boolean{
         val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true;
         labels.forEachIndexed(){ i, it ->
-            val label = FilterLabel.parse(it) ?: return@forEachIndexed
-            if(label == FilterLabel.GETV || label == FilterLabel.NOTV) {
+            val label = FilterLabelCollection.parse(it) ?: return@forEachIndexed
+            if(label == FilterLabelCollection.GETV || label == FilterLabelCollection.NOTV) {
                 val keysLabel = labels[i+1];
                 if(!process(label, keysLabel)) return false
             }
@@ -48,10 +50,10 @@ class GetVariableFilter(private val parameters: HashMap<String, Any?> ) :
     private fun process(label: FilterLabel, valuesLabel: String) : Boolean{
         val key = FiltersUtils.getParameterName(valuesLabel)
         val value = FiltersUtils.getParameterValue(valuesLabel)
-        logger.info("${label.label}: $key=$value")
+        logger.info("${label.name}: $key=$value")
         return when (label) {
-            FilterLabel.NOTV -> parameters[key].toString() != value.toString()
-            FilterLabel.GETV -> parameters[key].toString() == value.toString()
+            FilterLabelCollection.NOTV -> parameters[key].toString() != value.toString()
+            FilterLabelCollection.GETV -> parameters[key].toString() == value.toString()
             else -> throw IllegalArgumentException("$label is not recognised")
         }
     }

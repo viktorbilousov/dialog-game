@@ -1,7 +1,9 @@
 package dialog.game.phrases.filters.inline.text
 
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.InlineTextPhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import dialog.system.models.answer.Answer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -18,7 +20,8 @@ import kotlin.collections.HashMap
  */
 class RandomFilter : InlineTextPhraseFilter(){
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.RAND)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.RAND)
 
     private val randNumOfGroup = HashMap<String, Int>()
     private val cntOfGroup = HashMap<String, Int>()
@@ -61,13 +64,13 @@ class RandomFilter : InlineTextPhraseFilter(){
     }
 
     private fun findRandLabel(text: String): String? {
-        if(!FiltersUtils.isContainLabel(text, FilterLabel.RAND)) return null;
-        val labels = FiltersUtils.getParametricLabels(text, FilterLabel.RAND) ?: return null;
+        if(!FiltersUtils.isContainLabel(text, FilterLabelCollection.RAND)) return null;
+        val labels = FiltersUtils.getParametricLabels(text, FilterLabelCollection.RAND) ?: return null;
         if(labels.isNotEmpty()){
             if(labels.size > 1) logger.warn("Find more [RAND] in $text")
             return labels[0]; // label is parametric [RAND=groupName]
         }
-        return FilterLabel.RAND.label; // label is not parametric [RAND]
+        return FilterLabelCollection.RAND.name; // label is not parametric [RAND]
     }
 
     private fun incrementRandCnt(label: String){

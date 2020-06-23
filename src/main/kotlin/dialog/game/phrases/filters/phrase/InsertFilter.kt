@@ -1,7 +1,9 @@
 package dialog.game.phrases.filters.phrase
 
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.PhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import dialog.system.models.answer.Answer
 import tools.FiltersUtils
 
@@ -15,7 +17,8 @@ class InsertFilter(private val variablePhrases: HashMap<String, () -> Array<Stri
                    private val variableAnswers : HashMap<String, () -> Array<Answer>>)
                    : PhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.INST)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.INST)
 
     override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         return insertPhrase(phrases)
@@ -29,7 +32,7 @@ class InsertFilter(private val variablePhrases: HashMap<String, () -> Array<Stri
         val res = arrayListOf<String>();
 
         phrases.forEach {
-            val label = FiltersUtils.getFirstParametricLabelsText(it, FilterLabel.INST)
+            val label = FiltersUtils.getFirstParametricLabelsText(it, FilterLabelCollection.INST)
             if (label == null) {
                 res.add(it)
                 return@forEach
@@ -49,7 +52,7 @@ class InsertFilter(private val variablePhrases: HashMap<String, () -> Array<Stri
     private fun insertAnswer(answers: Array<Answer>) : Array<Answer> {
         val res = arrayListOf<Answer>();
         answers.forEach {
-            val label = FiltersUtils.getFirstParametricLabelsText(it.text, FilterLabel.INST)
+            val label = FiltersUtils.getFirstParametricLabelsText(it.text, FilterLabelCollection.INST)
             if (label == null) {
                 res.add(it)
                 return@forEach

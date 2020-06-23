@@ -1,9 +1,14 @@
 package tools
 
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabelCollection
+
 
 class FiltersUtils {
    companion object {
+
+       private val FilterLabelCollection = FilterLabelCollection();
+
        public fun getFilterLabelsTexts(str: String): Array<String>? {
            val list = arrayListOf<String>()
            var line = str;
@@ -97,9 +102,9 @@ class FiltersUtils {
 
        public fun parseLabel(label: String) : FilterLabel? {
            if(isLabelParametric(label)){
-               return FilterLabel.parse(getParameterName(label)!!)
+               return FilterLabelCollection().parse(getParameterName(label)!!)
            }
-           return FilterLabel.parse(label)
+           return FilterLabelCollection().parse(label)
        }
 
        public fun getParametricLabels(srt: String, filterLabel: FilterLabel) : Array<String>?{
@@ -116,7 +121,7 @@ class FiltersUtils {
        public fun isContainLabelInsideText(str: String, label: FilterLabel): Boolean{
            val labels = getFilterLabelsInsideText(str) ?: return false
            labels.forEach {
-               if(FilterLabel.parse(it) == label) return true
+               if(FilterLabelCollection.parse(it) == label) return true
            }
            return false
        }

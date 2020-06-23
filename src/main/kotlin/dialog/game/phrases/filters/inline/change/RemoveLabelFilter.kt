@@ -1,8 +1,7 @@
 package dialog.game.phrases.filters.inline.change
 
-import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.InlineChangeTextPhraseFilter
-import dialog.game.phrases.filters.PhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabel
 import tools.FiltersUtils
 
 /**

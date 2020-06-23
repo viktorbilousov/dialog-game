@@ -3,7 +3,9 @@ package dialog.game.phrases.filters.inline.text
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.InlineTextPhraseFilter
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabelCollection
+
 import tools.FiltersUtils
 import java.lang.IllegalArgumentException
 
@@ -15,7 +17,8 @@ import java.lang.IllegalArgumentException
 class IntComparingFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.INT)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.INT)
 
     companion object {
         private val operators: HashMap<String, (a: Int, b: Int) -> Boolean> = hashMapOf(
@@ -34,8 +37,8 @@ class IntComparingFilter(private val parameters: HashMap<String, Any?> ) :
     override fun filterText(itemText: String, count: Int): Boolean {
         val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true;
         labels.forEachIndexed(){ i, it ->
-            val label = FilterLabel.parse(it) ?: return@forEachIndexed
-            if(label == FilterLabel.INT) {
+            val label = FilterLabelCollection.parse(it) ?: return@forEachIndexed
+            if(label == FilterLabelCollection.INT) {
                 val keysLabel = labels[i+1];
                 if(!processInt(keysLabel)) return false
             }

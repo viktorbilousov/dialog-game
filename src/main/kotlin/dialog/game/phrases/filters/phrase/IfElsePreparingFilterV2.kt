@@ -1,7 +1,9 @@
 package dialog.game.phrases.filters.phrase
 
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.PhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import dialog.system.models.answer.Answer
 
 import tools.FiltersUtils
@@ -39,7 +41,8 @@ import java.lang.IllegalArgumentException
  */
 class IfElsePreparingFilterV2() : PhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.IF, FilterLabel.ELSE, FilterLabel.ELSEIF, FilterLabel.FI)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.IF, FilterLabelCollection.ELSE, FilterLabelCollection.ELSEIF, FilterLabelCollection.FI)
 
     override fun filterPhrasesLogic(phrases: Array<String>, count: Int): Array<String> {
         var result = mutableListOf<String>()
@@ -71,7 +74,7 @@ class IfElsePreparingFilterV2() : PhraseFilter() {
             if(brokeLine.size == 1){
                 result.add(Answer(it.id, brokeLine[0], it.type))
             }else if(brokeLine.size == 2){
-                val label = FiltersUtils.getFilterLabels(brokeLine[0])!![0].label;
+                val label = FiltersUtils.getFilterLabels(brokeLine[0])!![0].name;
                 result.add(Answer("${it.id}.${label}", brokeLine[0], it.type))
                 result.add(Answer(it.id, brokeLine[1], it.type))
             }
@@ -96,7 +99,7 @@ class IfElsePreparingFilterV2() : PhraseFilter() {
     private fun isNeedBreak(itemText: String) : Boolean{
         val label = FiltersUtils.getFirstFilterLabel(itemText) ?: return false
         return when(label){
-            FilterLabel.IF, FilterLabel.ELSE, FilterLabel.ELSEIF -> {
+            FilterLabelCollection.IF, FilterLabelCollection.ELSE, FilterLabelCollection.ELSEIF -> {
                 FiltersUtils.removeFirstLabel(itemText)!!.trim() != ""
             }
             else -> false
@@ -119,10 +122,10 @@ class IfElsePreparingFilterV2() : PhraseFilter() {
         val res = FiltersUtils.removeFirstLabel(string);
         val message = "this is system tag and must be removed"
         return when(firstLabel){
-            FilterLabel.IF -> "${FilterLabel.IF_SYS}$res $message"
-            FilterLabel.ELSEIF -> "${FilterLabel.ELSEIF_SYS}$res $message"
-            FilterLabel.ELSE -> "${FilterLabel.ELSE_SYS}$res $message"
-            FilterLabel.FI -> "${FilterLabel.FI_SYS}$res $message"
+            FilterLabelCollection.IF -> "${FilterLabelCollection.IF_SYS}$res $message"
+            FilterLabelCollection.ELSEIF -> "${FilterLabelCollection.ELSEIF_SYS}$res $message"
+            FilterLabelCollection.ELSE -> "${FilterLabelCollection.ELSE_SYS}$res $message"
+            FilterLabelCollection.FI -> "${FilterLabelCollection.FI_SYS}$res $message"
             else -> return string;
         }
     }
@@ -178,9 +181,9 @@ class IfElsePreparingFilterV2() : PhraseFilter() {
             val label = FiltersUtils.getFirstFilterLabel(line) ?: return@forEachIndexed
             
             when(label){
-                FilterLabel.ELSE -> lastElseLabelIndex = index;
-                FilterLabel.FI -> lastElseLabelIndex = null;
-                FilterLabel.IF, FilterLabel.ELSEIF -> {
+                FilterLabelCollection.ELSE -> lastElseLabelIndex = index;
+                FilterLabelCollection.FI -> lastElseLabelIndex = null;
+                FilterLabelCollection.IF, FilterLabelCollection.ELSEIF -> {
                     if(lastElseLabelIndex != null) // FI not found
                     { 
                         // [ELSE]    +0
@@ -202,10 +205,10 @@ class IfElsePreparingFilterV2() : PhraseFilter() {
     private fun isContainConditionsLabel(str: String) : Boolean{
         val labels = FiltersUtils.getFilterLabels(str) ?: return false;
 
-        return  labels.contains(FilterLabel.IF)
-                || labels.contains(FilterLabel.ELSEIF)
-                || labels.contains(FilterLabel.ELSE)
-                || labels.contains(FilterLabel.FI)
+        return  labels.contains(FilterLabelCollection.IF)
+                || labels.contains(FilterLabelCollection.ELSEIF)
+                || labels.contains(FilterLabelCollection.ELSE)
+                || labels.contains(FilterLabelCollection.FI)
     }
 
 }

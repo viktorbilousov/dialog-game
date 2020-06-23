@@ -3,7 +3,9 @@ package dialog.game.phrases.filters.inline.text
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.InlineTextPhraseFilter
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabelCollection
+
 import tools.FiltersUtils
 import java.lang.IllegalArgumentException
 
@@ -20,7 +22,8 @@ import java.lang.IllegalArgumentException
 class IntSimpleArithmeticsFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.SETI)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.SETI)
 
     companion object {
         private val operators: HashMap<String, (a: Int, b: Int) -> Int> = hashMapOf(
@@ -40,8 +43,8 @@ class IntSimpleArithmeticsFilter(private val parameters: HashMap<String, Any?> )
     override fun filterText(itemText: String, count: Int): Boolean {
         val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true;
         labels.forEachIndexed(){ i, it ->
-            val label = FilterLabel.parse(it) ?: return@forEachIndexed
-            if(label == FilterLabel.SETI) {
+            val label = FilterLabelCollection.parse(it) ?: return@forEachIndexed
+            if(label == FilterLabelCollection.SETI) {
                 val keysLabel = labels[i+1];
                 processArithmOperation(keysLabel)
             }

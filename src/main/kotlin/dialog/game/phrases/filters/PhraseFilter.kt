@@ -1,5 +1,6 @@
 package dialog.game.phrases.filters
 
+import dialog.game.phrases.filters.labels.FilterLabel
 import dialog.system.models.answer.Answer
 
 abstract class PhraseFilter {

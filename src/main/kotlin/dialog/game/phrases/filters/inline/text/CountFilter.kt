@@ -1,6 +1,6 @@
 package dialog.game.phrases.filters.inline.text
 
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.InlineTextPhraseFilter
@@ -20,7 +20,7 @@ import tools.FiltersUtils
  */
 class CountFilter : InlineTextPhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf()
+        override val filterLabelsList: Array<FilterLabel> = arrayOf()
 
     companion object{
         private val operators: HashMap<String, (labelCnt: Int, currentCnt: Int) -> Boolean> = hashMapOf(

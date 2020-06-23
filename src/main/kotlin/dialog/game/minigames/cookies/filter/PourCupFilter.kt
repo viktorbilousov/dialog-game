@@ -2,8 +2,10 @@ package dialog.game.minigames.cookies.filter
 
 import dialog.game.game.GameData
 import dialog.game.minigames.cookies.models.Cups
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.InlineTextPhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import org.apache.log4j.Logger
 import tools.FiltersUtils
 
@@ -17,12 +19,13 @@ class PourCupFilter(val gameVariables: HashMap<String, Any?> = GameData.gameVari
         private val logger = Logger.getLogger(PourCupFilter::class.java) as Logger
     }
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.POUR_CUP)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.POUR_CUP)
 
     override fun filterText(itemText: String, count: Int): Boolean {
         val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true
         labels.forEachIndexed{ i, label ->
-            if(FilterLabel.parse(label) == FilterLabel.POUR_CUP){
+            if(FilterLabelCollection.parse(label) == FilterLabelCollection.POUR_CUP){
                 pour(labels[i+1])
             }
         }

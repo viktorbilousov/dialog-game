@@ -2,8 +2,10 @@ package dialog.game.phrases.filters.inline.text
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.InlineTextPhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import tools.FiltersUtils
 
 /**
@@ -15,7 +17,8 @@ import tools.FiltersUtils
 class SetBooleanFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.SET, FilterLabel.UNSET)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.SET, FilterLabelCollection.UNSET)
 
     companion object {
         private val logger = LoggerFactory.getLogger(SetBooleanFilter::class.java) as Logger
@@ -39,13 +42,13 @@ class SetBooleanFilter(private val parameters: HashMap<String, Any?> ) :
 
         val value = getParameterValue(label) ?: return
         val name = FiltersUtils.getParameterName(label) ?: return
-        val action = FilterLabel.parse(name) ?: return;
+        val action = FilterLabelCollection.parse(name) ?: return;
         when (action) {
-            FilterLabel.SET -> {
+            FilterLabelCollection.SET -> {
                 parameters[value] = true
                 logger.info("[SET] $value = true ")
             }
-            FilterLabel.UNSET -> {
+            FilterLabelCollection.UNSET -> {
                 parameters[value] = false
                 logger.info("[UNSET] $value = false")
             }

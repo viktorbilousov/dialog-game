@@ -6,7 +6,8 @@ import org.slf4j.LoggerFactory
 import dialog.game.phrases.collections.AnswerChooserCollection
 import dialog.game.phrases.collections.PhraseChoosersCollections
 import dialog.game.phrases.collections.PrinterCollection
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import dialog.game.phrases.filters.InlineTextPhraseFilter
 import dialog.game.phrases.filters.inline.change.RemoveLabelFilter
 import dialog.game.phrases.filters.PhraseFilter
@@ -18,7 +19,7 @@ import dialog.system.models.answer.Answer
 import dialog.system.models.items.phrase.AFilteredPhrase
 import dialog.system.models.items.phrase.FilteredPhrase
 
-open class FilteredPhraseConfigurator(
+open public class FilteredPhraseConfigurator(
     private val phrase: AFilteredPhrase
 ) {
 
@@ -26,6 +27,7 @@ open class FilteredPhraseConfigurator(
         private val logger = LoggerFactory.getLogger(FilteredPhraseConfigurator::class.java) as Logger
     }
 
+    private val FilterLabelCollection = FilterLabelCollection();
     private var gameVariables: HashMap<String, Any?> = GameData.gameVariables;
     private var variableTexts: HashMap<String, () -> String> = GameData.variableTexts
     private var variablePhrases: HashMap<String, () -> Array<String>> = GameData.variablePhrases
@@ -52,7 +54,7 @@ open class FilteredPhraseConfigurator(
 
     init {
         phrase.phrasePrinter = PrinterCollection.defPrinter;
-        removeLabelFilter.addException(FilterLabel.DEBUG, FilterLabel.JOIN)
+        removeLabelFilter.addException(FilterLabelCollection.DEBUG, FilterLabelCollection.JOIN)
         addFilter( "debug",   DebugFilter(), AFilteredPhrase.Order.Last);
         addFilter( "rm", removeLabelFilter, AFilteredPhrase.Order.Last);
         addPhraseFilter("join" , JoinPhrasesFilter(), AFilteredPhrase.Order.Last)

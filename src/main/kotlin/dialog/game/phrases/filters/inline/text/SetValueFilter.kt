@@ -2,8 +2,10 @@ package dialog.game.phrases.filters.inline.text
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.InlineTextPhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import tools.FiltersUtils
 
 
@@ -15,7 +17,8 @@ import tools.FiltersUtils
 class SetValueFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.SETV, FilterLabel.UNSETV)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.SETV, FilterLabelCollection.UNSETV)
 
     companion object {
         private val logger = LoggerFactory.getLogger(SetValueFilter::class.java) as Logger
@@ -32,12 +35,12 @@ class SetValueFilter(private val parameters: HashMap<String, Any?> ) :
         labels.forEachIndexed{i, it ->
             val label = FiltersUtils.parseLabel(it) ?: return@forEachIndexed
             when(label){
-                FilterLabel.SETV -> {
+                FilterLabelCollection.SETV -> {
                     if(!setVariable(labels[i+1])){
                         logger.error("error set variable $it")
                     }
                 }
-                FilterLabel.UNSETV -> {
+                FilterLabelCollection.UNSETV -> {
                     if(!unsetVariable(it))  logger.error("error unset variable $it")
                 }
                 else -> {

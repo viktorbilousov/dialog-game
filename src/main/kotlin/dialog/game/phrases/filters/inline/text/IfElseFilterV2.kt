@@ -3,7 +3,9 @@ package dialog.game.phrases.filters.inline.text
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.InlineTextPhraseFilter
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabelCollection
+
 import tools.FiltersUtils
 
 /**
@@ -18,7 +20,8 @@ import tools.FiltersUtils
  */
 class IfElseFilterV2() : InlineTextPhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.IF_SYS, FilterLabel.ELSEIF_SYS, FilterLabel.ELSE_SYS, FilterLabel.FI_SYS)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.IF_SYS, FilterLabelCollection.ELSEIF_SYS, FilterLabelCollection.ELSE_SYS, FilterLabelCollection.FI_SYS)
 
     companion object {
         private val logger = LoggerFactory.getLogger(IfElseFilterV2::class.java) as Logger
@@ -31,8 +34,8 @@ class IfElseFilterV2() : InlineTextPhraseFilter() {
     override fun filterText(itemText: String, count: Int): Boolean {
         val firstLabel = FiltersUtils.getFirstFilterLabelText(itemText) ?: itemText
 
-        when (FilterLabel.parse(firstLabel)) {
-            FilterLabel.IF_SYS -> {
+        when (FilterLabelCollection.parse(firstLabel)) {
+            FilterLabelCollection.IF_SYS -> {
                 if (startFound) logger.error("FI not found!")
                 isReturnBlockEnded = false;
                 isReturnBlockFound = false;
@@ -40,7 +43,7 @@ class IfElseFilterV2() : InlineTextPhraseFilter() {
                 logger.info("FALSE: $itemText")
                 return false
             }
-            FilterLabel.FI_SYS -> {
+            FilterLabelCollection.FI_SYS -> {
                 if (!startFound) logger.error("IF not found!")
                 isReturnBlockEnded = true;
                 isReturnBlockFound = false;
@@ -48,7 +51,7 @@ class IfElseFilterV2() : InlineTextPhraseFilter() {
                 logger.info("FALSE: $itemText")
                 return false
             }
-            FilterLabel.ELSEIF_SYS, FilterLabel.ELSE_SYS -> {
+            FilterLabelCollection.ELSEIF_SYS, FilterLabelCollection.ELSE_SYS -> {
                 if (!startFound) logger.error("IF not found!")
                 if(isReturnBlockFound) isReturnBlockEnded = true;
                 logger.info("FALSE: $itemText")

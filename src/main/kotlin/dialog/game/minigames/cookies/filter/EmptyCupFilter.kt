@@ -2,8 +2,10 @@ package dialog.game.minigames.cookies.filter
 
 import dialog.game.game.GameData
 import dialog.game.minigames.cookies.models.Cups
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.InlineTextPhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import org.apache.log4j.Logger
 import tools.FiltersUtils
 import java.lang.IllegalArgumentException
@@ -19,12 +21,13 @@ class EmptyCupFilter(val gameVariables: HashMap<String, Any?> = GameData.gameVar
         private val logger = Logger.getLogger(EmptyCupFilter::class.java) as Logger
     }
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.EMPTY_CUP)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.EMPTY_CUP)
 
     override fun filterText(itemText: String, count: Int): Boolean {
         val labels = FiltersUtils.getFilterLabelsTexts(itemText) ?: return true
         labels.forEach {
-            if(FiltersUtils.parseLabel(it) == FilterLabel.EMPTY_CUP){
+            if(FiltersUtils.parseLabel(it) == FilterLabelCollection.EMPTY_CUP){
                 reset(it)
             }
         }

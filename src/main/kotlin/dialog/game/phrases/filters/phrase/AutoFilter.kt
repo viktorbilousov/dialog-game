@@ -1,6 +1,7 @@
 package dialog.game.phrases.filters.phrase
 
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.PhraseFilter
 import dialog.system.models.answer.Answer
 import org.slf4j.Logger
@@ -81,7 +82,7 @@ open class AutoFilter() : PhraseFilter() {
             list.forEach {
                 logger.info("-----> call: '${it}'")
                 filteredPhrases = it.filter.filterPhrases(filteredPhrases, count);
-                logger.info("result : ${filteredPhrases.map { if(it.length > 10)it.substring(IntRange(0,10)) else it }}")
+                logger.info("result : ${filteredPhrases.map { if(it.length > 10) it.substring(IntRange(0,10)) else it }}")
                 completedFilters.add(it);
                 if (it.isNeedRebuild) {
                     isExit = false;

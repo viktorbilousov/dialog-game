@@ -3,7 +3,9 @@ package dialog.game.phrases.filters.inline.text
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import dialog.game.phrases.filters.InlineTextPhraseFilter
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabelCollection
+
 import tools.FiltersUtils
 
 /**
@@ -13,7 +15,8 @@ import tools.FiltersUtils
 class GetBooleanFilter(private val parameters: HashMap<String, Any?> ) :
     InlineTextPhraseFilter() {
 
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.GET, FilterLabel.NOT)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.GET, FilterLabelCollection.NOT)
 
     override fun filterText(itemText: String, count: Int): Boolean {
         return if(filterParameter(
@@ -44,14 +47,14 @@ class GetBooleanFilter(private val parameters: HashMap<String, Any?> ) :
             if(label == null) return null;
             val value = getParameterValue(label) ?: return null;
             val name = FiltersUtils.getParameterName(label) ?: return null;
-            val action = FilterLabel.parse(name) ?: return null;
+            val action = FilterLabelCollection.parse(name) ?: return null;
             when(action){
-                FilterLabel.GET -> {
+                FilterLabelCollection.GET -> {
                     logger.info("GET $value ${parameters[value]}")
                     if(parameters[value] == null) return false
                     return parameters[value] as Boolean;
                 }
-                FilterLabel.NOT -> {
+                FilterLabelCollection.NOT -> {
                     logger.info("NOT $value ${parameters[value]}")
                     if(parameters[value] == null) return true
                     return !(parameters[value] as Boolean);

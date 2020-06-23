@@ -1,8 +1,9 @@
 package dialog.game.phrases.filters.inline.change
 
 import dialog.game.game.GameData
-import dialog.game.phrases.filters.FilterLabel
 import dialog.game.phrases.filters.InlineChangeTextPhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import tools.FiltersUtils
 
 /**
@@ -17,15 +18,15 @@ class PutFilter(
 
 ) :
     InlineChangeTextPhraseFilter() {
-
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.PUT)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.PUT)
 
     override fun changeText(itemText: String, count: Int): String {
         val labels = FiltersUtils.getFilterLabelsInsideText(itemText) ?: return itemText
         var res = itemText;
         for (label in labels) {
             if (FiltersUtils.isLabelParametric(label)
-                && FiltersUtils.parseLabel(label) == FilterLabel.PUT) {
+                && FiltersUtils.parseLabel(label) == FilterLabelCollection.PUT) {
 
                 val key = FiltersUtils.getParameterValue(label)
                 

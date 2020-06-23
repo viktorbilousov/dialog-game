@@ -1,7 +1,9 @@
 package dialog.game.phrases.filters.phrase
 
-import dialog.game.phrases.filters.FilterLabel
+import dialog.game.phrases.filters.labels.FilterLabel
+
 import dialog.game.phrases.filters.PhraseFilter
+import dialog.game.phrases.filters.labels.FilterLabelCollection
 import dialog.system.models.answer.Answer
 import tools.FiltersUtils
 
@@ -11,8 +13,8 @@ import tools.FiltersUtils
 // todo: not only first label
 class JoinPhrasesFilter : PhraseFilter() {
 
-
-    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabel.JOIN)
+    private val FilterLabelCollection = FilterLabelCollection();
+    override val filterLabelsList: Array<FilterLabel> = arrayOf(FilterLabelCollection.JOIN)
 
     init {
         this.filterOnlyPhrases = true;
@@ -22,7 +24,7 @@ class JoinPhrasesFilter : PhraseFilter() {
         var res = phrases;
         if(isContainJoinLabel(phrases)) {
             res = arrayOf(phrases
-                .filter { !FiltersUtils.isContainLabel(it, FilterLabel.JOIN) }
+                .filter { !FiltersUtils.isContainLabel(it, FilterLabelCollection.JOIN) }
                 .joinToString(separator = "\n") { it })
         }
         return res;
@@ -34,7 +36,7 @@ class JoinPhrasesFilter : PhraseFilter() {
 
     private fun isContainJoinLabel(phrases: Array<String>) : Boolean{
         phrases.forEach {
-           if( FiltersUtils.isContainLabel(it, FilterLabel.JOIN)) return true;
+           if( FiltersUtils.isContainLabel(it, FilterLabelCollection.JOIN)) return true;
         }
         return false
     }
